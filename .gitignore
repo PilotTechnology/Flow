@@ -2,3 +2,4 @@ flow-api/.classpath
 flow-api/bin
 flow-api/.settings
 flow-api/.project
+flow-api/target
