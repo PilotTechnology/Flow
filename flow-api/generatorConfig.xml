@@ -2,7 +2,7 @@
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
 	<!-- 数据库驱动 -->
-	<classPathEntry location="C:/Users/mk/.m2/repository/mysql/mysql-connector-java/5.1.28/mysql-connector-java-5.1.28.jar" />
+	<classPathEntry location="/Users/ych/.m2/repository/mysql/mysql-connector-java/5.1.22/mysql-connector-java-5.1.22.jar" />
 	<context id="DB2Tables" targetRuntime="MyBatis3"> 
 		<commentGenerator>
 			<property name="suppressDate" value="true" />
@@ -11,7 +11,7 @@
 		</commentGenerator>
 		<!--数据库链接URL，用户名、密码 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://localhost:3306/flow" userId="root" password="123456">
+			connectionURL="jdbc:mysql://localhost:3306/flow" userId="root" password="">
 		</jdbcConnection>
 		<javaTypeResolver>
 			<property name="forceBigDecimals" value="false" />
@@ -31,6 +31,10 @@
 		</javaClientGenerator>
 		<!-- 生成的表配置 -->
 		<table tableName="t_user" domainObjectName="User"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			enableSelectByPrimaryKey="true" />
+		<table tableName="t_provider" domainObjectName="Provider"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			enableSelectByPrimaryKey="true" />
