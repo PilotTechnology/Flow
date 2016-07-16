@@ -33,8 +33,8 @@ DROP TABLE IF EXISTS `t_base_mobile`;
 CREATE TABLE `t_base_mobile` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `MOBILE_CODE` varchar(11) DEFAULT NULL COMMENT '号段编号',
-  `CITY_CODE` varchar(32) DEFAULT NULL COMMENT '地市编码',
-  `OPERATOR_CODE` varchar(32) DEFAULT NULL COMMENT '运营商编码',
+  `CITY_CODE` int(11) DEFAULT NULL COMMENT '地市编码',
+  `OPERATOR_CODE` int(11) DEFAULT NULL COMMENT '运营商编码',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -44,7 +44,6 @@ CREATE TABLE `t_base_mobile` (
 DROP TABLE IF EXISTS `t_base_operator`;
 CREATE TABLE `t_base_operator` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `OPERATOR_CODE` varchar(32) DEFAULT NULL COMMENT '运营商编码（业务主键）',
   `OPERATOR_NAME` varchar(32) DEFAULT NULL COMMENT '运营商名称',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='运营商表';
