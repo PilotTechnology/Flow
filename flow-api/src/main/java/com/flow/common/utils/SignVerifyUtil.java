@@ -76,6 +76,11 @@ public class SignVerifyUtil {
 		}
 	}
 	
+	/**
+	 * 验证时间戳是否有效，系统时间前后6小时有效
+	 * @param time
+	 * @return
+	 */
 	public static boolean verifyTime(String time) {
 		long timestamp = 0;
 		try
