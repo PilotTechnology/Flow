@@ -1,5 +1,13 @@
+*.log
+flow-api/generatorConfig.xml
 flow-api/.classpath
 flow-api/bin
 flow-api/.settings
 flow-api/.project
 flow-api/target
+flow-portal/generatorConfig.xml
+flow-portal/.classpath
+flow-portal/bin
+flow-portal/.settings
+flow-portal/.project
+flow-portal/target
