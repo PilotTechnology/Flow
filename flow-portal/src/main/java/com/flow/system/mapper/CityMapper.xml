@@ -6,7 +6,10 @@
 		<id column="ID" jdbcType="INTEGER" property="id" />
 		<result column="CITY_NAME" jdbcType="VARCHAR" property="cityName" />
 		<result column="PROVINCE_CODE" jdbcType="VARCHAR" property="provinceCode" />
+		<association property="province" javaType="com.flow.system.model.Province">
+			<id column="PROVINCE_CODE" jdbcType="INTEGER" property="id" />
 		<result column="PROVINCE_NAME" jdbcType="VARCHAR" property="provinceName" />
+		</association>
 	</resultMap>
 	
 	<!-- 根据城市编码获取城市信息 -->

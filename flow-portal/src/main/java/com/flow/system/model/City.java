@@ -7,7 +7,7 @@ public class City {
 
     private String provinceCode;
     
-    private String provinceName;
+    private Province province;
 
     public Integer getId() {
         return id;
@@ -33,18 +33,18 @@ public class City {
 		this.provinceCode = provinceCode;
 	}
 
-	public String getProvinceName() {
-		return provinceName;
+	public Province getProvince() {
+		return province;
 	}
 
-	public void setProvinceName(String provinceName) {
-		this.provinceName = provinceName;
+	public void setProvince(Province province) {
+		this.province = province;
 	}
 
 	@Override
 	public String toString() {
 		return "City [id=" + id + ", cityName=" + cityName + ", provinceCode=" + provinceCode + ", provinceName="
-				+ provinceName + "]";
+				+ province.getProvinceName() + "]";
 	}
 
 }

@@ -17,6 +17,6 @@ public class CityTest {
 	
 	@Test
 	public void getCityByCityIdTest(){
-		System.out.println(cityService.getCityByCode(3));
+		System.out.println(cityService.getCityByCode(30));
 	}
 }
