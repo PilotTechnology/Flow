@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flow.system.mapper.MobileMapper">
+  <resultMap id="BaseResultMap" type="com.flow.system.model.Mobile">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="MOBILE_CODE" jdbcType="VARCHAR" property="mobileCode" />
+    <result column="CITY_CODE" jdbcType="INTEGER" property="cityCode" />
+    <result column="OPERATOR_CODE" jdbcType="INTEGER" property="operatorCode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, MOBILE_CODE, CITY_CODE, OPERATOR_CODE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_base_mobile
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_base_mobile
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.flow.system.model.Mobile">
+    insert into t_base_mobile (ID, MOBILE_CODE, CITY_CODE, 
+      OPERATOR_CODE)
+    values (#{id,jdbcType=INTEGER}, #{mobileCode,jdbcType=VARCHAR}, #{cityCode,jdbcType=INTEGER}, 
+      #{operatorCode,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.flow.system.model.Mobile">
+    insert into t_base_mobile
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="mobileCode != null">
+        MOBILE_CODE,
+      </if>
+      <if test="cityCode != null">
+        CITY_CODE,
+      </if>
+      <if test="operatorCode != null">
+        OPERATOR_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="mobileCode != null">
+        #{mobileCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null">
+        #{cityCode,jdbcType=INTEGER},
+      </if>
+      <if test="operatorCode != null">
+        #{operatorCode,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.flow.system.model.Mobile">
+    update t_base_mobile
+    <set>
+      <if test="mobileCode != null">
+        MOBILE_CODE = #{mobileCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null">
+        CITY_CODE = #{cityCode,jdbcType=INTEGER},
+      </if>
+      <if test="operatorCode != null">
+        OPERATOR_CODE = #{operatorCode,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.flow.system.model.Mobile">
+    update t_base_mobile
+    set MOBILE_CODE = #{mobileCode,jdbcType=VARCHAR},
+      CITY_CODE = #{cityCode,jdbcType=INTEGER},
+      OPERATOR_CODE = #{operatorCode,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

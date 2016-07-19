@@ -6,6 +6,8 @@ public class City {
     private String cityName;
 
     private String provinceCode;
+    
+    private Province province;
 
     public Integer getId() {
         return id;
@@ -29,5 +31,13 @@ public class City {
 
     public void setProvinceCode(String provinceCode) {
         this.provinceCode = provinceCode == null ? null : provinceCode.trim();
+    }
+    
+    public Province getProvince() {
+        return province;
+    }
+
+    public void setProvince(Province province) {
+        this.province = province;
     }
 }
