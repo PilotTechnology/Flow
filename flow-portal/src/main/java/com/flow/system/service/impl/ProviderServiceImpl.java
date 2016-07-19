@@ -3,13 +3,14 @@ package com.flow.system.service.impl;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.flow.portal.service.AbsPageService;
 import com.flow.pub.util.PageUtil;
 import com.flow.system.mapper.ProviderMapper;
 import com.flow.system.model.Provider;
 import com.flow.system.service.ProviderService;
-
+@Service
 public class ProviderServiceImpl extends AbsPageService<Provider> implements ProviderService {
 
 	@Autowired

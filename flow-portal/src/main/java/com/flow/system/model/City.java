@@ -7,7 +7,7 @@ public class City {
 
     private String provinceCode;
     
-    private Province province;
+    private String provinceName;
 
     public Integer getId() {
         return id;
@@ -25,19 +25,26 @@ public class City {
         this.cityName = cityName == null ? null : cityName.trim();
     }
 
-    public String getProvinceCode() {
-        return provinceCode;
-    }
+	public String getProvinceCode() {
+		return provinceCode;
+	}
 
-    public void setProvinceCode(String provinceCode) {
-        this.provinceCode = provinceCode == null ? null : provinceCode.trim();
-    }
-    
-    public Province getProvince() {
-        return province;
-    }
+	public void setProvinceCode(String provinceCode) {
+		this.provinceCode = provinceCode;
+	}
 
-    public void setProvince(Province province) {
-        this.province = province;
-    }
+	public String getProvinceName() {
+		return provinceName;
+	}
+
+	public void setProvinceName(String provinceName) {
+		this.provinceName = provinceName;
+	}
+
+	@Override
+	public String toString() {
+		return "City [id=" + id + ", cityName=" + cityName + ", provinceCode=" + provinceCode + ", provinceName="
+				+ provinceName + "]";
+	}
+
 }
