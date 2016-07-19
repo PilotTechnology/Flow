@@ -10,7 +10,7 @@
   <sql id="Base_Column_List">
     ID, PROVIDER_CODE, NAME, DESCRIPTION
   </sql>
-  <select id="findPage" resultMap="BaseResultMap">
+  <select id="listPage" resultMap="BaseResultMap">
 		select <include refid="Base_Column_List" />
 		from t_flow_provider
   </select>
