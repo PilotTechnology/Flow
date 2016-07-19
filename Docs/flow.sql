@@ -151,8 +151,6 @@ CREATE TABLE `t_flow_provider` (
   `ID` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `PROVIDER_CODE` varchar(32) DEFAULT NULL COMMENT '上游编码（业务主键）',
   `NAME` varchar(64) DEFAULT NULL COMMENT '上游名称',
-  `KEY1` varchar(32) DEFAULT NULL COMMENT 'key值',
-  `KEY2` varchar(32) DEFAULT NULL COMMENT 'key值',
   `DESCRIPTION` varchar(200) DEFAULT NULL COMMENT '描述',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='上游表';
