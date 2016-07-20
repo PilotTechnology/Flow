@@ -8,7 +8,7 @@
 		<result column="PROVINCE_CODE" jdbcType="VARCHAR" property="provinceCode" />
 		<association property="province" javaType="com.flow.system.model.Province">
 			<id column="PROVINCE_CODE" jdbcType="INTEGER" property="id" />
-		<result column="PROVINCE_NAME" jdbcType="VARCHAR" property="provinceName" />
+			<result column="PROVINCE_NAME" jdbcType="VARCHAR" property="provinceName" />
 		</association>
 	</resultMap>
 	
@@ -26,7 +26,7 @@
 	<select id="listPage" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
-		from t_base_city
+		from t_base_city  limit #{start} , #{pageSize}
 	</select>
 	<select id="getCount" resultType="java.lang.Long">
 		SELECT COUNT(1) FROM t_base_city

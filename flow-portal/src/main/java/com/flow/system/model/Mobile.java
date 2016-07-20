@@ -60,4 +60,9 @@ public class Mobile {
     public void setMobileOperator(MobileOperator mobileOperator) {
         this.mobileOperator = mobileOperator;
     }
+    
+    @Override
+	public String toString() {
+		return "City [id=" + id + ", mobileCode=" + mobileCode + ", provinceCode=" + city.getProvinceCode() + ", provinceName=" + city.getProvince().getProvinceName() + ", cityCode="+ cityCode + ", cityName=" + city.getCityName() + ", mobileOperatorCode=" + operatorCode + ", mobileOperatorName," + mobileOperator.getOperatorName();
+	}
 }

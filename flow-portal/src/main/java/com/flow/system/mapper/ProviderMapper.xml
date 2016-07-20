@@ -12,7 +12,7 @@
   </sql>
   <select id="listPage" resultMap="BaseResultMap">
 		select <include refid="Base_Column_List" />
-		from t_flow_provider
+		from t_flow_provider limit #{start} , #{pageSize}
   </select>
   <select id="getCount" resultType="java.lang.Long">
   	SELECT COUNT(1) FROM t_flow_provider 
