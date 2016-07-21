@@ -72,12 +72,45 @@ function bindMenu(roleCode) {
 	    $("#id_grant").val(role.id);
 	    
 	    var data = role.menuList;
-	    var tree = $.fn.zTree.init($("#menuTree"), setting, data);
+	    
+	    $.each(data,function(n,obj){
+	    	if(obj.isGrant==1){
+	    		obj.checked = true;
+	    	}
+	    });
+	    tree = $.fn.zTree.init($("#menuTree"), setting, data);
 	    tree.expandAll(true);
 	    
     },"json");
 }
-
+//GRANT
+$("#btn_grant").click(function(){
+    var roleCode=$("#id_grant").val();
+    var nodes = tree.getCheckedNodes(true);
+    var menuCodes = "";
+    $.each(nodes, function(n, v) {
+    	menuCodes = menuCodes + v.menuCode + ",";
+    }); 
+    if(menuCodes.length>0){
+    	menuCodes=menuCodes.substring(0,menuCodes.length-1)
+    }
+	$.ajax({
+		type : "POST",
+		url : '/portal/system/role!grant.action',
+		data: {roleCode:roleCode , menuCodes : menuCodes},
+		async : false,
+		success : function(data) {
+			if(data.result == "success"){
+				alert("授权成功！");
+				location.href="/portal/system/role!selectPage.action";
+			}else{
+				alert(data.errMsg);
+				return false;
+			}
+		}
+	});
+	
+})
 //REMOVE
 function removeRole(roleCode,id){
 	if(confirm("您确定要删除该角色吗？")){
@@ -92,9 +125,8 @@ function removeRole(roleCode,id){
 	    },"json");
 	}
 }
-
+var tree = "";
 var setting = {
-		view: { dblClickExpand: false , showLine: true , selectedMulti: false},
-		data: { key:{name:"menuName"} , simpleData: { enable:true , idKey: "id" , pIdKey: "pId", rootPId: ""}	},
-		check:{ chkStyle: "checkbox"}
+		check:{ enable: true,chkStyle: "checkbox",	chkboxType: { "Y": "ps", "N": "p" }},
+		data: { key:{name:"menuName"} , simpleData: { enable:true , idKey: "id" , pIdKey: "pId", rootPId: ""}}
 	};

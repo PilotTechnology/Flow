@@ -1,11 +1,12 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set value="${request.pagecontext.contextpath}" var="ctx"/>
 <!DOCTYPE html>
 <html lang="en">  
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <title>流量平台</title>
-    <%@include file="../common/common.jsp" %>
     <c:set value="${ctx}/portal/system/role!selectPage.action" scope="page" var="url"/>
     <link rel="stylesheet" href="${ctx}/js/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
   </head>
@@ -170,7 +171,7 @@
             <div class="col-md-10" ><div class="well">
               <div class="portlet">
                 <div class="portlet-body">
-               	 	<div id="menuTree"></div>
+               	 	<div id="menuTree" class="ztree"></div>
                 </div>
            	  </div>
             </div></div>
@@ -187,6 +188,8 @@
     <!-- 弹框结束 -->
   
   </body>
+  <%@include file="../common/common.jsp" %>
   <script type="text/javascript" src="${ctx}/view/role/role.js"></script>
   <script type="text/javascript" src="${ctx}/js/ztree/js/jquery.ztree.core.min.js"></script>
+  <script type="text/javascript" src="${ctx}/js/ztree/js/jquery.ztree.excheck.min.js"></script>
 </html>

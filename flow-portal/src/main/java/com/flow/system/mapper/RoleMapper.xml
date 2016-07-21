@@ -21,6 +21,18 @@
   	SELECT <include refid="Base_Column_List" /> FROM t_sys_role WHERE ROLE_CODE=#{roleCode,jdbcType=VARCHAR}
   </select>
   
+  <delete id="removeMenu" parameterType="int">
+  	DELETE FROM t_sys_role_menu WHERE ROLE_CODE = #{roleCode}
+  </delete>
+  
+  <insert id="grantMenu">
+  	INSERT INTO t_sys_role_menu(role_code , menu_code , CREATE_USER,CREATE_TIME)
+  	VALUES
+  	<foreach collection="list" item="item" separator=",">
+        (#{roleCode} , #{item} , #{user.userCode} , now())
+    </foreach>
+  </insert>
+  
   <sql id="Base_Column_List">
     ID, ROLE_CODE, ROLE_NAME, CREATE_USER, CREATE_TIME
   </sql>

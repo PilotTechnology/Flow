@@ -1,5 +1,6 @@
 package com.flow.system.service.impl;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.flow.portal.service.AbsPageService;
 import com.flow.pub.util.PageUtil;
 import com.flow.system.bean.RoleMenu;
+import com.flow.system.bean.UserInfo;
 import com.flow.system.mapper.MenuMapper;
 import com.flow.system.mapper.RoleMapper;
 import com.flow.system.model.SysRole;
@@ -72,6 +74,13 @@ public class RoleServiceImpl extends AbsPageService<SysRole> implements RoleServ
 		SysRole role = roleMapper.getRoleByCode(roleCode);
 		role.setMenuList(menuList);
 		return role;
+	}
+
+	@Override
+	public void grant(String roleCode, String menuCodes, UserInfo user) {
+		List<String> menuCodeList = Arrays.asList(menuCodes.split(","));
+		roleMapper.removeMenu(roleCode);//删除原有授权
+		roleMapper.grantMenu(roleCode,menuCodeList,user);//重新授权
 	}
 
 }

@@ -3,6 +3,7 @@ package com.flow.system.service;
 import java.util.Map;
 
 import com.flow.pub.util.PageUtil;
+import com.flow.system.bean.UserInfo;
 import com.flow.system.model.SysRole;
 
 public interface RoleService {
@@ -20,5 +21,7 @@ public interface RoleService {
 	void update(SysRole role);
 
 	boolean checkExists(SysRole role);
+
+	void grant(String roleCode, String menuCodes, UserInfo user);
 
 }

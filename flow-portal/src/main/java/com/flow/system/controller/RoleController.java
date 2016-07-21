@@ -128,4 +128,27 @@ public class RoleController extends BaseController{
 	public SysRole toGrant(HttpServletRequest request,SysRole role){
 		return roleService.getRoleMenuByRoleCode(role.getRoleCode());
 	}
+	
+	/**
+	 * 角色授权
+	 * @param request
+	 * @param Role
+	 * @return
+	 */
+	@RequestMapping(value = "role!grant.action")
+	@ResponseBody
+	public Object grant(HttpServletRequest request){
+		UserInfo user = (UserInfo) request.getSession().getAttribute("userInfo");
+		String roleCode = request.getParameter("roleCode");
+		String menuCodes = request.getParameter("menuCodes");
+		
+		try {
+			roleService.grant(roleCode,menuCodes,user);
+		} catch (Exception e) {
+			PubLog.error("角色授权失败: >> roleCode :"+roleCode + "; menuCodes ;" + menuCodes, e);
+			return new BaseResponse(Constant.JSON_FAIL, e.getMessage());
+		}
+		return Constant.successMsg;
+	}
+	
 }

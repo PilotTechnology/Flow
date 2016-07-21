@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.flow.system.bean.UserInfo;
 import com.flow.system.model.SysRole;
 
 public interface RoleMapper {
@@ -24,4 +25,8 @@ public interface RoleMapper {
 	SysRole getRoleByCode(String roleCode);
 
 	Long getCount();
+
+	void grantMenu(@Param("roleCode") String roleCode, @Param("list") List<String> menuCodeList, @Param("user") UserInfo user);
+
+	void removeMenu(String roleId);
 }
