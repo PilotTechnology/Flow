@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flow.system.mapper.ProductMapper">
+  <resultMap id="BaseResultMap" type="com.flow.system.model.Product">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="PRODUCT_CODE" jdbcType="VARCHAR" property="productCode" />
+    <result column="PRODCUT_NAME" jdbcType="VARCHAR" property="prodcutName" />
+    <result column="OPERATOR_CODE" jdbcType="VARCHAR" property="operatorCode" />
+    <result column="PROVIDER_CODE" jdbcType="VARCHAR" property="providerCode" />
+    <result column="PRO_PRODUCT_CODE" jdbcType="VARCHAR" property="proProductCode" />
+    <result column="PROVINCE_CODE" jdbcType="VARCHAR" property="provinceCode" />
+    <result column="ENABLE_TYPE" jdbcType="INTEGER" property="enableType" />
+    <result column="PRIORITY" jdbcType="INTEGER" property="priority" />
+    <result column="SIZE" jdbcType="INTEGER" property="size" />
+    <result column="PRICE" jdbcType="DOUBLE" property="price" />
+    <result column="DISCOUNT" jdbcType="INTEGER" property="discount" />
+    <result column="PURCHASED" jdbcType="DOUBLE" property="purchased" />
+    <result column="STATE" jdbcType="INTEGER" property="state" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <association property="mobileOperator" javaType="com.flow.system.model.MobileOperator">
+		<id column="OPERATOR_CODE" jdbcType="INTEGER" property="id" />
+		<result column="OPERATOR_NAME" jdbcType="VARCHAR" property="operatorName" />
+	</association>
+	<association property="provider" javaType="com.flow.system.model.Provider">
+		<id column="PROVIDER_CODE" jdbcType="VARCHAR" property="providerCode" />
+		<result column="NAME" jdbcType="VARCHAR" property="name" />
+	</association>
+	<association property="province" javaType="com.flow.system.model.Province">
+		<id column="PROVINCE_CODE" jdbcType="INTEGER" property="id" />
+		<result column="PROVINCE_NAME" jdbcType="VARCHAR" property="provinceName" />
+	</association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, PRODUCT_CODE, PRODCUT_NAME, OPERATOR_CODE, PROVIDER_CODE, PRO_PRODUCT_CODE, PROVINCE_CODE, 
+    ENABLE_TYPE, PRIORITY, SIZE, PRICE, DISCOUNT, PURCHASED, STATE, DESCRIPTION
+  </sql>
+  <select id="listPage" resultMap="BaseResultMap">
+		select a.*, b.OPERATOR_NAME, c.PROVINCE_NAME, d.NAME
+		from t_flow_product a
+		INNER JOIN t_base_operator b ON a.OPERATOR_CODE = b.ID
+		INNER JOIN t_base_province c ON a.PROVINCE_CODE = c.ID
+		INNER JOIN t_flow_provider d ON a.PROVIDER_CODE = d.PROVIDER_CODE
+		limit #{start} , #{pageSize}
+  </select>
+  <select id="getCount" resultType="java.lang.Long">
+  	SELECT COUNT(1) FROM t_flow_product 
+  </select>
+  <select id="selectByMobileCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+     select a.*, b.OPERATOR_NAME, c.PROVINCE_NAME, d.NAME
+		from t_flow_product a
+		INNER JOIN t_base_operator b ON a.OPERATOR_CODE = b.ID
+		INNER JOIN t_base_province c ON a.PROVINCE_CODE = c.ID
+		INNER JOIN t_flow_provider d ON a.PROVIDER_CODE = d.PROVIDER_CODE
+		where a.PRODUCT_CODE = #{productCode,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select a.*, b.OPERATOR_NAME, c.PROVINCE_NAME, d.NAME
+		from t_flow_product a
+		INNER JOIN t_base_operator b ON a.OPERATOR_CODE = b.ID
+		INNER JOIN t_base_province c ON a.PROVINCE_CODE = c.ID
+		INNER JOIN t_flow_provider d ON a.PROVIDER_CODE = d.PROVIDER_CODE
+   		where a.ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_flow_product
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.flow.system.model.Product">
+    insert into t_flow_product (ID, PRODUCT_CODE, PRODCUT_NAME, 
+      OPERATOR_CODE, PROVIDER_CODE, PRO_PRODUCT_CODE, 
+      PROVINCE_CODE, ENABLE_TYPE, PRIORITY, 
+      SIZE, PRICE, DISCOUNT, 
+      PURCHASED, STATE, DESCRIPTION
+      )
+    values (#{id,jdbcType=INTEGER}, #{productCode,jdbcType=VARCHAR}, #{prodcutName,jdbcType=VARCHAR}, 
+      #{operatorCode,jdbcType=VARCHAR}, #{providerCode,jdbcType=VARCHAR}, #{proProductCode,jdbcType=VARCHAR}, 
+      #{provinceCode,jdbcType=VARCHAR}, #{enableType,jdbcType=INTEGER}, #{priority,jdbcType=INTEGER}, 
+      #{size,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, #{discount,jdbcType=INTEGER}, 
+      #{purchased,jdbcType=DOUBLE}, #{state,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.flow.system.model.Product">
+    insert into t_flow_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="productCode != null">
+        PRODUCT_CODE,
+      </if>
+      <if test="prodcutName != null">
+        PRODCUT_NAME,
+      </if>
+      <if test="operatorCode != null">
+        OPERATOR_CODE,
+      </if>
+      <if test="providerCode != null">
+        PROVIDER_CODE,
+      </if>
+      <if test="proProductCode != null">
+        PRO_PRODUCT_CODE,
+      </if>
+      <if test="provinceCode != null">
+        PROVINCE_CODE,
+      </if>
+      <if test="enableType != null">
+        ENABLE_TYPE,
+      </if>
+      <if test="priority != null">
+        PRIORITY,
+      </if>
+      <if test="size != null">
+        SIZE,
+      </if>
+      <if test="price != null">
+        PRICE,
+      </if>
+      <if test="discount != null">
+        DISCOUNT,
+      </if>
+      <if test="purchased != null">
+        PURCHASED,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="productCode != null">
+        #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="prodcutName != null">
+        #{prodcutName,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorCode != null">
+        #{operatorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="providerCode != null">
+        #{providerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="proProductCode != null">
+        #{proProductCode,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null">
+        #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="enableType != null">
+        #{enableType,jdbcType=INTEGER},
+      </if>
+      <if test="priority != null">
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="discount != null">
+        #{discount,jdbcType=INTEGER},
+      </if>
+      <if test="purchased != null">
+        #{purchased,jdbcType=DOUBLE},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.flow.system.model.Product">
+    update t_flow_product
+    <set>
+      <if test="productCode != null">
+        PRODUCT_CODE = #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="prodcutName != null">
+        PRODCUT_NAME = #{prodcutName,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorCode != null">
+        OPERATOR_CODE = #{operatorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="providerCode != null">
+        PROVIDER_CODE = #{providerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="proProductCode != null">
+        PRO_PRODUCT_CODE = #{proProductCode,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null">
+        PROVINCE_CODE = #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="enableType != null">
+        ENABLE_TYPE = #{enableType,jdbcType=INTEGER},
+      </if>
+      <if test="priority != null">
+        PRIORITY = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="size != null">
+        SIZE = #{size,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        PRICE = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="discount != null">
+        DISCOUNT = #{discount,jdbcType=INTEGER},
+      </if>
+      <if test="purchased != null">
+        PURCHASED = #{purchased,jdbcType=DOUBLE},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.flow.system.model.Product">
+    update t_flow_product
+    set PRODUCT_CODE = #{productCode,jdbcType=VARCHAR},
+      PRODCUT_NAME = #{prodcutName,jdbcType=VARCHAR},
+      OPERATOR_CODE = #{operatorCode,jdbcType=VARCHAR},
+      PROVIDER_CODE = #{providerCode,jdbcType=VARCHAR},
+      PRO_PRODUCT_CODE = #{proProductCode,jdbcType=VARCHAR},
+      PROVINCE_CODE = #{provinceCode,jdbcType=VARCHAR},
+      ENABLE_TYPE = #{enableType,jdbcType=INTEGER},
+      PRIORITY = #{priority,jdbcType=INTEGER},
+      SIZE = #{size,jdbcType=INTEGER},
+      PRICE = #{price,jdbcType=DOUBLE},
+      DISCOUNT = #{discount,jdbcType=INTEGER},
+      PURCHASED = #{purchased,jdbcType=DOUBLE},
+      STATE = #{state,jdbcType=INTEGER},
+      DESCRIPTION = #{description,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flow.system.mapper.DistributorMapper">
+  <resultMap id="BaseResultMap" type="com.flow.system.model.Distributor">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="DISTRBUTOR_CODE" jdbcType="VARCHAR" property="distrbutorCode" />
+    <result column="USER_CODE" jdbcType="VARCHAR" property="userCode" />
+    <result column="OPERATOR_CODE" jdbcType="VARCHAR" property="operatorCode" />
+    <result column="CHANNEL_TYPE" jdbcType="INTEGER" property="channelType" />
+    <result column="COOP_MODEL" jdbcType="INTEGER" property="coopModel" />
+    <result column="COMPANY" jdbcType="VARCHAR" property="company" />
+    <result column="BALANCE" jdbcType="DOUBLE" property="balance" />
+    <result column="FREEZING" jdbcType="DOUBLE" property="freezing" />
+    <result column="TOTAL" jdbcType="DOUBLE" property="total" />
+    <result column="SMS_CONTENT" jdbcType="VARCHAR" property="smsContent" />
+    <result column="STATE" jdbcType="INTEGER" property="state" />
+    <result column="LEVEL" jdbcType="INTEGER" property="level" />
+    <result column="CALLBACK_URL" jdbcType="VARCHAR" property="callbackUrl" />
+    <result column="CONFINING_IP" jdbcType="VARCHAR" property="confiningIp" />
+    <result column="APP_KEY" jdbcType="VARCHAR" property="appKey" />
+    <result column="SECRET_KEY" jdbcType="VARCHAR" property="secretKey" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, DISTRBUTOR_CODE, USER_CODE, OPERATOR_CODE, CHANNEL_TYPE, COOP_MODEL, COMPANY, 
+    BALANCE, FREEZING, TOTAL, SMS_CONTENT, STATE, LEVEL, CALLBACK_URL, CONFINING_IP, 
+    APP_KEY, SECRET_KEY
+  </sql>
+  
+  <select id="listPage" resultMap="BaseResultMap">
+  
+  select a.*, b.id as BUSER_ID, b.USER_CODE as BUSER_CODE
+		from t_flow_distributor a
+		INNER JOIN t_user b ON a.USER_CODE = b.USER_CODE
+  
+		select a.*, b.*
+		from t_flow_distributor a
+		INNER JOIN t_user b ON a.USER_CODE = b.USER_CODE
+		limit #{start} , #{pageSize}
+  </select>
+  <select id="getCount" resultType="java.lang.Long">
+  	SELECT COUNT(1) FROM t_flow_distributor 
+  </select>
+  <select id="selectByMobileCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+     select a.*, b.OPERATOR_NAME, c.PROVINCE_NAME, d.NAME
+		from t_flow_distributor a
+		INNER JOIN t_base_operator b ON a.OPERATOR_CODE = b.ID
+		INNER JOIN t_base_province c ON a.PROVINCE_CODE = c.ID
+		INNER JOIN t_flow_provider d ON a.PROVIDER_CODE = d.PROVIDER_CODE
+		where a.PRODUCT_CODE = #{productCode,jdbcType=VARCHAR}
+  </select>
+  
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_flow_distributor
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_flow_distributor
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.flow.system.model.Distributor">
+    insert into t_flow_distributor (ID, DISTRBUTOR_CODE, USER_CODE, 
+      OPERATOR_CODE, CHANNEL_TYPE, COOP_MODEL, 
+      COMPANY, BALANCE, FREEZING, 
+      TOTAL, SMS_CONTENT, STATE, 
+      LEVEL, CALLBACK_URL, CONFINING_IP, 
+      APP_KEY, SECRET_KEY)
+    values (#{id,jdbcType=INTEGER}, #{distrbutorCode,jdbcType=VARCHAR}, #{userCode,jdbcType=VARCHAR}, 
+      #{operatorCode,jdbcType=VARCHAR}, #{channelType,jdbcType=INTEGER}, #{coopModel,jdbcType=INTEGER}, 
+      #{company,jdbcType=VARCHAR}, #{balance,jdbcType=DOUBLE}, #{freezing,jdbcType=DOUBLE}, 
+      #{total,jdbcType=DOUBLE}, #{smsContent,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, 
+      #{level,jdbcType=INTEGER}, #{callbackUrl,jdbcType=VARCHAR}, #{confiningIp,jdbcType=VARCHAR}, 
+      #{appKey,jdbcType=VARCHAR}, #{secretKey,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.flow.system.model.Distributor">
+    insert into t_flow_distributor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="distrbutorCode != null">
+        DISTRBUTOR_CODE,
+      </if>
+      <if test="userCode != null">
+        USER_CODE,
+      </if>
+      <if test="operatorCode != null">
+        OPERATOR_CODE,
+      </if>
+      <if test="channelType != null">
+        CHANNEL_TYPE,
+      </if>
+      <if test="coopModel != null">
+        COOP_MODEL,
+      </if>
+      <if test="company != null">
+        COMPANY,
+      </if>
+      <if test="balance != null">
+        BALANCE,
+      </if>
+      <if test="freezing != null">
+        FREEZING,
+      </if>
+      <if test="total != null">
+        TOTAL,
+      </if>
+      <if test="smsContent != null">
+        SMS_CONTENT,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="level != null">
+        LEVEL,
+      </if>
+      <if test="callbackUrl != null">
+        CALLBACK_URL,
+      </if>
+      <if test="confiningIp != null">
+        CONFINING_IP,
+      </if>
+      <if test="appKey != null">
+        APP_KEY,
+      </if>
+      <if test="secretKey != null">
+        SECRET_KEY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="distrbutorCode != null">
+        #{distrbutorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userCode != null">
+        #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorCode != null">
+        #{operatorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="channelType != null">
+        #{channelType,jdbcType=INTEGER},
+      </if>
+      <if test="coopModel != null">
+        #{coopModel,jdbcType=INTEGER},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null">
+        #{balance,jdbcType=DOUBLE},
+      </if>
+      <if test="freezing != null">
+        #{freezing,jdbcType=DOUBLE},
+      </if>
+      <if test="total != null">
+        #{total,jdbcType=DOUBLE},
+      </if>
+      <if test="smsContent != null">
+        #{smsContent,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="callbackUrl != null">
+        #{callbackUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="confiningIp != null">
+        #{confiningIp,jdbcType=VARCHAR},
+      </if>
+      <if test="appKey != null">
+        #{appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="secretKey != null">
+        #{secretKey,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.flow.system.model.Distributor">
+    update t_flow_distributor
+    <set>
+      <if test="distrbutorCode != null">
+        DISTRBUTOR_CODE = #{distrbutorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userCode != null">
+        USER_CODE = #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorCode != null">
+        OPERATOR_CODE = #{operatorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="channelType != null">
+        CHANNEL_TYPE = #{channelType,jdbcType=INTEGER},
+      </if>
+      <if test="coopModel != null">
+        COOP_MODEL = #{coopModel,jdbcType=INTEGER},
+      </if>
+      <if test="company != null">
+        COMPANY = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null">
+        BALANCE = #{balance,jdbcType=DOUBLE},
+      </if>
+      <if test="freezing != null">
+        FREEZING = #{freezing,jdbcType=DOUBLE},
+      </if>
+      <if test="total != null">
+        TOTAL = #{total,jdbcType=DOUBLE},
+      </if>
+      <if test="smsContent != null">
+        SMS_CONTENT = #{smsContent,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        LEVEL = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="callbackUrl != null">
+        CALLBACK_URL = #{callbackUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="confiningIp != null">
+        CONFINING_IP = #{confiningIp,jdbcType=VARCHAR},
+      </if>
+      <if test="appKey != null">
+        APP_KEY = #{appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="secretKey != null">
+        SECRET_KEY = #{secretKey,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.flow.system.model.Distributor">
+    update t_flow_distributor
+    set DISTRBUTOR_CODE = #{distrbutorCode,jdbcType=VARCHAR},
+      USER_CODE = #{userCode,jdbcType=VARCHAR},
+      OPERATOR_CODE = #{operatorCode,jdbcType=VARCHAR},
+      CHANNEL_TYPE = #{channelType,jdbcType=INTEGER},
+      COOP_MODEL = #{coopModel,jdbcType=INTEGER},
+      COMPANY = #{company,jdbcType=VARCHAR},
+      BALANCE = #{balance,jdbcType=DOUBLE},
+      FREEZING = #{freezing,jdbcType=DOUBLE},
+      TOTAL = #{total,jdbcType=DOUBLE},
+      SMS_CONTENT = #{smsContent,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=INTEGER},
+      LEVEL = #{level,jdbcType=INTEGER},
+      CALLBACK_URL = #{callbackUrl,jdbcType=VARCHAR},
+      CONFINING_IP = #{confiningIp,jdbcType=VARCHAR},
+      APP_KEY = #{appKey,jdbcType=VARCHAR},
+      SECRET_KEY = #{secretKey,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
