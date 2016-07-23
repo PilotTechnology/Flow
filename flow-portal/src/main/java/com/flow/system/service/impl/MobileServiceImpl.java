@@ -42,7 +42,7 @@ public class MobileServiceImpl extends AbsPageService<Mobile> implements MobileS
 	}
 
 	@Override
-	public void deleteRole(Mobile mobile) {
+	public void delete(Mobile mobile) {
 		// TODO Auto-generated method stub
 		mobileMapper.deleteByPrimaryKey(mobile.getId());
 	}
@@ -50,7 +50,7 @@ public class MobileServiceImpl extends AbsPageService<Mobile> implements MobileS
 	@Override
 	public void update(Mobile mobile) {
 		// TODO Auto-generated method stub
-		mobileMapper.updateByPrimaryKey(mobile);
+		mobileMapper.updateByPrimaryKeySelective(mobile);
 	}
 
 	@Override

@@ -8,6 +8,8 @@ import com.flow.system.model.Distributor;
 
 public interface DistributorMapper {
     int deleteByPrimaryKey(Integer id);
+    
+    int deleteByDistributorCode(String distributorCode);
 
     int insert(Distributor record);
 

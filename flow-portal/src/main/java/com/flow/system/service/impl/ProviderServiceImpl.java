@@ -37,9 +37,9 @@ public class ProviderServiceImpl extends AbsPageService<Provider> implements Pro
 		providerMapper.insert(provider);
 	}
 
-	public void deleteRole(Provider provider) {
+	public void delete(Provider provider) {
 		// TODO Auto-generated method stub
-		providerMapper.deleteByPrimaryKey(provider.getId());
+		providerMapper.deleteByProviderCode(provider.getProviderCode());
 	}
 
 	public void update(Provider provider) {
