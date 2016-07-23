@@ -14,7 +14,7 @@
   		SELECT a.id , a.UP_MENU , a.menu_code , a.menu_name ,
   			CASE WHEN c.role_code IS NULL THEN 0 ELSE 1 END AS IS_GRANT 
 		FROM t_sys_menu a
-		LEFT JOIN t_sys_role_menu b ON a.menu_code = b.menu_code
+		LEFT JOIN t_sys_role_menu b ON a.menu_code = b.menu_code and b.ROLE_CODE=#{roleCode}
 		LEFT JOIN t_sys_role c ON c.ROLE_CODE = b.ROLE_CODE AND c.ROLE_CODE = #{roleCode}
 		ORDER BY a.id
   </select>  

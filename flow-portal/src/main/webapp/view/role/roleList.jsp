@@ -179,7 +179,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal"><i class="icon-undo"></i> 取消</button>
-          <input type="hidden" id="id_grant" name="id_grant" />
+          <input type="hidden" id="roleCode_hidden" name="roleCode_hidden" />
           <button type="button" id="btn_grant" class="btn btn-primary" data-dismiss="modal"><i class="icon-save"></i> 保存</button>
         </div>
       </div>

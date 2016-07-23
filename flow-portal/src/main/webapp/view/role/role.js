@@ -69,7 +69,7 @@ function bindMenu(roleCode) {
 	    $('#myModal_grant').modal();
 	    $("#roleCode_grant").text(role.roleCode);
 	    $("#roleName_grant").text(role.roleName);
-	    $("#id_grant").val(role.id);
+	    $("#roleCode_hidden").val(role.roleCode);
 	    
 	    var data = role.menuList;
 	    
@@ -85,7 +85,7 @@ function bindMenu(roleCode) {
 }
 //GRANT
 $("#btn_grant").click(function(){
-    var roleCode=$("#id_grant").val();
+    var roleCode=$("#roleCode_hidden").val();
     var nodes = tree.getCheckedNodes(true);
     var menuCodes = "";
     $.each(nodes, function(n, v) {
