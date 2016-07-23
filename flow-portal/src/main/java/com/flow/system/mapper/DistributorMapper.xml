@@ -19,6 +19,22 @@
     <result column="CONFINING_IP" jdbcType="VARCHAR" property="confiningIp" />
     <result column="APP_KEY" jdbcType="VARCHAR" property="appKey" />
     <result column="SECRET_KEY" jdbcType="VARCHAR" property="secretKey" />
+    <association property="user" javaType="com.flow.system.model.SysUser">
+		<id column="U_ID" jdbcType="INTEGER" property="id" />
+		<result column="U_CODE" jdbcType="VARCHAR" property="userCode" />
+		<result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+		<result column="NICK_NAME" jdbcType="VARCHAR" property="nickname" />
+		<result column="LINK_MAN" jdbcType="VARCHAR" property="linkman" />
+		<result column="PHONE" jdbcType="VARCHAR" property="phone" />
+		<result column="EMAIL" jdbcType="VARCHAR" property="email" />
+		<result column="STATE" jdbcType="VARCHAR" property="isEnable" />
+		<result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+		<result column="ROLE_CODE" jdbcType="INTEGER" property="roleid" />
+	</association>
+	<association property="mobileOperator" javaType="com.flow.system.model.MobileOperator">
+		<id column="M_ID" jdbcType="INTEGER" property="id" />
+    <result column="OPERATOR_NAME" jdbcType="VARCHAR" property="operatorName" />
+	</association>
   </resultMap>
   <sql id="Base_Column_List">
     ID, DISTRBUTOR_CODE, USER_CODE, OPERATOR_CODE, CHANNEL_TYPE, COOP_MODEL, COMPANY, 

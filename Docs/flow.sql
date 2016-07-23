@@ -182,9 +182,14 @@ CREATE TABLE `t_flow_recharge_flow` (
 DROP TABLE IF EXISTS `t_flow_refund_flow`;
 CREATE TABLE `t_flow_refund_flow` (
   `ID` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `DISTRIBUTOR_NAME` varchar(64) DEFAULT NULL COMMENT '上游名称',
+  `PROVIDER_NAME` varchar(64) DEFAULT NULL COMMENT '供应商名称',
+  `PHONE` varchar(16) DEFAULT NULL COMMENT '手机号',
   `Order_CODE` varchar(32) DEFAULT NULL COMMENT '平台订单编号',
-  `Image_paths` varchar(100) DEFAULT NULL,
+  `PRODCUT_NAME` varchar(64) DEFAULT NULL COMMENT '流量包名称',
+  `PURCHASED` double(10,2) DEFAULT NULL COMMENT '购买价格',
   `Provider_is_refund` int(11) DEFAULT NULL COMMENT '上游是否已退款',
+  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
