@@ -12,7 +12,7 @@ public interface MobileService {
 	
 	void save(Mobile mobile);
 
-	void deleteRole(Mobile mobile);
+	void delete(Mobile mobile);
 
 	void update(Mobile mobile);
 	

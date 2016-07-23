@@ -108,7 +108,7 @@ public class ProviderController extends BaseController {
 	@RequestMapping(value = "provider!delProvider.action")
 	@ResponseBody
 	public Object delProvider(HttpServletRequest request,Provider provider) {
-		providerService.deleteRole(provider);
+		providerService.delete(provider);
 		return Constant.successMsg;
 
 	}

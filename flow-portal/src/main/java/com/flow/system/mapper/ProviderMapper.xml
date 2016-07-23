@@ -33,6 +33,10 @@
     delete from t_flow_provider
     where ID = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByProviderCode" parameterType="java.lang.String">
+    delete from t_flow_provider
+    where provider_code = #{providerCode,jdbcType=VARCHAR}
+  </delete>
   <insert id="insert" parameterType="com.flow.system.model.Provider">
     insert into t_flow_provider (ID, PROVIDER_CODE, NAME, 
       DESCRIPTION)

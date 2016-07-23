@@ -65,6 +65,10 @@
     delete from t_flow_product
     where ID = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByProductCode" parameterType="java.lang.String">
+    delete from t_flow_product
+    where product_code = #{productCode,jdbcType=VARCHAR}
+  </delete>
   <insert id="insert" parameterType="com.flow.system.model.Product">
     insert into t_flow_product (ID, PRODUCT_CODE, PRODCUT_NAME, 
       OPERATOR_CODE, PROVIDER_CODE, PRO_PRODUCT_CODE, 

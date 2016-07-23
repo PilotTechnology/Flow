@@ -12,7 +12,7 @@ public interface ProviderService {
 	
 	void save(Provider provider);
 
-	void deleteRole(Provider provider);
+	void delete(Provider provider);
 
 	void update(Provider provider);
 	

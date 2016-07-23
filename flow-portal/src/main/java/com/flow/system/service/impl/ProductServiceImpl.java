@@ -41,15 +41,15 @@ public class ProductServiceImpl extends AbsPageService<Product> implements Produ
 	}
 
 	@Override
-	public void deleteRole(Product product) {
+	public void delete(Product product) {
 		// TODO Auto-generated method stub
-		productMapper.deleteByPrimaryKey(product.getId());
+		productMapper.deleteByProductCode(product.getProductCode());
 	}
 
 	@Override
 	public void update(Product product) {
 		// TODO Auto-generated method stub
-		productMapper.updateByPrimaryKey(product);
+		productMapper.updateByPrimaryKeySelective(product);
 	}
 
 	@Override

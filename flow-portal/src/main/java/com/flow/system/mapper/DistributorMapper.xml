@@ -67,6 +67,10 @@
     delete from t_flow_distributor
     where ID = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByDistributorCode" parameterType="java.lang.String">
+    delete from t_flow_distributor
+    where distribution_code = #{distributorCode,jdbcType=VARCHAR}
+  </delete>
   <insert id="insert" parameterType="com.flow.system.model.Distributor">
     insert into t_flow_distributor (ID, DISTRBUTOR_CODE, USER_CODE, 
       OPERATOR_CODE, CHANNEL_TYPE, COOP_MODEL, 

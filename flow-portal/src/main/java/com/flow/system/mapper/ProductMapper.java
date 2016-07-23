@@ -8,6 +8,8 @@ import com.flow.system.model.Product;
 
 public interface ProductMapper {
     int deleteByPrimaryKey(Integer id);
+    
+    int deleteByProductCode(String productCode);
 
     int insert(Product record);
 

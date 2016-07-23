@@ -8,6 +8,8 @@ import com.flow.system.model.Provider;
 
 public interface ProviderMapper {
     int deleteByPrimaryKey(Integer id);
+    
+    int deleteByProviderCode(String providerCode);
 
     int insert(Provider record);
 
