@@ -40,7 +40,7 @@
 		INNER JOIN t_base_operator b ON a.OPERATOR_CODE = b.ID
 		INNER JOIN t_base_province c ON a.PROVINCE_CODE = c.ID
 		INNER JOIN t_flow_provider d ON a.PROVIDER_CODE = d.PROVIDER_CODE
-		from t_flow_product limit #{start} , #{pageSize}
+		limit #{start} , #{pageSize}
   </select>
   <select id="getCount" resultType="java.lang.Long">
   	SELECT COUNT(1) FROM t_flow_product 
@@ -59,7 +59,7 @@
 		INNER JOIN t_base_operator b ON a.OPERATOR_CODE = b.ID
 		INNER JOIN t_base_province c ON a.PROVINCE_CODE = c.ID
 		INNER JOIN t_flow_provider d ON a.PROVIDER_CODE = d.PROVIDER_CODE
-    where a.ID = #{id,jdbcType=INTEGER}
+   		where a.ID = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from t_flow_product
