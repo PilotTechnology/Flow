@@ -26,7 +26,7 @@
 	    <i class="icon-time"></i> 流量管理 
 	  </a>
 	  <ul class="sub-menu">
-		<li><a href="ui_general.html"> <i class="icon-angle-right">
+		<li><a href="${ctx}/portal/order!selectPage.action"> <i class="icon-angle-right">
 			</i> 分销平台订单
 		</a></li>
 		<li><a href="ui_general.html"> <i class="icon-angle-right">

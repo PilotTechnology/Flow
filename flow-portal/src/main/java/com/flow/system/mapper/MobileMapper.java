@@ -1,6 +1,7 @@
 package com.flow.system.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -22,4 +23,10 @@ public interface MobileMapper {
     List<Mobile> listPage(@Param("start") Integer start , @Param("pageSize") Integer pageSize);
 
 	Long getCount();
+	
+	/**
+	 * 获取电话归属地
+	 * @return
+	 */
+	String getMobile(String mobileCode);
 }
