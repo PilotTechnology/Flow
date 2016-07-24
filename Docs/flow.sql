@@ -137,6 +137,7 @@ CREATE TABLE `t_flow_product` (
   `PROVIDER_CODE` varchar(32) DEFAULT NULL COMMENT '上游编码',
   `PRO_PRODUCT_CODE` varchar(32) DEFAULT NULL COMMENT '上游流量包编码',
   `PROVINCE_CODE` varchar(32) DEFAULT NULL COMMENT '区域ID',
+  `ENABLE_AREA` int(4) DEFAULT NULL COMMEN '使用范围（0：全国，2：省）'
   `ENABLE_TYPE` int(4) DEFAULT NULL COMMENT '生效类型（0：立即生效，1次月生效 ， 2：24小时后生效，3：当天生效，4：当月生效）',
   `PRIORITY` int(4) DEFAULT NULL COMMENT '优先级（0：低 1 ：中 2：高）',
   `SIZE` int(11) DEFAULT NULL COMMENT '流量包大小，以M为最小单位，1G=1024M',

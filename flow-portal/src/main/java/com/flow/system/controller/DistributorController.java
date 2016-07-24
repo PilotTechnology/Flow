@@ -11,34 +11,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.flow.portal.controller.BaseController;
 import com.flow.pub.util.PageUtil;
-import com.flow.system.model.Mobile;
-import com.flow.system.service.MobileService;
+import com.flow.system.model.Distributor;
+import com.flow.system.service.DistributorService;
 
 /**
  * 
- * @Description:手机号段管理
+ * @Description:分销商管理
  * 
  */
 @Controller
 @RequestMapping("/portal")
-public class MobileController extends BaseController {
+public class DistributorController extends BaseController {
 	@Autowired
-	private MobileService mobileService;
+	private DistributorService distributorService;
 	
 	/**
-	 * 查询角色分页列表
+	 * 分销商分页列表
 	 * @param request
 	 * @param pager
 	 * @return
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "mobile!selectPage.action")
+	@RequestMapping(value = "distributor!selectPage.action")
 	public String selectPage(HttpServletRequest request, Model model) throws Exception {
 		//转换request参数为map
 		Map<String,Object> map = getParameterMap(request);
-		PageUtil<Mobile> page = mobileService.listPage(map);
+		PageUtil<Distributor> page = distributorService.listPage(map);
 		model.addAttribute("page",page);
-		return "/view/mobile/mobileList.jsp";
+		return "/view/distributor/distributorList.jsp";
 	}
 }

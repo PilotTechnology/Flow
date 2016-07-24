@@ -32,16 +32,16 @@
 		<li><a href="ui_general.html"> <i class="icon-angle-right">
 			</i> 分销平台订单统计
 		</a></li>
-		<li><a href="ui_general.html"> <i class="icon-angle-right">
+		<li><a href="${ctx}/portal/provider!selectPage.action"> <i class="icon-angle-right">
 			</i> 供应商管理
 		</a></li>
-		<li><a href="ui_general.html"> <i class="icon-angle-right">
+		<li><a href="${ctx}/portal/product!selectPage.action"> <i class="icon-angle-right">
 			</i> 流量包管理
 		</a></li>
 		<li><a href="ui_general.html"> <i class="icon-angle-right">
 			</i> 资金流水
 		</a></li>	
-		<li><a href="ui_buttons.html"> <i class="icon-angle-right">
+		<li><a href="${ctx}/portal/refundFlow!selectPage.action"> <i class="icon-angle-right">
 			</i> 退款单管理
 		</a></li>
 	  </ul>
@@ -61,8 +61,8 @@
 	    <i class="icon-money"></i> 报价单管理 
 	  </a>
 	  <ul class="sub-menu">
-		<li><a href="ui_general.html"> <i class="icon-angle-right">
-			</i> cp用户管理
+		<li><a href="${ctx}/portal/distributor!selectPage.action"> <i class="icon-angle-right">
+			</i> 分销商管理
 		</a></li>
 			<li><a href="ui_general.html"> <i class="icon-angle-right">
 			</i> 报价单列表
@@ -83,8 +83,8 @@
 		<li><a href="ui_general.html"> <i class="icon-angle-right">
 			</i> 区域管理
 		</a></li>
-			<li><a href="ui_general.html"> <i class="icon-angle-right">
-			</i> 号码段管理
+			<li><a href="${ctx}/portal/mobile!selectPage.action"> <i class="icon-angle-right">
+			</i> 号段管理
 		</a></li>
 	  </ul>
 	</li>

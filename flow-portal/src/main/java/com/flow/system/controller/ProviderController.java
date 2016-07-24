@@ -24,7 +24,7 @@ import com.flow.system.service.ProviderService;
  * 
  */
 @Controller
-@RequestMapping("/portal/provider")
+@RequestMapping("/portal")
 public class ProviderController extends BaseController {
 
 	@Autowired
@@ -42,13 +42,9 @@ public class ProviderController extends BaseController {
 	public String selectPage(HttpServletRequest request, Model model) throws Exception {
 		//转换request参数为map
 		Map<String,Object> map = getParameterMap(request);
-		
 		PageUtil<Provider> page = providerService.listPage(map);
-
 		model.addAttribute("page",page);
-		System.out.println(page);
-//		return "/view/role/roleList.jsp";
-		return "";
+		return "/view/provider/providerList.jsp";
 	}
 	
 	/**

@@ -14,6 +14,8 @@ public class Product {
     private String proProductCode;
 
     private String provinceCode;
+    
+    private Integer enableArea;
 
     private Integer enableType;
 
@@ -93,6 +95,14 @@ public class Product {
         this.provinceCode = provinceCode == null ? null : provinceCode.trim();
     }
 
+    public Integer getEnableArea() {
+        return enableArea;
+    }
+
+    public void setEnableArea(Integer enableArea) {
+        this.enableArea = enableArea;
+    }
+    
     public Integer getEnableType() {
         return enableType;
     }

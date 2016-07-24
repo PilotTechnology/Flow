@@ -9,6 +9,7 @@
     <result column="PROVIDER_CODE" jdbcType="VARCHAR" property="providerCode" />
     <result column="PRO_PRODUCT_CODE" jdbcType="VARCHAR" property="proProductCode" />
     <result column="PROVINCE_CODE" jdbcType="VARCHAR" property="provinceCode" />
+    <result column="ENABLE_AREA" jdbcType="INTEGER" property="enableArea" />
     <result column="ENABLE_TYPE" jdbcType="INTEGER" property="enableType" />
     <result column="PRIORITY" jdbcType="INTEGER" property="priority" />
     <result column="SIZE" jdbcType="INTEGER" property="size" />
@@ -32,7 +33,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     ID, PRODUCT_CODE, PRODCUT_NAME, OPERATOR_CODE, PROVIDER_CODE, PRO_PRODUCT_CODE, PROVINCE_CODE, 
-    ENABLE_TYPE, PRIORITY, SIZE, PRICE, DISCOUNT, PURCHASED, STATE, DESCRIPTION
+    ENABLE_AREA, ENABLE_TYPE, PRIORITY, SIZE, PRICE, DISCOUNT, PURCHASED, STATE, DESCRIPTION
   </sql>
   <select id="listPage" resultMap="BaseResultMap">
 		select a.*, b.OPERATOR_NAME, c.PROVINCE_NAME, d.NAME
@@ -72,13 +73,13 @@
   <insert id="insert" parameterType="com.flow.system.model.Product">
     insert into t_flow_product (ID, PRODUCT_CODE, PRODCUT_NAME, 
       OPERATOR_CODE, PROVIDER_CODE, PRO_PRODUCT_CODE, 
-      PROVINCE_CODE, ENABLE_TYPE, PRIORITY, 
+      PROVINCE_CODE, ENABLE_AREA, ENABLE_TYPE, PRIORITY, 
       SIZE, PRICE, DISCOUNT, 
       PURCHASED, STATE, DESCRIPTION
       )
     values (#{id,jdbcType=INTEGER}, #{productCode,jdbcType=VARCHAR}, #{prodcutName,jdbcType=VARCHAR}, 
       #{operatorCode,jdbcType=VARCHAR}, #{providerCode,jdbcType=VARCHAR}, #{proProductCode,jdbcType=VARCHAR}, 
-      #{provinceCode,jdbcType=VARCHAR}, #{enableType,jdbcType=INTEGER}, #{priority,jdbcType=INTEGER}, 
+      #{provinceCode,jdbcType=VARCHAR}, #{enableArea,jdbcType=INTEGER}, #{enableType,jdbcType=INTEGER}, #{priority,jdbcType=INTEGER}, 
       #{size,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, #{discount,jdbcType=INTEGER}, 
       #{purchased,jdbcType=DOUBLE}, #{state,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}
       )
@@ -106,6 +107,9 @@
       </if>
       <if test="provinceCode != null">
         PROVINCE_CODE,
+      </if>
+      <if test="enableArea != null">
+        ENABLE_AREA,
       </if>
       <if test="enableType != null">
         ENABLE_TYPE,
@@ -154,6 +158,9 @@
       <if test="provinceCode != null">
         #{provinceCode,jdbcType=VARCHAR},
       </if>
+      <if test="enableArea != null">
+        #{enableArea,jdbcType=INTEGER},
+      </if>
       <if test="enableType != null">
         #{enableType,jdbcType=INTEGER},
       </if>
@@ -201,6 +208,9 @@
       <if test="provinceCode != null">
         PROVINCE_CODE = #{provinceCode,jdbcType=VARCHAR},
       </if>
+      <if test="enableArea != null">
+        ENABLE_AREA = #{enableArea,jdbcType=INTEGER},
+      </if>
       <if test="enableType != null">
         ENABLE_TYPE = #{enableType,jdbcType=INTEGER},
       </if>
@@ -236,6 +246,7 @@
       PROVIDER_CODE = #{providerCode,jdbcType=VARCHAR},
       PRO_PRODUCT_CODE = #{proProductCode,jdbcType=VARCHAR},
       PROVINCE_CODE = #{provinceCode,jdbcType=VARCHAR},
+      ENABLE_AREA = #{enableArea,jdbcType=INTEGER},
       ENABLE_TYPE = #{enableType,jdbcType=INTEGER},
       PRIORITY = #{priority,jdbcType=INTEGER},
       SIZE = #{size,jdbcType=INTEGER},
