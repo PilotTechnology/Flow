@@ -10,11 +10,11 @@ public interface RefundFlowService {
 
 	RefundFlow getRefundFlowByCode(Integer refundFlowCode);
 	
-	void save(RefundFlow distributor);
+	void save(RefundFlow refundFlow);
 
-	void delete(RefundFlow distributor);
+	void delete(RefundFlow refundFlow);
 
-	void update(RefundFlow distributor);
+	void update(RefundFlow refundFlow);
 	
-	boolean checkExists(RefundFlow distributor);
+	boolean checkExists(RefundFlow refundFlow);
 }
