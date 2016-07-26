@@ -38,10 +38,10 @@
 		<li><a href="${ctx}/portal/product!selectPage.action"> <i class="icon-angle-right">
 			</i> 流量包管理
 		</a></li>
-		<li><a href="ui_general.html"> <i class="icon-angle-right">
+		<li><a href="${ctx}/portal/costflow!selectPage.action"> <i class="icon-angle-right">
 			</i> 资金流水
 		</a></li>	
-		<li><a href="${ctx}/portal/refundFlow!selectPage.action"> <i class="icon-angle-right">
+		<li><a href="${ctx}/portal/refundflow!selectPage.action"> <i class="icon-angle-right">
 			</i> 退款单管理
 		</a></li>
 	  </ul>

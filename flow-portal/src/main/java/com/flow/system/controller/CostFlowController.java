@@ -11,34 +11,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.flow.portal.controller.BaseController;
 import com.flow.pub.util.PageUtil;
-import com.flow.system.model.RefundFlow;
-import com.flow.system.service.RefundFlowService;
+import com.flow.system.model.CostFlow;
+import com.flow.system.service.CostFlowService;
 
 /**
  * 
- * @Description:退款单管理
+ * @Description:资金流水列表
  * 
  */
 @Controller
 @RequestMapping("/portal")
-public class RefundFlowController extends BaseController {
+public class CostFlowController extends BaseController {
 	@Autowired
-	private RefundFlowService refundFlowService;
+	private CostFlowService costFlowService;
 	
 	/**
-	 * 退款单分页列表
+	 * 资金流水分页列表
 	 * @param request
 	 * @param pager
 	 * @return
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "refundflow!selectPage.action")
+	@RequestMapping(value = "costflow!selectPage.action")
 	public String selectPage(HttpServletRequest request, Model model) throws Exception {
 		//转换request参数为map
 		Map<String,Object> map = getParameterMap(request);
-		PageUtil<RefundFlow> page = refundFlowService.listPage(map);
+		PageUtil<CostFlow> page = costFlowService.listPage(map);
 		model.addAttribute("page",page);
-		return "/view/refundflow/refundFlowList.jsp";
+		return "/view/costflow/costFlowList.jsp";
 	}
 }

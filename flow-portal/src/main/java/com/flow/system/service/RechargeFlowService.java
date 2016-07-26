@@ -8,5 +8,5 @@ import com.flow.system.model.RechargeFlow;
 public interface RechargeFlowService {
 	PageUtil<RechargeFlow> listPage(Map<String, Object> map);
 	
-	void save(RechargeFlow distributor);
+	void save(RechargeFlow rechargeFlow);
 }
