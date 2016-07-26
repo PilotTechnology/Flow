@@ -201,7 +201,6 @@ DROP TABLE IF EXISTS `t_flow_service`;
 CREATE TABLE `t_flow_service` (
   `ID` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `SERVICE_CODE` varchar(32) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '报价单编码(业务主键)',
-  `SERVICE_NAME` varchar(64) DEFAULT NULL COMMENT '名称',
   `DISTRIBUTOR_CODE` varchar(32) DEFAULT NULL COMMENT '下游编码',
   `FATHER_CODE` varchar(32) DEFAULT '' COMMENT '父ID，默认空',
   `STATE` int(4) DEFAULT NULL COMMENT '状态(0 : 禁用 1：激活）',

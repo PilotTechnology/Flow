@@ -53,7 +53,7 @@ public class ProviderController extends BaseController {
 	 * @param Provider
 	 * @return
 	 */
-	@RequestMapping(value = "provider!addRole.action")
+	@RequestMapping(value = "provider!addProvider.action")
 	@ResponseBody
 	public Object addProvider(HttpServletRequest request, Provider provider){
 		try {
