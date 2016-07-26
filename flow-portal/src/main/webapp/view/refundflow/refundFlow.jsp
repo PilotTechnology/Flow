@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <title>流量平台</title>
-    <c:set value="${ctx}/portal/refundFlow!selectPage.action" scope="page" var="url"/>
+    <c:set value="${ctx}/portal/refundflow!selectPage.action" scope="page" var="url"/>
     <link rel="stylesheet" href="${ctx}/js/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
   </head>
   

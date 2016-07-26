@@ -67,7 +67,7 @@
 			<li><a href="ui_general.html"> <i class="icon-angle-right">
 			</i> 报价单列表
 		</a></li>
-			<li><a href="ui_general.html"> <i class="icon-angle-right">
+			<li><a href="${ctx}/portal/rechargeflow!selectPage.action"> <i class="icon-angle-right">
 			</i> 账户充值
 		</a></li>
 			<li><a href="ui_general.html"> <i class="icon-angle-right">

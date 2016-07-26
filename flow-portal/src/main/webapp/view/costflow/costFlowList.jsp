@@ -68,7 +68,7 @@
                       <c:forEach var="costflow" items="${page.rows}" varStatus="vs">
                       	<tr>
                         <td class="checkbox-column"><input type="checkbox" class="uniform"></td>
-                        <td>${costflow.firstResult + vs.count}</td>
+                        <td>${page.firstResult + vs.count}</td>
                         <td>${costflow.orderCode}</td>
                         <td>${costflow.distributorCode}</td>
                         <td>${costflow.cost}</td>

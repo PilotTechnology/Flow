@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <title>流量平台</title>
-    <c:set value="${ctx}/portal/distributor!selectPage.action" scope="page" var="url"/>
+    <c:set value="${ctx}/portal/rechargeflow!selectPage.action" scope="page" var="url"/>
     <link rel="stylesheet" href="${ctx}/js/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
   </head>
   
@@ -29,7 +29,7 @@
           <div class="crumbs">
             <ul id="breadcrumbs" class="breadcrumb">
               <li><i class="icon-home"></i><a href="index.html">首页</a></li>
-              <li class="current"><a href="pages_calendar.html" title="">分销商管理</a></li>
+              <li class="current"><a href="pages_calendar.html" title="">账户充值</a></li>
             </ul>
           </div>
           
@@ -38,7 +38,7 @@
           	  <div class="widget box">
           	  	<!--  表格导航栏 -->
           	  	<div class="widget-header">
-                  <h4><i class="icon-reorder"></i>分销商管理</h4>
+                  <h4><i class="icon-reorder"></i>账户充值</h4>
                   <div class="toolbar no-padding">
                     <div class="btn-group">
                       <span class="btn btn-xs widget-collapse">
@@ -52,7 +52,7 @@
              	  
              	  <div class="row">
              	  	<div class="col-md-12">
-             	  		<button class="btn btn-sm btn-warning" id="addButton">+ 新增</button>
+             	  		<button class="btn btn-sm btn-warning" id="addButton">充值</button>
              	  	</div>
              	  </div>
              	  
@@ -63,39 +63,27 @@
                           <input type="checkbox" class="uniform">
                         </th>
                         <th data-class="expand">序号</th>
-                        <th>账户</th>
-                        <th>公司</th>
-                        <th>联系人</th>
-                        <th>手机号</th>
-                        <th>邮箱</th>
-                        <th>余额(元)</th>
-                        <th>冻结(元)</th>
-                        <th>已用(元)</th>
-                        <th>状态</th>
-                        <th>创建时间</th>
-                        <th data-hide="phone,tablet">操作</th>
+                        <th>分销商名称</th>
+						<th>充值前余额(元)</th>
+						<th>充值金额(元)</th>
+						<th>充值后余额(元)</th>
+						<th>类型</th>
+						<th>操作人</th>
+						<th>创建时间</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <c:forEach var="distributor" items="${page.rows}" varStatus="vs">
+                      <c:forEach var="rechargeFlow" items="${page.rows}" varStatus="vs">
                       	<tr>
                         <td class="checkbox-column"><input type="checkbox" class="uniform"></td>
                         <td>${page.firstResult + vs.count}</td>
-                        <td>${distributor.distrbutorCode}</td>
-                        <td>${distributor.company}</td>
-                        <td>${distributor.user.linkman}</td>
-                        <td>${distributor.user.phone}</td>
-                        <td>${distributor.user.email}</td>
-                        <td>${distributor.balance}</td>
-                        <td>${distributor.freezing}</td>
-                        <td>${distributor.total}</td>
-                        <td>${distributor.state}</td>
-                        <td>${distributor.user.createDate}</td>
-                        <td>
-                        	<button class="btn btn-sm btn-info" onclick="toEdit('${role.roleCode}');"><i class="icon-edit"  ></i>编辑</button>
-                        	<button class="btn btn-sm btn-success" onclick="bindMenu('${role.roleCode}');"><i class="icon-cog"></i>授权</button>
-                        	<button class="btn btn-sm btn-danger" onclick="removeRole('${role.roleCode}','${role.id}');"><i class="icon-remove"></i>删除</button>
-                        </td>
+                        <td>${rechargeFlow.distributorName}</td>
+                        <td>${rechargeFlow.balanceBeforeRecharge}</td>
+                        <td>${rechargeFlow.recharge}</td>
+                        <td>${rechargeFlow.balanceAfterRecharge}</td>
+                        <td>${rechargeFlow.type}</td>
+                        <td>${rechargeFlow.userName}</td>
+                        <td>${rechargeFlow.createDate}</td>
                       	</tr>
                       </c:forEach>
                     </tbody>
