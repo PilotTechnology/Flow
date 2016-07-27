@@ -2,7 +2,7 @@
 <configuration>
 
 	<!--日志根路径 -->
-	<property name="LOG_HOME" value="${catalina.home}/logs" />
+	<property name="LOG_HOME" value="${catalina.home}/flowlogs" />
 	<!--日志内容编码 -->
 	<property name="LOG_CHARSET" value="UTF-8" />
 	<!--日志级别 -->

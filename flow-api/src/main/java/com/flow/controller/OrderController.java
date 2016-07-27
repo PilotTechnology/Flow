@@ -6,6 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.flow.common.constants.CodeConstants;
@@ -39,6 +40,7 @@ public class OrderController {
 	 * @return
 	 */
 	@RequestMapping(value = "/order", method = RequestMethod.GET)
+	@ResponseBody
 	public BaseResponse get(OrderRequest req){
 		try {
 			BaseResponse resp = checkParam(req);
@@ -82,12 +84,14 @@ public class OrderController {
 			order.setPhone(req.getPhone());
 			order.setDistributorCode(dist.getDistrbutorCode());
 			order.setCreateDate(new Date());
+			order.setDistributorOrderCode(req.getOrder_id());
 			order.setSize(req.getProduct_id());//流量包大小为流量大小以M为单位，1G为1024
 			order.setState(CodeConstants.ORDER_STATE_INIT); 
 			orderMapper.insert(order);
 			
 			return BaseResponse.SUCCESS;
 		} catch (Exception e) {
+			e.printStackTrace();
 			PubLog.error("系统异常 ：>>" , e);
 			return BaseResponse.SYS_ERR;
 		}

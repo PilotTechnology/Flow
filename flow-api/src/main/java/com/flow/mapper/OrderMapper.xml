@@ -39,27 +39,19 @@
 		from t_flow_order
 		where ID = #{id,jdbcType=INTEGER}
 	</select>
-
+	
+	<select id="getOrderByAppKey" resultType="int">
+		SELECT COUNT(1) FROM t_flow_order a
+		INNER JOIN t_flow_distributor b ON a.DISTRIBUTOR_CODE = b.DISTRBUTOR_CODE
+		WHERE b.APP_KEY = #{app_key} AND a.DISTRIBUTOR_ORDER_CODE = #{order_id}
+	</select>
+	
 	<insert id="insert" parameterType="com.flow.model.Order">
-		insert into t_flow_order (ID, ORDER_CODE, PROVIDER_ORDER_CODE,
-		DISTRIBUTOR_ORDER_CODE, OPERATOR_CODE, PROVIDER_CODE,
-		DISTRIBUTOR_CODE, PHONE, SIZE,
-		Price, Discount, PURCHASED,
-		REAL_PURCHASED, REAL_DISCOUNT, SERV_PROD_ID,
-		STATE, CREATE_DATE, CALLBACK_DATE,
-		CALLBACK_CODE, CALLBACK_CODE_MESS)
-		values (#{id,jdbcType=INTEGER}, #{orderCode,jdbcType=VARCHAR},
-		#{providerOrderCode,jdbcType=VARCHAR},
-		#{distributorOrderCode,jdbcType=VARCHAR},
-		#{operatorCode,jdbcType=VARCHAR}, #{providerCode,jdbcType=VARCHAR},
-		#{distributorCode,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
-		#{size,jdbcType=INTEGER},
-		#{price,jdbcType=DECIMAL}, #{discount,jdbcType=INTEGER}, #{purchased,jdbcType=DECIMAL},
-		#{realPurchased,jdbcType=DECIMAL}, #{realDiscount,jdbcType=INTEGER},
-		#{servProdId,jdbcType=INTEGER},
-		#{state,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{callbackDate,jdbcType=TIMESTAMP},
-		#{callbackCode,jdbcType=VARCHAR},
-		#{callbackCodeMess,jdbcType=VARCHAR})
+		insert into t_flow_order (ORDER_CODE , DISTRIBUTOR_ORDER_CODE,DISTRIBUTOR_CODE, 
+								PHONE, SIZE,STATE, CREATE_DATE)
+		values(#{orderCode,jdbcType=VARCHAR},#{distributorOrderCode,jdbcType=VARCHAR},
+			   #{distributorCode,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
+			   #{size,jdbcType=INTEGER},#{state,jdbcType=INTEGER},#{createDate,jdbcType=TIMESTAMP})
 	</insert>
 	
 	<update id="updateByPrimaryKeySelective" parameterType="com.flow.model.Order">

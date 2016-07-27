@@ -1,5 +1,7 @@
 package com.flow.mapper;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.flow.model.Order;
 
 /**
@@ -21,7 +23,7 @@ public interface OrderMapper {
 	 * @param order_id
 	 * @return
 	 */
-	public int getOrderByAppKey(String appkey, String order_id);
+	public int getOrderByAppKey(@Param("app_key") String appkey, @Param("order_id") String order_id);
 	
 	/**
 	 * 订单初始信息入库
