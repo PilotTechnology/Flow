@@ -214,7 +214,7 @@ CREATE TABLE `t_flow_service` (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_flow_serv_prod`;
 CREATE TABLE `t_flow_serv_prod` (
-  `SERV_PROD_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `SERVICE_CODE` varchar(32) DEFAULT NULL COMMENT '报价单编码',
   `PRODUCT_CODE` varchar(32) DEFAULT NULL COMMENT '流量包编码',
   `DISCOUNT` double DEFAULT NULL COMMENT '折扣',

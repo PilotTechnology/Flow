@@ -38,15 +38,17 @@
   	where FATHER_CODE = #{fatherCode,jdbcType=VARCHAR}
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from t_flow_service
+    select a.*, c.NICK_NAME
+	from t_flow_service a
+	INNER JOIN t_flow_distributor b ON a.DISTRIBUTOR_CODE = b.DISTRBUTOR_CODE
+	INNER JOIN t_sys_user c ON c.USER_CODE = b.USER_CODE
     where ID = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectByQuotationCode" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from t_flow_service
+    select a.*, c.NICK_NAME
+	from t_flow_service a
+	INNER JOIN t_flow_distributor b ON a.DISTRIBUTOR_CODE = b.DISTRBUTOR_CODE
+	INNER JOIN t_sys_user c ON c.USER_CODE = b.USER_CODE
     where SERVICE_CODE = #{quotationCode,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
