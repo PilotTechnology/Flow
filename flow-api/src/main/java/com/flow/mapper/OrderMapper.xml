@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flow.mapper.OrderMapper">
+	
+	<resultMap id="BaseResultMap" type="com.flow.model.Order">
+		<id column="ID" jdbcType="INTEGER" property="id" />
+		<result column="ORDER_CODE" 			jdbcType="VARCHAR" 	property="orderCode" />
+		<result column="PROVIDER_ORDER_CODE" 	jdbcType="VARCHAR" 	property="providerOrderCode" />
+		<result column="DISTRIBUTOR_ORDER_CODE" jdbcType="VARCHAR" 	property="distributorOrderCode" />
+		<result column="OPERATOR_CODE" 			jdbcType="VARCHAR" 	property="operatorCode" />
+		<result column="PROVIDER_CODE" 			jdbcType="VARCHAR" 	property="providerCode" />
+		<result column="DISTRIBUTOR_CODE" 		jdbcType="VARCHAR" 	property="distributorCode" />
+		<result column="PHONE" 					jdbcType="VARCHAR" 	property="phone" />
+		<result column="SIZE" 					jdbcType="INTEGER" 	property="size" />
+		<result column="Price" 					jdbcType="DECIMAL" 	property="price" />
+		<result column="Discount" 				jdbcType="INTEGER" 	property="discount" />
+		<result column="PURCHASED" 				jdbcType="DECIMAL" 	property="purchased" />
+		<result column="REAL_PURCHASED" 		jdbcType="DECIMAL" 	property="realPurchased" />
+		<result column="REAL_DISCOUNT" 			jdbcType="INTEGER" 	property="realDiscount" />
+		<result column="SERV_PROD_ID" 			jdbcType="INTEGER" 	property="servProdId" />
+		<result column="STATE" 					jdbcType="INTEGER" 	property="state" />
+		<result column="CREATE_DATE" 			jdbcType="TIMESTAMP" property="createDate" />
+		<result column="CALLBACK_DATE" 			jdbcType="TIMESTAMP" property="callbackDate" />
+		<result column="CALLBACK_CODE" 			jdbcType="VARCHAR" 	property="callbackCode" />
+		<result column="CALLBACK_CODE_MESS" 	jdbcType="VARCHAR"	property="callbackCodeMess" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID, ORDER_CODE, PROVIDER_ORDER_CODE, DISTRIBUTOR_ORDER_CODE,
+		OPERATOR_CODE, PROVIDER_CODE,
+		DISTRIBUTOR_CODE, PHONE, SIZE, Price, Discount, PURCHASED, REAL_PURCHASED,
+		REAL_DISCOUNT,
+		SERV_PROD_ID, STATE, CREATE_DATE, CALLBACK_DATE, CALLBACK_CODE, CALLBACK_CODE_MESS
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_flow_order
+		where ID = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<select id="getOrderByAppKey" resultType="int">
+		SELECT COUNT(1) FROM t_flow_order a
+		INNER JOIN t_flow_distributor b ON a.DISTRIBUTOR_CODE = b.DISTRBUTOR_CODE
+		WHERE b.APP_KEY = #{app_key} AND a.DISTRIBUTOR_ORDER_CODE = #{order_id}
+	</select>
+	
+	<insert id="insert" parameterType="com.flow.model.Order">
+		insert into t_flow_order (ORDER_CODE , DISTRIBUTOR_ORDER_CODE,DISTRIBUTOR_CODE, 
+								PHONE, SIZE,STATE, CREATE_DATE)
+		values(#{orderCode,jdbcType=VARCHAR},#{distributorOrderCode,jdbcType=VARCHAR},
+			   #{distributorCode,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
+			   #{size,jdbcType=INTEGER},#{state,jdbcType=INTEGER},#{createDate,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.flow.model.Order">
+		update t_flow_order
+		<set>
+			<if test="orderCode != null">
+				ORDER_CODE = #{orderCode,jdbcType=VARCHAR},
+			</if>
+			<if test="providerOrderCode != null">
+				PROVIDER_ORDER_CODE = #{providerOrderCode,jdbcType=VARCHAR},
+			</if>
+			<if test="distributorOrderCode != null">
+				DISTRIBUTOR_ORDER_CODE = #{distributorOrderCode,jdbcType=VARCHAR},
+			</if>
+			<if test="operatorCode != null">
+				OPERATOR_CODE = #{operatorCode,jdbcType=VARCHAR},
+			</if>
+			<if test="providerCode != null">
+				PROVIDER_CODE = #{providerCode,jdbcType=VARCHAR},
+			</if>
+			<if test="distributorCode != null">
+				DISTRIBUTOR_CODE = #{distributorCode,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				PHONE = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="size != null">
+				SIZE = #{size,jdbcType=INTEGER},
+			</if>
+			<if test="price != null">
+				Price = #{price,jdbcType=DECIMAL},
+			</if>
+			<if test="discount != null">
+				Discount = #{discount,jdbcType=INTEGER},
+			</if>
+			<if test="purchased != null">
+				PURCHASED = #{purchased,jdbcType=DECIMAL},
+			</if>
+			<if test="realPurchased != null">
+				REAL_PURCHASED = #{realPurchased,jdbcType=DECIMAL},
+			</if>
+			<if test="realDiscount != null">
+				REAL_DISCOUNT = #{realDiscount,jdbcType=INTEGER},
+			</if>
+			<if test="servProdId != null">
+				SERV_PROD_ID = #{servProdId,jdbcType=INTEGER},
+			</if>
+			<if test="state != null">
+				STATE = #{state,jdbcType=INTEGER},
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="callbackDate != null">
+				CALLBACK_DATE = #{callbackDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="callbackCode != null">
+				CALLBACK_CODE = #{callbackCode,jdbcType=VARCHAR},
+			</if>
+			<if test="callbackCodeMess != null">
+				CALLBACK_CODE_MESS = #{callbackCodeMess,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

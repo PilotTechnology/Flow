@@ -39,14 +39,14 @@ public class MD5Util
   {
     MessageDigest md5 = MessageDigest.getInstance("MD5");
     String postString = compute(strPasswd,md5);
-    return postString;
+    return postString.toUpperCase();
   }
   
   public static void main(String[] args)
   {
     try
     {
-      String ss = MD5Util.EncodeString( "123" );
+      String ss = MD5Util.EncodeString( "123456" );
       System.out.println( "ss:"+ss );
     }
     catch ( NoSuchAlgorithmException e )
