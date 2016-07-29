@@ -7,7 +7,7 @@ public class PageUtil<T> {
 	private Integer page = 1; 	   // 当前页码
 	private Integer prePage ;
 	private Integer nextPage;
-	private Integer pageSize = 3; // 每页记录数
+	private Integer pageSize = 10; // 每页记录数
 	private Long records = 0L;     // 总记录数
 	private Integer totalPage = 0; // 总页数
 	private Integer firstResult;   // first pagenum 显示的第一条记录是多少[开始条数]

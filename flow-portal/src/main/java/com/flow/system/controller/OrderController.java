@@ -22,7 +22,7 @@ public class OrderController extends BaseController{
 	private OrderService orderService;
 	
 	/**
-	 * 查询角色分页列表
+	 * 查询订单分页列表
 	 * @param request
 	 * @param pager
 	 * @return
@@ -30,14 +30,16 @@ public class OrderController extends BaseController{
 	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "order!selectPage.action")
-	public String selectPage(HttpServletRequest request, Model model) throws Exception {
+	public String selectPage(HttpServletRequest request,OrderBean queryBean , Model model) throws Exception {
 		//转换request参数为map
 		Map<String,Object> map = getParameterMap(request);
 		
 		PageUtil<OrderBean> page = orderService.listPage(map);
-
+		System.out.println(queryBean);
 		model.addAttribute("page",page);
-		System.out.println(page);
+		//查询条件页面回显
+		model.addAttribute("order", queryBean);
+		
 		return "/view/order/orderList.jsp";
 	}
 	

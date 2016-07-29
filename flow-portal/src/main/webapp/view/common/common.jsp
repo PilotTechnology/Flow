@@ -69,6 +69,11 @@
     </script>
     <script type="text/javascript" src="../../plugins/daterangepicker/moment.min.js">
     </script>
+    <script type="text/javascript" src="../../plugins/daterangepicker/moment.min.js"></script>
+    <script type="text/javascript" src="../../plugins/daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript" src="../../plugins/pickadate/picker.js"></script>
+    <script type="text/javascript" src="../../plugins/pickadate/picker.date.js"></script>
+    <script type="text/javascript" src="../../plugins/pickadate/picker.time.js"></script>
     <script type="text/javascript" src="../../plugins/daterangepicker/daterangepicker.js">
     </script>
     <script type="text/javascript" src="../../plugins/blockui/jquery.blockUI.min.js">

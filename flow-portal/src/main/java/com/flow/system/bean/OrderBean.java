@@ -25,10 +25,30 @@ public class OrderBean {
 	private Double price;				//订单实际购买价格
 	private Integer discount;			//实际折扣
 	private Integer state;				//订单状态 0 ：处理中 1：充值成功 2：充值失败
+	private String stateMsg;
 	private Date	createDate;			//创建时间
 	private Date 	callBackDate;		//回调时间
 	private String  callBackCode;		//回调响应码
 	private String  callBackCodeMess;	//回调响应描述
+	
+	public String getStateMsg() {
+		stateMsg = "失败"; 
+		switch (state) {
+		case 1:
+			stateMsg = "处理中";
+			break;
+		case 2:
+			stateMsg = "成功";
+			break;
+		default:
+			stateMsg = "失败";
+			break;
+		}
+		return stateMsg;
+	}
+	public void setStateMsg(String stateMsg) {
+		this.stateMsg = stateMsg;
+	}
 	public Integer getId() {
 		return id;
 	}

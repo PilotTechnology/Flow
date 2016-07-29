@@ -23,6 +23,14 @@
      <result column="CALLBACK_CODE_MESS" jdbcType="VARCHAR" property="callBackCodeMess" />
   </resultMap>
   
+  <sql id="query_body">
+  	<where>
+  		<if test="phone !=null and phone != ''"> AND a.PHONE = #{phone}</if>
+  		<if test="orderCode !=null and orderCode != ''"> AND a.ORDER_CODE = #{orderCode}</if>
+  		<if test="distributorOrderCode !=null and distributorOrderCode != ''"> AND a.DISTRIBUTOR_ORDER_CODE = #{distributorOrderCode}</if>
+  	</where>
+  </sql>
+  
   <select id="listPage" resultMap="BaseResultMap" parameterType="java.util.Map">
   	SELECT a.ID , a.DISTRIBUTOR_CODE , a.PROVIDER_CODE , b.NAME AS PROVIDER_NAME , a.ORDER_CODE ,
 		a.PROVIDER_ORDER_CODE , a.DISTRIBUTOR_ORDER_CODE , a.OPERATOR_CODE , c.OPERATOR_NAME ,
@@ -31,11 +39,12 @@
 	FROM t_flow_order a
 	INNER JOIN t_flow_provider b ON a.PROVIDER_CODE = b.PROVIDER_CODE
 	INNER JOIN t_base_operator c ON a.OPERATOR_CODE = c.OPERATOR_CODE
+	<include refid="query_body"/>
   	limit #{start} , #{pageSize}
   </select>
   
   <select id="getCount" resultType="java.lang.Long">
-  	SELECT COUNT(1) FROM t_flow_order 
+  	SELECT COUNT(1) FROM t_flow_order <include refid="query_body"/>
   </select>
   
 </mapper>

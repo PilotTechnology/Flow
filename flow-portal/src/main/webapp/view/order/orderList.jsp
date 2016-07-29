@@ -1,5 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set value="${request.pagecontext.contextpath}" var="ctx"/>
 <!DOCTYPE html>
 <html lang="en">  
@@ -7,8 +8,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <title>流量平台</title>
+    <%@include file="../common/common.jsp" %>
     <c:set value="${ctx}/portal/order!selectPage.action" scope="page" var="url"/>
-    <link rel="stylesheet" href="${ctx}/js/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
   </head>
   
   <body>
@@ -35,10 +36,73 @@
           
           <div class="row">
           	<div class="col-md-12">
+          		<div class="widget box">
+          			<div class="widget-header"><h4><i class="icon-search"></i>条件搜索</h4></div>
+          			<div class="widget-content">
+                  		<form id="searchForm" action="" method="post" class="form-horizontal row-border">
+                  		<div class="form-group">
+                  			<label class="col-md-1 control-label">订单状态:</label>
+                  			<div class="col-md-2">
+                  				<select name="select" id="state" class="form-control">
+                              		<option value="-1">全部</option>
+                              		<option value="0">处理中</option>
+                              		<option value="1">充值成功</option>
+                              		<option value="2">充值失败</option>
+	                            </select>
+                  			</div>
+                  			<label class="col-md-1 control-label">供应商:</label>
+                  			<div class="col-md-2">
+                  				<select name="providerCode" id="providerCode" class="form-control">
+                              		<option value="-1">全部</option>
+	                            </select>
+                  			</div>
+                  			<label class="col-md-1 control-label">运营商:</label>
+                  			<div class="col-md-2">
+                  				<select name="operatorCode" id="operatorCode" class="form-control">
+                              		<option value="-1">全部</option>
+	                            </select>
+                  			</div>
+                  			<label class="col-md-1 control-label">省份:</label>
+                  			<div class="col-md-2">
+                  				<select name="provinceCode" id="provinceCode" class="form-control">
+                              		<option value="-1">全部</option>
+	                            </select>
+                  			</div>
+                  		</div>
+	                    <div class="form-group">
+                  			<label class="col-md-1 control-label">用户号:</label>
+                  			<div class="col-md-2"><input class="form-control" type="text" name="regular"></div>
+                  			<label class="col-md-1 control-label">手机号:</label>
+                  			<div class="col-md-2"><input class="form-control" type="text" name="phone" value="${order.phone}"></div>
+                  			<label class="col-md-1 control-label">平台订单:</label>
+                  			<div class="col-md-2"><input class="form-control" type="text" name="orderCode" value="${order.orderCode}"></div>
+                  			<label class="col-md-1 control-label">下游订单:</label>
+                  			<div class="col-md-2"><input class="form-control" type="text" name="distributorOrderCode" value="${order.distributorOrderCode}"></div>
+                  		</div>
+                  		<div class="form-group">
+                  			<label class="col-md-1 control-label">创建时间:</label>
+                  			<div class="col-md-5">
+                  				<div class="row">
+                  					<div class="col-md-5"><input type="text" name="regular" class="form-control datepicker"></div>
+                  					<label class="col-md-2 control-label">至</label>
+                  					<div class="col-md-5"><input type="text" name="regular" class="form-control datepicker"></div>
+                  				</div>
+                  			</div>
+                  			<div class="col-md-2">
+                  				<button class="btn btn-sm btn-warning" id="search">搜索</button>
+                  			</div>
+                  		</div>
+                  </form>
+                </div>
+          		</div>
+          	</div>
+          </div>
+          <div class="row">
+          	<div class="col-md-12">
           	  <div class="widget box">
           	  	<!--  表格导航栏 -->
           	  	<div class="widget-header">
-                  <h4><i class="icon-reorder"></i>分销平台订单</h4>
+                  <h4><i class="icon-reorder"></i>平台订单列表</h4>
                   <div class="toolbar no-padding">
                     <div class="btn-group">
                       <span class="btn btn-xs widget-collapse">
@@ -47,19 +111,33 @@
                     </div>
                   </div>
              	</div>
+             	
              	<!-- 表格内容  start-->
              	<div class="widget-content">
              	  
-                  <table class="table table-striped table-bordered table-hover table-checkable table-responsive datatable">
-                    <thead>
+                  <table class="display nowrap table-hover table-striped table-bordered dataTable" width="100%">
+                    <thead >
                       <tr>
                         <th class="checkbox-column">
                           <input type="checkbox" class="uniform">
                         </th>
-                        <th data-class="expand">序号</th>
+                        <th>序号</th>
                         <th>用户</th>
-                        <th data-hide="phone">供应商</th>
-                        <th data-hide="phone,tablet">操作</th>
+                        <th>供应商</th>
+                        <th>平台订单号</th>
+                        <th>下游订单号</th>
+                        <th>运营商</th>
+                        <th>省份</th>
+                        <th>手机号码</th>
+                       <!--  <th data-hide="phone">大小</th>
+                        <th data-hide="phone">价格</th> -->
+                        <th>折扣</th>
+                        <th>订单状态</th>
+                        <th>创建时间</th>
+                       <!--  <th data-hide="phone">回调时间</th>
+                        <th data-hide="phone">上游订单号</th>
+                        <th data-hide="phone">回调情况</th> -->
+                        <th>操作</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -69,6 +147,19 @@
                         <td>${page.firstResult + vs.count}</td>
                         <td>${order.distributorCode}</td>
                         <td>${order.providerName}</td>
+                        <td>${order.orderCode}</td>
+                        <td>${order.distributorOrderCode}</td>
+                        <td>${order.operatorName}</td>
+                        <td>${order.provinceName}</td>
+                        <td>${order.phone}</td>
+                        <td>${order.size}</td>
+                        <%-- <td>${order.price}</td>
+                        <td>${order.discount}</td> --%>
+                        <td>${order.stateMsg}</td>
+                        <td><fmt:formatDate value="${order.createDate}"/></td>
+                   <%-- <td>${order.callBackDate}</td>
+                        <td>${order.providerOrderCode}</td>
+                        <td>${order.callBackCodeMess}</td> --%>
                         <td>
                         	<button class="btn btn-sm btn-info" onclick="toEdit('${role.roleCode}');"><i class="icon-edit"  ></i>编辑</button>
                         	<button class="btn btn-sm btn-success" onclick="bindMenu('${role.roleCode}');"><i class="icon-cog"></i>授权</button>
@@ -89,101 +180,5 @@
       	
       </div>
     </div>
-	
-	<!-- add 弹框 -->
-	<div class="modal fade" id="myModal_add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <h4 class="modal-title" id="myModalLabel_add">新增</h4>
-        </div>
-        <div class="modal-body">
- 
-          <div class="form-group">
-            <label for="roleCode_add">角色编码</label>
-            <input type="text" name="roleCode_add" class="form-control required" id="roleCode_add" placeholder="角色编码" minlength="5">
-          </div>
-          <div class="form-group">
-            <label for="roleName_add">角色名称</label>
-            <input type="text" name="roleName_add" class="form-control required" id="roleName_add" placeholder="角色名称" minlength="5">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="icon-undo"></i> 关闭</button>
-          <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><i class="icon-save"></i> 保存</button>
-        </div>
-      </div>
-    </div>
-    </div>
-    <!-- edit 弹框 -->
-    <div class="modal fade" id="myModal_edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <h4 class="modal-title" id="myModalLabel_add">编辑</h4>
-        </div>
-        <div class="modal-body">
- 
-          <div class="form-group">
-            <label for="roleCode_edit" class="control-label">角色编码</label>
-            <input type="text" name="roleCode_edit" class="form-control required" id="roleCode_edit" placeholder="角色编码">
-          </div>
-          <div class="form-group">
-            <label for="roleName_edit" class="control-label">角色名称</label>
-            <input type="text" name="roleName_edit" class="form-control required" id="roleName_edit" placeholder="角色名称">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="icon-undo"></i> 关闭</button>
-          <input type="hidden" id="id_edit" name="id_edit" />
-          <button type="button" id="btn_update" class="btn btn-primary" data-dismiss="modal"><i class="icon-save"></i> 修改</button>
-        </div>
-      </div>
-    </div>
-    </div>
-    
-    <!-- 授权 弹框 -->
-    <div class="modal fade" id="myModal_grant" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <h4 class="modal-title">角色授权：</h4>
-        </div>
-        <div class="modal-body">
- 
-          <div class="form-group">
-            <label class="control-label col-md-2">角色编码:</label>
-            <label class="control-label col-md-4" id="roleCode_grant"></label>
-            <label class="control-label col-md-2">角色名称:</label>
-            <label class="control-label col-md-4" id="roleName_grant"></label>
-          </div>
-          <div class="form-group" style="height: 200px;">
-            <label  class="col-md-2 control-label">绑定权限</label>
-            <div class="col-md-10" ><div class="well">
-              <div class="portlet">
-                <div class="portlet-body">
-               	 	<div id="menuTree" class="ztree"></div>
-                </div>
-           	  </div>
-            </div></div>
-          </div>      
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="icon-undo"></i> 取消</button>
-          <input type="hidden" id="roleCode_hidden" name="roleCode_hidden" />
-          <button type="button" id="btn_grant" class="btn btn-primary" data-dismiss="modal"><i class="icon-save"></i> 保存</button>
-        </div>
-      </div>
-    </div>
-    </div>
-    <!-- 弹框结束 -->
-  
   </body>
-  <%@include file="../common/common.jsp" %>
-  <script type="text/javascript" src="${ctx}/view/role/role.js"></script>
-  <script type="text/javascript" src="${ctx}/js/ztree/js/jquery.ztree.core.min.js"></script>
-  <script type="text/javascript" src="${ctx}/js/ztree/js/jquery.ztree.excheck.min.js"></script>
 </html>

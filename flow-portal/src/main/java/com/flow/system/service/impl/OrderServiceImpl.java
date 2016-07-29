@@ -35,6 +35,7 @@ public class OrderServiceImpl extends AbsPageService<OrderBean> implements Order
 		
 		if(records > 0){
 			map.put("start", page.getFirstResult());
+			map.put("pageSize",page.getPageSize());
 			List<OrderBean> list = orderMapper.listPage(map);
 			
 			for(OrderBean ob : list){
