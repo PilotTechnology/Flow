@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -13,6 +14,8 @@ import com.flow.pub.util.PageUtil;
 import com.flow.system.model.RechargeFlow;
 import com.flow.system.service.RechargeFlowService;
 
+@Controller
+@RequestMapping("/portal")
 public class RechargeFlowController extends BaseController {
 	@Autowired
 	private RechargeFlowService rechargeFlowService;
