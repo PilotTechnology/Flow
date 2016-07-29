@@ -73,11 +73,11 @@
                   			<label class="col-md-1 control-label">用户号:</label>
                   			<div class="col-md-2"><input class="form-control" type="text" name="regular"></div>
                   			<label class="col-md-1 control-label">手机号:</label>
-                  			<div class="col-md-2"><input class="form-control" type="text" name="phone" value="${order.phone}"></div>
+                  			<div class="col-md-2"><input class="form-control" type="text" id="phone" name="phone" value="${order.phone}"></div>
                   			<label class="col-md-1 control-label">平台订单:</label>
-                  			<div class="col-md-2"><input class="form-control" type="text" name="orderCode" value="${order.orderCode}"></div>
+                  			<div class="col-md-2"><input class="form-control" type="text" id="orderCode" name="orderCode" value="${order.orderCode}"></div>
                   			<label class="col-md-1 control-label">下游订单:</label>
-                  			<div class="col-md-2"><input class="form-control" type="text" name="distributorOrderCode" value="${order.distributorOrderCode}"></div>
+                  			<div class="col-md-2"><input class="form-control" type="text" id="distributorOrderCode" name="distributorOrderCode" value="${order.distributorOrderCode}"></div>
                   		</div>
                   		<div class="form-group">
                   			<label class="col-md-1 control-label">创建时间:</label>
@@ -89,7 +89,7 @@
                   				</div>
                   			</div>
                   			<div class="col-md-2">
-                  				<button class="btn btn-sm btn-warning" id="search">搜索</button>
+                  				<button class="btn btn-sm btn-warning" type="submit" id="search">搜索</button>
                   			</div>
                   		</div>
                   </form>
