@@ -21,7 +21,7 @@
           <i class="icon-reorder">
           </i>
         </a>
-        <ul class="nav navbar-nav navbar-left hidden-xs hidden-sm">
+        <!-- <ul class="nav navbar-nav navbar-left hidden-xs hidden-sm">
           <li>
             <a href="#">
               控制台
@@ -59,9 +59,9 @@
               </li>
             </ul>
           </li>
-        </ul>
+        </ul> -->
         <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
+          <%-- <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="icon-warning-sign">
               </i>
@@ -326,7 +326,7 @@
                 项目
               </span>
             </a>
-          </li>
+          </li> --%>
           <li class="dropdown user">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="icon-male">
@@ -343,7 +343,7 @@
                   我的资料
                 </a>
               </li>
-              <li>
+              <!-- <li>
                 <a href="pages_calendar.html">
                   <i class="icon-calendar">
                   </i>
@@ -356,7 +356,7 @@
                   </i>
                   我的任务
                 </a>
-              </li>
+              </li> -->
               <li class="divider">
               </li>
               <li>
@@ -370,7 +370,7 @@
           </li>
         </ul>
       </div>
-      <div id="project-switcher" class="container project-switcher">
+      <!-- <div id="project-switcher" class="container project-switcher">
         <div id="scrollbar">
           <div class="handle">
           </div>
@@ -511,5 +511,5 @@
             </li>
           </ul>
         </div>
-      </div>
+      </div> -->
     </header>

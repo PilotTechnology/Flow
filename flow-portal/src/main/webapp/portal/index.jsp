@@ -14,7 +14,7 @@
     <div id="container">
       <div id="sidebar" class="sidebar-fixed">
         <div id="sidebar-content">
-          <form class="sidebar-search">
+          <!-- <form class="sidebar-search">
             <div class="input-box">
               <button type="submit" class="submit">
                 <i class="icon-search">
@@ -102,11 +102,11 @@
                 </a>
               </li>
             </ul>
-          </div>
+          </div> -->
           
           <%@include file="../view/common/nav.jsp"%>
           
-          <div class="sidebar-title">
+          <!-- <div class="sidebar-title">
             <span>
               提示
             </span>
@@ -170,7 +170,7 @@
                 </span>
               </div>
             </li>
-          </ul>
+          </ul> -->
           <div class="sidebar-widget align-center">
             <div class="btn-group" data-toggle="buttons" id="theme-switcher">
               <label class="btn active">
@@ -193,7 +193,7 @@
       </div>
       <div id="content">
         <div class="container">
-          <div class="crumbs">
+          <!-- <div class="crumbs">
             <ul id="breadcrumbs" class="breadcrumb">
               <li>
                 <i class="icon-home">
@@ -260,7 +260,7 @@
                 </a>
               </li>
             </ul>
-          </div>
+          </div> -->
           <div class="page-header">
             <div class="page-title">
               <h3>
@@ -394,11 +394,7 @@
                   <h4>
                     <i class="icon-reorder">
                     </i>
-                    总的点击率(
-                    <span class="blue">
-                      +29%
-                    </span>
-                    )
+                    订单走势图
                   </h4>
                   <div class="toolbar no-padding">
                     <div class="btn-group">
