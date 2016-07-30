@@ -22,10 +22,12 @@ public class CostFlowServiceImpl extends AbsPageService<CostFlow> implements Cos
 		// TODO Auto-generated method stub
 				//分页参数获取
 				PageUtil<CostFlow> page = findPage(map);
-				Long records = costFlowMapper.getCount();
+				Long records = costFlowMapper.getCount(map);
 				page.setRecords(records);
 				if(records > 0){
-					page.setRows(costFlowMapper.listPage(page.getFirstResult(),page.getPageSize()));
+					map.put("start", page.getFirstResult());
+					map.put("pageSize",page.getPageSize());
+					page.setRows(costFlowMapper.listPage(map));
 				}
 				return page;
 	}

@@ -10,16 +10,24 @@
     <result column="type" jdbcType="INTEGER" property="type" />
     <result column="Creat_date" jdbcType="TIMESTAMP" property="creatDate" />
   </resultMap>
+  <sql id="query_body">
+  	<where>
+  		<if test="type !=null and type != '-1'"> AND type = #{type}</if>
+  	</where>
+  </sql>
   <sql id="Base_Column_List">
     ID, ORDER_CODE, DISTRIBUTOR_CODE, COST, Current_balance, type, Creat_date
   </sql>
-  <select id="listPage" resultMap="BaseResultMap">
+  <select id="listPage" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select
 		<include refid="Base_Column_List" />
-		from t_flow_cost_flow  limit #{start} , #{pageSize}
+		from t_flow_cost_flow  
+		<include refid="query_body"/>
+		limit #{start} , #{pageSize}
 	</select>
-	<select id="getCount" resultType="java.lang.Long">
+	<select id="getCount" resultType="java.lang.Long" parameterType="java.util.Map">
 		SELECT COUNT(1) FROM t_flow_cost_flow
+		<include refid="query_body"/>
 	</select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 

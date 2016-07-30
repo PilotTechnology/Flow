@@ -33,6 +33,33 @@
             </ul>
           </div>
           
+          <br/>
+          
+          <div class="row">
+          	<div class="col-md-12">
+          		<div class="widget box">
+          			<div class="widget-header"><h4><i class="icon-search"></i>条件搜索</h4></div>
+          			<div class="widget-content">
+                  		<form id="searchForm" action="" method="post" class="form-horizontal row-border">
+                  		<div class="form-group">
+                  			<label class="col-md-1 control-label">类型:</label>
+                  			<div class="col-md-2">
+                  				<select name="type" id="type" class="form-control">
+                  					<option value="-1">全部</option>
+                              		<option value="0">扣款</option>
+                              		<option value="1">退款</option>
+	                            </select>
+                  			</div>
+                  			<div class="col-md-2">
+                  				<button class="btn btn-sm btn-warning" type="submit" id="search">搜索</button>
+                  			</div>
+                  		</div>
+                  </form>
+                </div>
+          		</div>
+          	</div>
+          </div>
+          
           <div class="row">
           	<div class="col-md-12">
           	  <div class="widget box">
@@ -74,7 +101,7 @@
                         <td>${costflow.cost}</td>
                         <td>${costflow.currentBalance}</td>
                         <td>${costflow.type}</td>
-                        <td>${costflow.createDate}</td>
+                        <td>${costflow.creatDate}</td>
                       	</tr>
                       </c:forEach>
                     </tbody>

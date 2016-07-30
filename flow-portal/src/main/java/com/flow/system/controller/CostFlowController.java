@@ -34,11 +34,12 @@ public class CostFlowController extends BaseController {
 	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "costflow!selectPage.action")
-	public String selectPage(HttpServletRequest request, Model model) throws Exception {
+	public String selectPage(HttpServletRequest request, CostFlow costFlow, Model model) throws Exception {
 		//转换request参数为map
 		Map<String,Object> map = getParameterMap(request);
 		PageUtil<CostFlow> page = costFlowService.listPage(map);
 		model.addAttribute("page",page);
+		model.addAttribute("costFlow", costFlow);
 		return "/view/costflow/costFlowList.jsp";
 	}
 }
