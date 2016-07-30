@@ -12,16 +12,26 @@
     <result column="Provider_is_refund" jdbcType="INTEGER" property="providerIsRefund" />
     <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
   </resultMap>
+  <sql id="query_body">
+  	<where>
+  		<if test="orderCode !=null and orderCode != ''"> AND Order_CODE = #{orderCode}</if>
+  		<if test="phone !=null and phone != ''"> AND PHONE = #{phone}</if>
+  		<if test="providerIsRefund !=null and providerIsRefund != -1"> AND Provider_is_refund = #{providerIsRefund}</if>
+  	</where>
+  </sql>
   <sql id="Base_Column_List">
     ID, DISTRIBUTOR_NAME, PROVIDER_NAME, PHONE, Order_CODE, PRODCUT_NAME, PURCHASED, 
     Provider_is_refund, CREATE_DATE
   </sql>
-  <select id="listPage" resultMap="BaseResultMap">
+  <select id="listPage" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select <include refid="Base_Column_List" />
-		from t_flow_refund_flow limit #{start} , #{pageSize}
+		from t_flow_refund_flow 
+		<include refid="query_body"/>
+		limit #{start} , #{pageSize}
   </select>
-  <select id="getCount" resultType="java.lang.Long">
+  <select id="getCount" resultType="java.lang.Long" parameterType="java.util.Map">
   	SELECT COUNT(1) FROM t_flow_refund_flow 
+  	<include refid="query_body"/>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 

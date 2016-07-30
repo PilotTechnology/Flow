@@ -12,7 +12,7 @@
   </resultMap>
   <sql id="query_body">
   	<where>
-  		<if test="type !=null and type != '-1'"> AND type = #{type}</if>
+  		<if test="type !=null and type != -1"> AND type = #{type}</if>
   	</where>
   </sql>
   <sql id="Base_Column_List">

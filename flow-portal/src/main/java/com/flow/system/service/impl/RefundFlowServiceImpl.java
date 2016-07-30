@@ -20,10 +20,12 @@ public class RefundFlowServiceImpl extends AbsPageService<RefundFlow> implements
 	public PageUtil<RefundFlow> listPage(Map<String, Object> map) {
 		//分页参数获取
 		PageUtil<RefundFlow> page = findPage(map);
-		Long records = refundFlowMapper.getCount();
+		Long records = refundFlowMapper.getCount(map);
 		page.setRecords(records);
 		if(records > 0){
-			page.setRows(refundFlowMapper.listPage(page.getFirstResult(),page.getPageSize()));
+			map.put("start", page.getFirstResult());
+			map.put("pageSize",page.getPageSize());
+			page.setRows(refundFlowMapper.listPage(map));
 		}
 		return page;
 	}

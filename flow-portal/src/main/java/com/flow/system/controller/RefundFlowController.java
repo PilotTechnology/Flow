@@ -34,11 +34,12 @@ public class RefundFlowController extends BaseController {
 	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "refundflow!selectPage.action")
-	public String selectPage(HttpServletRequest request, Model model) throws Exception {
+	public String selectPage(HttpServletRequest request, RefundFlow refundFlow, Model model) throws Exception {
 		//转换request参数为map
 		Map<String,Object> map = getParameterMap(request);
 		PageUtil<RefundFlow> page = refundFlowService.listPage(map);
 		model.addAttribute("page",page);
+		model.addAttribute("refundFlow",refundFlow);
 		return "/view/refundflow/refundFlowList.jsp";
 	}
 }

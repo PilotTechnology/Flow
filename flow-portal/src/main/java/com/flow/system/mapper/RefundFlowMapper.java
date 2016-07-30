@@ -1,8 +1,7 @@
 package com.flow.system.mapper;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
+import java.util.Map;
 
 import com.flow.system.model.RefundFlow;
 
@@ -19,7 +18,7 @@ public interface RefundFlowMapper {
 
     int updateByPrimaryKey(RefundFlow record);
     
-    List<RefundFlow> listPage(@Param("start") Integer start , @Param("pageSize") Integer pageSize);
+    List<RefundFlow> listPage(Map map);
 
-	Long getCount();
+	Long getCount(Map map);
 }

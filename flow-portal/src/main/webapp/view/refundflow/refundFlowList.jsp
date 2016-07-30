@@ -33,6 +33,47 @@
             </ul>
           </div>
           
+          <br/>
+          
+          <div class="row">
+          	<div class="col-md-12">
+          		<div class="widget box">
+          			<div class="widget-header"><h4><i class="icon-search"></i>条件搜索</h4></div>
+          			<div class="widget-content">
+                  		<form id="searchForm" action="" method="post" class="form-horizontal row-border">
+                  		<div class="form-group">
+                  			<label class="col-md-1 control-label">订单号:</label>
+                  			<div class="col-md-2"><input class="form-control" type="text" id="orderCode" name="orderCode" value="${refundFlow.orderCode}"></div>
+                  			<label class="col-md-1 control-label">手机号:</label>
+                  			<div class="col-md-2"><input class="form-control" type="text" id="phone" name="phone" value="${refundFlow.phone}"></div>
+                  			<label class="col-md-1 control-label">上游是否已退款:</label>
+                  			<div class="col-md-2">
+                  				<select name="providerIsRefund" id="providerIsRefund" class="form-control">
+                              		<option value="-1">全部</option>
+                              		<option value="0">未退</option>
+                              		<option value="1">已退</option>
+	                            </select>
+                  			</div>
+                  		</div>
+                  		<div class="form-group">
+                  			<label class="col-md-1 control-label">创建时间:</label>
+                  			<div class="col-md-5">
+                  				<div class="row">
+                  					<div class="col-md-5"><input type="text" name="regular" class="form-control datepicker"></div>
+                  					<label class="col-md-2 control-label">至</label>
+                  					<div class="col-md-5"><input type="text" name="regular" class="form-control datepicker"></div>
+                  				</div>
+                  			</div>
+                  			<div class="col-md-2">
+                  				<button class="btn btn-sm btn-warning" type="submit" id="search">搜索</button>
+                  			</div>
+                  		</div>
+                  </form>
+                </div>
+          		</div>
+          	</div>
+          </div>
+          
           <div class="row">
           	<div class="col-md-12">
           	  <div class="widget box">
