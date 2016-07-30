@@ -31,20 +31,32 @@
 		<result column="PROVINCE_NAME" jdbcType="VARCHAR" property="provinceName" />
 	</association>
   </resultMap>
+  <sql id="query_body">
+  	<where>
+  		<if test="prodcutName !=null and prodcutName != ''"> AND a.PRODCUT_NAME like "%"#{prodcutName}"%"</if>
+  		<if test="operatorCode !=null and operatorCode != '' and operatorCode != '-1'"> AND a.OPERATOR_CODE = #{operatorCode}</if>
+  		<if test="providerCode !=null and providerCode != '' and providerCode != '-1'"> AND a.PROVIDER_CODE = #{providerCode}</if>
+  		<if test="provinceCode !=null and provinceCode != '' and provinceCode != '-1'"> AND a.PROVINCE_CODE = #{provinceCode}</if>
+  		<if test="enableArea !=null and enableArea != '' and enableArea !='-1'"> AND a.ENABLE_AREA = #{enableArea}</if>
+  		<if test="state !=null and state != '' and state != '-1'"> AND a.STATE = #{state}</if>
+  	</where>
+  </sql>
   <sql id="Base_Column_List">
     ID, PRODUCT_CODE, PRODCUT_NAME, OPERATOR_CODE, PROVIDER_CODE, PRO_PRODUCT_CODE, PROVINCE_CODE, 
     ENABLE_AREA, ENABLE_TYPE, PRIORITY, SIZE, PRICE, DISCOUNT, PURCHASED, STATE, DESCRIPTION
   </sql>
-  <select id="listPage" resultMap="BaseResultMap">
+  <select id="listPage" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select a.*, b.OPERATOR_NAME, c.PROVINCE_NAME, d.NAME
 		from t_flow_product a
 		INNER JOIN t_base_operator b ON a.OPERATOR_CODE = b.ID
 		INNER JOIN t_base_province c ON a.PROVINCE_CODE = c.ID
 		INNER JOIN t_flow_provider d ON a.PROVIDER_CODE = d.PROVIDER_CODE
+		<include refid="query_body"/>
 		limit #{start} , #{pageSize}
   </select>
-  <select id="getCount" resultType="java.lang.Long">
-  	SELECT COUNT(1) FROM t_flow_product 
+  <select id="getCount" resultType="java.lang.Long" parameterType="java.util.Map">
+  		SELECT COUNT(*) FROM t_flow_product a
+  		<include refid="query_body"/>
   </select>
   <select id="selectByMobileCode" parameterType="java.lang.String" resultMap="BaseResultMap">
      select a.*, b.OPERATOR_NAME, c.PROVINCE_NAME, d.NAME

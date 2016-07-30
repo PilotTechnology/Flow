@@ -19,10 +19,12 @@ public class ProviderServiceImpl extends AbsPageService<Provider> implements Pro
 	public PageUtil<Provider> listPage(Map<String, Object> map) {
 		//分页参数获取
 		PageUtil<Provider> page = findPage(map);
-		Long records = providerMapper.getCount();
+		Long records = providerMapper.getCount(map);
 		page.setRecords(records);
 		if(records > 0){
-			page.setRows(providerMapper.listPage(page.getFirstResult(),page.getPageSize()));
+			map.put("start", page.getFirstResult());
+			map.put("pageSize",page.getPageSize());
+			page.setRows(providerMapper.listPage(map));
 		}
 		return page;
 	}

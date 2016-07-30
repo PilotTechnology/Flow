@@ -33,6 +33,66 @@
             </ul>
           </div>
           
+          <br/>
+          
+          <div class="row">
+          	<div class="col-md-12">
+          		<div class="widget box">
+          			<div class="widget-header"><h4><i class="icon-search"></i>条件搜索</h4></div>
+          			<div class="widget-content">
+                  		<form id="searchForm" action="" method="post" class="form-horizontal row-border">
+                  		<div class="form-group">
+                  			<label class="col-md-1 control-label">流量包名称:</label>
+                  			<div class="col-md-2"><input class="form-control" type="text" id="prodcutName" name="prodcutName" value="${product.prodcutName}"></div>
+                  			<label class="col-md-1 control-label">运营商:</label>
+                  			<div class="col-md-2">
+                  				<select name="operatorCode" id="operatorCode" class="form-control">
+                              		<option value="-1">全部</option>
+                              		<option value="1">中国移动</option>
+                              		<option value="2">中国联通</option>
+                              		<option value="3">中国电信</option>
+	                            </select>
+                  			</div>
+                  			<label class="col-md-1 control-label">供应商:</label>
+                  			<div class="col-md-2">
+                  				<select name="providerCode" id="providerCode" class="form-control">
+                              		<option value="-1">全部</option>
+	                            </select>
+                  			</div>
+                  		</div>
+                  		<div class="form-group">
+                  			<label class="col-md-1 control-label">所属区域:</label>
+                  			<div class="col-md-2">
+                  				<select name="provinceCode" id="provinceCode" class="form-control">
+                              		<option value="-1">全部</option>
+	                            </select>
+                  			</div>
+                  			<label class="col-md-1 control-label">使用范围:</label>
+                  			<div class="col-md-2">
+                  				<select name="enableArea" id="enableArea" class="form-control">
+                  					<option value="-1">全部</option>
+                              		<option value="0">全国</option>
+                              		<option value="1">省</option>
+	                            </select>
+                  			</div>
+                  			<label class="col-md-1 control-label">状态:</label>
+                  			<div class="col-md-2">
+                  				<select name="state" id="state" class="form-control">
+                  					<option value="-1">全部</option>
+                              		<option value="1">正常</option>
+                              		<option value="0">禁用</option>
+	                            </select>
+                  			</div>
+                  			<div class="col-md-2">
+                  				<button class="btn btn-sm btn-warning" type="submit" id="search">搜索</button>
+                  			</div>
+                  		</div>
+                  </form>
+                </div>
+          		</div>
+          	</div>
+          </div>
+          
           <div class="row">
           	<div class="col-md-12">
           	  <div class="widget box">
@@ -97,7 +157,6 @@
                         <td>${product.state}</td>
                         <td>
                         	<button class="btn btn-sm btn-info" onclick="toEdit('${role.roleCode}');"><i class="icon-edit"  ></i>编辑</button>
-                        	<button class="btn btn-sm btn-success" onclick="bindMenu('${role.roleCode}');"><i class="icon-cog"></i>授权</button>
                         	<button class="btn btn-sm btn-danger" onclick="removeRole('${role.roleCode}','${role.id}');"><i class="icon-remove"></i>删除</button>
                         </td>
                       	</tr>
@@ -128,11 +187,11 @@
  
           <div class="form-group">
             <label for="roleCode_add">角色编码</label>
-            <input type="text" name="roleCode_add" class="form-control required" id="roleCode_add" placeholder="角色编码" minlength="5">
+            <input type="text" name="roleCode_add" class="form-control required" id="roleCode_add" placeholder="角色编码">
           </div>
           <div class="form-group">
             <label for="roleName_add">角色名称</label>
-            <input type="text" name="roleName_add" class="form-control required" id="roleName_add" placeholder="角色名称" minlength="5">
+            <input type="text" name="roleName_add" class="form-control required" id="roleName_add" placeholder="角色名称">
           </div>
         </div>
         <div class="modal-footer">

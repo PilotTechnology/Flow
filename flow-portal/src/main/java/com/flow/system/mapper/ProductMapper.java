@@ -1,8 +1,7 @@
 package com.flow.system.mapper;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
+import java.util.Map;
 
 import com.flow.system.model.Product;
 
@@ -23,7 +22,7 @@ public interface ProductMapper {
 
     int updateByPrimaryKey(Product record);
     
-    List<Product> listPage(@Param("start") Integer start , @Param("pageSize") Integer pageSize);
+    List<Product> listPage(Map map);
 
-	Long getCount();
+	Long getCount(Map map);
 }

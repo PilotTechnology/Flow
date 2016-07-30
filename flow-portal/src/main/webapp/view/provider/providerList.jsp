@@ -33,6 +33,27 @@
             </ul>
           </div>
           
+          <br/>
+          
+          <div class="row">
+          	<div class="col-md-12">
+          		<div class="widget box">
+          			<div class="widget-header"><h4><i class="icon-search"></i>条件搜索</h4></div>
+          			<div class="widget-content">
+                  		<form id="searchForm" action="" method="post" class="form-horizontal row-border">
+                  			<div class="form-group">
+                  				<label class="col-md-1 control-label">供应商编码或名称:</label>
+                  				<div class="col-md-2"><input class="form-control" type="text" id="name" name="name" value="${provider.name}"></div>
+                  				<div class="col-md-2">
+                  					<button class="btn btn-sm btn-warning" type="submit" id="search">搜索</button>
+                  				</div>
+                  			</div>
+                 		 </form>
+                	</div>
+          		</div>
+          	</div>
+          </div>
+          
           <div class="row">
           	<div class="col-md-12">
           	  <div class="widget box">
@@ -51,7 +72,7 @@
              	<div class="widget-content">
              	  
              	  <div class="row">
-             	  	<div class="col-md-12">
+             	  	<div class="2">
              	  		<button class="btn btn-sm btn-warning" id="addButton">+ 新增</button>
              	  	</div>
              	  </div>
@@ -66,6 +87,7 @@
                         <th>供应商编码</th>
 						<th>供应商名称</th>
 						<th>描述</th>
+						<th>操作</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -77,9 +99,7 @@
                         <td>${provider.name}</td>
                         <td>${provider.description}</td>
                         <td>
-                        	<button class="btn btn-sm btn-info" onclick="toEdit('${role.roleCode}');"><i class="icon-edit"  ></i>编辑</button>
-                        	<button class="btn btn-sm btn-success" onclick="bindMenu('${role.roleCode}');"><i class="icon-cog"></i>授权</button>
-                        	<button class="btn btn-sm btn-danger" onclick="removeRole('${role.roleCode}','${role.id}');"><i class="icon-remove"></i>删除</button>
+                        	<button class="btn btn-sm btn-info" onclick="toEdit('${provider.providerCode}');"><i class="icon-edit"  ></i>编辑</button>
                         </td>
                       	</tr>
                       </c:forEach>
@@ -109,11 +129,11 @@
  
           <div class="form-group">
             <label for="roleCode_add">角色编码</label>
-            <input type="text" name="roleCode_add" class="form-control required" id="roleCode_add" placeholder="角色编码" minlength="5">
+            <input type="text" name="roleCode_add" class="form-control required" id="roleCode_add" placeholder="角色编码">
           </div>
           <div class="form-group">
             <label for="roleName_add">角色名称</label>
-            <input type="text" name="roleName_add" class="form-control required" id="roleName_add" placeholder="角色名称" minlength="5">
+            <input type="text" name="roleName_add" class="form-control required" id="roleName_add" placeholder="角色名称">
           </div>
         </div>
         <div class="modal-footer">

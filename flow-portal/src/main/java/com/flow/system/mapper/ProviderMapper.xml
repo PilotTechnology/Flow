@@ -7,15 +7,23 @@
     <result column="NAME" jdbcType="VARCHAR" property="name" />
     <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
   </resultMap>
+  <sql id="query_body">
+  	<where>
+  		<if test="name !=null and name != ''"> AND PROVIDER_CODE like "%"#{name}"%" or NAME like "%"#{name}"%"</if>
+  	</where>
+  </sql>
   <sql id="Base_Column_List">
     ID, PROVIDER_CODE, NAME, DESCRIPTION
   </sql>
-  <select id="listPage" resultMap="BaseResultMap">
+  <select id="listPage" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select <include refid="Base_Column_List" />
-		from t_flow_provider limit #{start} , #{pageSize}
+		from t_flow_provider
+		<include refid="query_body"/>
+		limit #{start} , #{pageSize}
   </select>
-  <select id="getCount" resultType="java.lang.Long">
+  <select id="getCount" resultType="java.lang.Long" parameterType="java.util.Map">
   	SELECT COUNT(1) FROM t_flow_provider 
+  	<include refid="query_body"/>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 

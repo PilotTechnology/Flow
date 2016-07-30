@@ -20,10 +20,12 @@ public class ProductServiceImpl extends AbsPageService<Product> implements Produ
 	public PageUtil<Product> listPage(Map<String, Object> map) {
 		//分页参数获取
 		PageUtil<Product> page = findPage(map);
-		Long records = productMapper.getCount();
+		Long records = productMapper.getCount(map);
 		page.setRecords(records);
 		if(records > 0){
-			page.setRows(productMapper.listPage(page.getFirstResult(),page.getPageSize()));
+			map.put("start", page.getFirstResult());
+			map.put("pageSize",page.getPageSize());
+			page.setRows(productMapper.listPage(map));
 		}
 		return page;
 	}

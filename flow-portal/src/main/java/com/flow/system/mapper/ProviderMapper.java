@@ -1,8 +1,7 @@
 package com.flow.system.mapper;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
+import java.util.Map;
 
 import com.flow.system.model.Provider;
 
@@ -23,7 +22,7 @@ public interface ProviderMapper {
 
     int updateByPrimaryKey(Provider record);
     
-    List<Provider> listPage(@Param("start") Integer start , @Param("pageSize") Integer pageSize);
+    List<Provider> listPage(Map<String, Object> map);
 
-	Long getCount();
+	Long getCount(Map<String, Object> map);
 }

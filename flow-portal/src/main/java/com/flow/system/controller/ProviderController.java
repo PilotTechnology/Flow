@@ -39,11 +39,12 @@ public class ProviderController extends BaseController {
 	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "provider!selectPage.action")
-	public String selectPage(HttpServletRequest request, Model model) throws Exception {
+	public String selectPage(HttpServletRequest request, Provider provider, Model model) throws Exception {
 		//转换request参数为map
 		Map<String,Object> map = getParameterMap(request);
 		PageUtil<Provider> page = providerService.listPage(map);
 		model.addAttribute("page",page);
+		model.addAttribute("provider", provider);
 		return "/view/provider/providerList.jsp";
 	}
 	

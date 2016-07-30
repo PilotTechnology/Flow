@@ -34,11 +34,12 @@ public class ProductController extends BaseController {
 	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "product!selectPage.action")
-	public String selectPage(HttpServletRequest request, Model model) throws Exception {
+	public String selectPage(HttpServletRequest request, Product product, Model model) throws Exception {
 		//转换request参数为map
 		Map<String,Object> map = getParameterMap(request);
 		PageUtil<Product> page = productService.listPage(map);
 		model.addAttribute("page",page);
+		model.addAttribute("product", product);
 		return "/view/product/productList.jsp";
 	}
 }
