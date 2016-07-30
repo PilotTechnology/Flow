@@ -1,6 +1,7 @@
 package com.flow.system.service.impl;
 
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,10 +22,12 @@ public class DistributorServiceImpl extends AbsPageService<Distributor> implemen
 		// TODO Auto-generated method stub
 		//分页参数获取
 		PageUtil<Distributor> page = findPage(map);
-		Long records = distributorMapper.getCount();
+		Long records = distributorMapper.getCount(map);
 		page.setRecords(records);
 		if(records > 0){
-			page.setRows(distributorMapper.listPage(page.getFirstResult(),page.getPageSize()));
+			map.put("start", page.getFirstResult());
+			map.put("pageSize",page.getPageSize());
+			page.setRows(distributorMapper.listPage(map));
 		}
 		return page;
 	}

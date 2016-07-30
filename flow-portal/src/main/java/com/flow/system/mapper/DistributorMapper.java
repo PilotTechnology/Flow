@@ -1,8 +1,7 @@
 package com.flow.system.mapper;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
+import java.util.Map;
 
 import com.flow.system.model.Distributor;
 
@@ -23,7 +22,7 @@ public interface DistributorMapper {
 
     int updateByPrimaryKey(Distributor record);
     
-    List<Distributor> listPage(@Param("start") Integer start , @Param("pageSize") Integer pageSize);
+    List<Distributor> listPage(Map map);
 
-	Long getCount();
+	Long getCount(Map map);
 }

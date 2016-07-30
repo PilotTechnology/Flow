@@ -36,13 +36,20 @@
     <result column="OPERATOR_NAME" jdbcType="VARCHAR" property="operatorName" />
 	</association>
   </resultMap>
+  <sql id="query_body">
+  	<where>
+  		<if test="distrbutorCode !=null and distrbutorCode != ''"> AND a.DISTRBUTOR_CODE like "%"#{distrbutorCode}"%" or b.NICK_NAME like "%"#{distrbutorCode}"%" or a.COMPANY like "%"#{distrbutorCode}"%"</if>
+  		<if test="phone !=null and phone != ''"> AND b.PHONE = #{phone}</if>
+  		<if test="state !=null and state != '' and state != '-1'"> AND a.STATE = #{state}</if>
+  	</where>
+  </sql>
   <sql id="Base_Column_List">
     ID, DISTRBUTOR_CODE, USER_CODE, OPERATOR_CODE, CHANNEL_TYPE, COOP_MODEL, COMPANY, 
     BALANCE, FREEZING, TOTAL, SMS_CONTENT, STATE, LEVEL, CALLBACK_URL, CONFINING_IP, 
     APP_KEY, SECRET_KEY
   </sql>
   
-  <select id="listPage" resultMap="BaseResultMap">
+  <select id="listPage" resultMap="BaseResultMap"  parameterType="java.util.Map">
 	select a.ID as ID, a.DISTRBUTOR_CODE as DISTRBUTOR_CODE, a.USER_CODE as USER_CODE, a.OPERATOR_CODE as OPERATOR_CODE,
 			a.CHANNEL_TYPE as CHANNEL_TYPE, a.COOP_MODEL as COOP_MODEL, a.COMPANY as COMPANY, a.BALANCE as BALANCE, a.FREEZING as FREEZING,
 			a.TOTAL as TOTAL, a.SMS_CONTENT as SMS_CONTENT, a.SMS_CONTENT as SMS_CONTENT, a.STATE as STATE, a.LEVEL as LEVEL,
@@ -53,10 +60,13 @@
 		from t_flow_distributor a
 		INNER JOIN t_sys_user b ON a.USER_CODE = b.USER_CODE
 		INNER JOIN t_base_operator c ON a.OPERATOR_CODE = c.ID
+		<include refid="query_body"/>
 		limit #{start} , #{pageSize}
   </select>
-  <select id="getCount" resultType="java.lang.Long">
-  	SELECT COUNT(1) FROM t_flow_distributor 
+  <select id="getCount" resultType="java.lang.Long" parameterType="java.util.Map">
+  	SELECT COUNT(1) FROM t_flow_distributor a
+  	INNER JOIN t_sys_user b ON a.USER_CODE = b.USER_CODE
+  	<include refid="query_body"/>
   </select>
   <select id="selectByMobileCode" parameterType="java.lang.String" resultMap="BaseResultMap">
      select a.ID as ID, a.DISTRBUTOR_CODE as DISTRBUTOR_CODE, a.USER_CODE as USER_CODE, a.OPERATOR_CODE as OPERATOR_CODE,
