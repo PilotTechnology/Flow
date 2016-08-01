@@ -21,10 +21,12 @@ public class RechargeFlowServiceImpl extends AbsPageService<RechargeFlow> implem
 		// TODO Auto-generated method stub
 		//分页参数获取
 		PageUtil<RechargeFlow> page = findPage(map);
-		Long records = rechargeFlowMapper.getCount();
+		Long records = rechargeFlowMapper.getCount(map);
 		page.setRecords(records);
 		if(records > 0){
-			page.setRows(rechargeFlowMapper.listPage(page.getFirstResult(),page.getPageSize()));
+			map.put("start", page.getFirstResult());
+			map.put("pageSize",page.getPageSize());
+			page.setRows(rechargeFlowMapper.listPage(map));
 		}
 		return page;
 	}

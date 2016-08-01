@@ -33,6 +33,41 @@
             </ul>
           </div>
           
+          <br/>
+          
+          <div class="row">
+          	<div class="col-md-12">
+          		<div class="widget box">
+          			<div class="widget-header"><h4><i class="icon-search"></i>条件搜索</h4></div>
+          			<div class="widget-content">
+                  		<form id="searchForm" action="" method="post" class="form-horizontal row-border">
+	                    <div class="form-group">
+                  			<label class="col-md-1 control-label">分销商名称:</label>
+                  			<div class="col-md-2"><input class="form-control" type="text" id="distributorName" name="distributorName" value="${rechargeFlow.distributorName}"></div>
+                  			<label class="col-md-1 control-label">类型:</label>
+                  			<div class="col-md-2">
+                  				<select name="type" id="type" class="form-control">
+                  					<option value="-1">全部</option>
+                              		<option value="1">正常加款</option>
+                              		<option value="2">授信加款</option>
+                              		<option value="3">赔付加款</option>
+                              		<option value="4">运营补款</option>
+                              		<option value="5">测试加款</option>
+                              		<option value="6">返点加款</option>
+                              		<option value="7">赠送加款</option>
+                              		<option value="8">提现加款</option>
+	                            </select>
+                  			</div>
+                  			<div class="col-md-2">
+                  				<button class="btn btn-sm btn-warning" type="submit" id="search">搜索</button>
+                  			</div>
+                  		</div>
+                  </form>
+                </div>
+          		</div>
+          	</div>
+          </div>
+          
           <div class="row">
           	<div class="col-md-12">
           	  <div class="widget box">

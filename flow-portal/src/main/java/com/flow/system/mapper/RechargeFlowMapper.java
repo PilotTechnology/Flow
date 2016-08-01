@@ -1,8 +1,7 @@
 package com.flow.system.mapper;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
+import java.util.Map;
 
 import com.flow.system.model.RechargeFlow;
 
@@ -19,7 +18,7 @@ public interface RechargeFlowMapper {
 
     int updateByPrimaryKey(RechargeFlow record);
     
-    List<RechargeFlow> listPage(@Param("start") Integer start , @Param("pageSize") Integer pageSize);
+    List<RechargeFlow> listPage(Map map);
 
-	Long getCount();
+	Long getCount(Map map);
 }

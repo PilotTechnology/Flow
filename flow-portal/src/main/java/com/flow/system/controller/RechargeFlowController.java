@@ -29,11 +29,12 @@ public class RechargeFlowController extends BaseController {
 	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "rechargeflow!selectPage.action")
-	public String selectPage(HttpServletRequest request, Model model) throws Exception {
+	public String selectPage(HttpServletRequest request, RechargeFlow rechargeFlow, Model model) throws Exception {
 		//转换request参数为map
 		Map<String,Object> map = getParameterMap(request);
 		PageUtil<RechargeFlow> page = rechargeFlowService.listPage(map);
 		model.addAttribute("page",page);
+		model.addAttribute("rechargeFlow",rechargeFlow);
 		return "/view/rechargeflow/rechargeFlowList.jsp";
 	}
 }
