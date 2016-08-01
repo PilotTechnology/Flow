@@ -11,6 +11,13 @@
     <result column="IS_DISPLAY_PROVINCE" jdbcType="INTEGER" property="isDisplayProvince" />
     <result column="NICK_NAME" jdbcType="VARCHAR" property="distributionName" />
   </resultMap>
+  <sql id="query_body">
+  	<where>
+  		<if test="distributionName !=null and distributionName != ''"> AND c.NICK_NAME like "%"#{distributionName}"%"</if>
+  		<if test="state !=null and state != -1"> AND a.STATE = #{state}</if>
+  		<if test="fatherCode !=null and fatherCode != ''"> AND a..FATHER_CODE = #{fatherCode}</if>
+  	</where>
+  </sql>
   <sql id="Base_Column_List">
     ID, SERVICE_CODE, DISTRIBUTOR_CODE, FATHER_CODE, STATE, CREATE_DATE, IS_DISPLAY_PROVINCE
   </sql>
@@ -19,23 +26,28 @@
 	from t_flow_service a
 	INNER JOIN t_flow_distributor b ON a.DISTRIBUTOR_CODE = b.DISTRBUTOR_CODE
 	INNER JOIN t_sys_user c ON c.USER_CODE = b.USER_CODE
+	<include refid="query_body"/>
 	limit #{start} , #{pageSize}
   </select>
   <select id="getCount" resultType="java.lang.Long">
-  	SELECT COUNT(1) FROM t_flow_service 
-  	where FATHER_CODE = '0'
+  	SELECT COUNT(1) FROM t_flow_service a
+  	INNER JOIN t_flow_distributor b ON a.DISTRIBUTOR_CODE = b.DISTRBUTOR_CODE
+	INNER JOIN t_sys_user c ON c.USER_CODE = b.USER_CODE
+  	<include refid="query_body"/>
   </select>
   <select id="sonListPage" resultMap="BaseResultMap">
 	select a.*, c.NICK_NAME
 	from t_flow_service a
 	INNER JOIN t_flow_distributor b ON a.DISTRIBUTOR_CODE = b.DISTRBUTOR_CODE
 	INNER JOIN t_sys_user c ON c.USER_CODE = b.USER_CODE
-	where FATHER_CODE = #{fatherCode,jdbcType=VARCHAR}
+	<include refid="query_body"/>
 	limit #{start} , #{pageSize}
   </select>
   <select id="getSonCount" resultType="java.lang.Long" parameterType="java.lang.String">
-  	SELECT COUNT(1) FROM t_flow_service 
-  	where FATHER_CODE = #{fatherCode,jdbcType=VARCHAR}
+  	SELECT COUNT(1) FROM t_flow_service a
+  	INNER JOIN t_flow_distributor b ON a.DISTRIBUTOR_CODE = b.DISTRBUTOR_CODE
+	INNER JOIN t_sys_user c ON c.USER_CODE = b.USER_CODE
+  	<include refid="query_body"/>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select a.*, c.NICK_NAME

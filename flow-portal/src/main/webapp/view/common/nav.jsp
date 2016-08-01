@@ -77,12 +77,9 @@
 	</li>
 	<li>
 	  <a href="javascript:void(0);"> 
-	    <i class="icon-mobile-phone"></i> 号段区域管理 
+	    <i class="icon-mobile-phone"></i> 号段管理 
 	  </a>
 	  <ul class="sub-menu">
-		<li><a href="ui_general.html"> <i class="icon-angle-right">
-			</i> 区域管理
-		</a></li>
 			<li><a href="${ctx}/portal/mobile!selectPage.action"> <i class="icon-angle-right">
 			</i> 号段管理
 		</a></li>

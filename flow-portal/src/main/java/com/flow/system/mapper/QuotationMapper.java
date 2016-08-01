@@ -1,6 +1,7 @@
 package com.flow.system.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -21,11 +22,11 @@ public interface QuotationMapper {
 
     int updateByPrimaryKey(Quotation record);
     
-    List<Quotation> listPage(@Param("start") Integer start , @Param("pageSize") Integer pageSize);
+    List<Quotation> listPage(Map map);
 
-	Long getCount();
+	Long getCount(Map map);
 	
-	List<Quotation> sonListPage(@Param("start") Integer start , @Param("pageSize") Integer pageSize);
+	List<Quotation> sonListPage(Map map);
 
-	Long getSonCount(String fatherQuotationCode);
+	Long getSonCount(Map map);
 }

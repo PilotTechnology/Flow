@@ -33,6 +33,35 @@
             </ul>
           </div>
           
+          <br/>
+          
+          <div class="row">
+          	<div class="col-md-12">
+          		<div class="widget box">
+          			<div class="widget-header"><h4><i class="icon-search"></i>条件搜索</h4></div>
+          			<div class="widget-content">
+                  		<form id="searchForm" action="" method="post" class="form-horizontal row-border">
+	                    <div class="form-group">
+                  			<label class="col-md-1 control-label">分销商名称:</label>
+                  			<div class="col-md-2"><input class="form-control" type="text" id="distributionName" name="distributionName" value="${quotation.distributionName}"></div>
+                  			<label class="col-md-1 control-label">状态:</label>
+                  			<div class="col-md-2">
+                  				<select name="state" id="state" class="form-control">
+                  					<option value="-1">全部</option>
+                              		<option value="1">正常</option>
+                              		<option value="0">禁用</option>
+	                            </select>
+                  			</div>
+                  			<div class="col-md-2">
+                  				<button class="btn btn-sm btn-warning" type="submit" id="search">搜索</button>
+                  			</div>
+                  		</div>
+                  </form>
+                </div>
+          		</div>
+          	</div>
+          </div>
+          
           <div class="row">
           	<div class="col-md-12">
           	  <div class="widget box">
@@ -68,6 +97,7 @@
 						<th>是否显示省包</th>
 						<th>状态</th>
 						<th>创建时间</th>
+						<th>操作</th>
                       </tr>
                     </thead>
                     <tbody>

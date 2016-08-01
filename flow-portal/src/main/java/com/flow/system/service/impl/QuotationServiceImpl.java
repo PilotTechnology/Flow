@@ -20,10 +20,12 @@ public class QuotationServiceImpl extends AbsPageService<Quotation> implements Q
 	public PageUtil<Quotation> listPage(Map<String, Object> map) {
 		//分页参数获取
 		PageUtil<Quotation> page = findPage(map);
-		Long records = quotationMapper.getCount();
+		Long records = quotationMapper.getCount(map);
 		page.setRecords(records);
 		if(records > 0){
-			page.setRows(quotationMapper.listPage(page.getFirstResult(),page.getPageSize()));
+			map.put("start", page.getFirstResult());
+			map.put("pageSize",page.getPageSize());
+			page.setRows(quotationMapper.listPage(map));
 		}
 		return page;
 	}
@@ -32,10 +34,12 @@ public class QuotationServiceImpl extends AbsPageService<Quotation> implements Q
 	public PageUtil<Quotation> sonListPage(Map<String, Object> map) {
 		//分页参数获取
 		PageUtil<Quotation> page = findPage(map);
-		Long records = quotationMapper.getCount();
+		Long records = quotationMapper.getCount(map);
 		page.setRecords(records);
 		if(records > 0){
-			page.setRows(quotationMapper.sonListPage(page.getFirstResult(),page.getPageSize()));
+			map.put("start", page.getFirstResult());
+			map.put("pageSize",page.getPageSize());
+			page.setRows(quotationMapper.sonListPage(map));
 		}
 		return page;
 	}

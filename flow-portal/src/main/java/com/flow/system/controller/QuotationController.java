@@ -38,11 +38,12 @@ public class QuotationController extends BaseController {
 	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "quotation!selectPage.action")
-	public String selectPage(HttpServletRequest request, Model model) throws Exception {
+	public String selectPage(HttpServletRequest request, Quotation quotation, Model model) throws Exception {
 		//转换request参数为map
 		Map<String,Object> map = getParameterMap(request);
 		PageUtil<Quotation> page = quotationService.listPage(map);
 		model.addAttribute("page",page);
+		model.addAttribute("quotation",quotation);
 		return "/view/quotation/quotationList.jsp";
 	}
 	
