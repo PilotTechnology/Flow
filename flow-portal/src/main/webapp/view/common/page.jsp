@@ -12,10 +12,10 @@
 				<ul class="pagination">
 					<c:choose>
 						<c:when test="${page.page eq 1}">
-							<li class="prev disabled"><a href="${url}?page=${page.prePage}">← Previous</a></li>
+							<li class="prev disabled"><a href="${url}?page=${page.prePage}">上一页</a></li>
 						</c:when>
 						<c:otherwise>
-							<li class="prev"><a href="${url}?page=${page.prePage}">← Previous</a></li>
+							<li class="prev"><a href="${url}?page=${page.prePage}">上一页</a></li>
 						</c:otherwise>					
 					</c:choose>		
 					
@@ -33,10 +33,10 @@
 			
 					<c:choose>
 						<c:when test="${page.page eq totalPage}">
-							<li class="next disabled"><a href="${url}?page=${page.nextPage}">Next → </a></li>
+							<li class="next disabled"><a href="${url}?page=${page.nextPage}">下一页</a></li>
 						</c:when>
 						<c:otherwise>
-							<li class="next"><a href="${url}?page=${page.nextPage}">Next → </a></li>
+							<li class="next"><a href="${url}?page=${page.nextPage}">下一页</a></li>
 						</c:otherwise>					
 					</c:choose>					
 				</ul>

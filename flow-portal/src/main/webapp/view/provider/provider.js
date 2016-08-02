@@ -31,20 +31,22 @@ $("#btn_submit").click(function(){
 })
 //TO UPDATE
 function toEdit(providerCode){
-	$.post("/portal/provider!toEdit.action",{"providerCode":providerCode},function(provider){
+	$.post("/portal/provider!toEdit.action",{"providerCode":providerCode},function(json){
 	    $('#myModal_edit').modal();
-	    $("#providerCode_edit").val(provider.providerCode);
-	    $("#providerName_edit").val(provider.name);
-	    $("#description_edit").val(provider.description);
-	    $("#id_edit").val(provider.id);
+	    $("#providerCode_edit").val(json.provider.providerCode);
+	    $("#providerName_edit").val(json.provider.name);
+	    $("#description_edit").val(json.provider.description);
+	    $("#id_edit").val(json.provider.id);
     },"json");
 }
 //UPDATE
 $("#btn_update").click(function(){
 	var Provider={"_method":"post"};
-	var providerCode=$("#providerCode_add").val();
-    var providerName=$("#providerName_add").val();
-    var description=$("#description_add").val();
+	var id=$("#id_edit").val();
+	var providerCode=$("#providerCode_edit").val();
+    var providerName=$("#providerName_edit").val();
+    var description=$("#description_edit").val();
+    Provider.id = id;
     Provider.providerCode = providerCode;
     Provider.name = providerName;
     Provider.description = description;

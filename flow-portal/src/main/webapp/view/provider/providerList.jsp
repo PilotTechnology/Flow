@@ -159,7 +159,7 @@
  
           <div class="form-group">
             <label for="providerCode_edit" class="control-label">供应商编码</label>
-            <input type="text" name="providerCode_edit" class="form-control required" id="providerCode_edit" placeholder="供应商编码">
+            <input type="text" readonly="readonly" name="providerCode_edit" class="form-control required" id="providerCode_edit" placeholder="供应商编码">
           </div>
           <div class="form-group">
             <label for="providerName_edit" class="control-label">供应商名称</label>
