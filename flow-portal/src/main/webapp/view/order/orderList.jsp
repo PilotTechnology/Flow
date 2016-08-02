@@ -183,4 +183,10 @@
       </div>
     </div>
   </body>
+  <script type="text/javascript" src="${ctx}/view/common/public.js"></script>
+  <script type="text/javascript">
+	  initProvider('${order.providerCode}');
+	  initOperator('${order.operatorCode}');
+	  initProvince('${order.provinceCode}');
+  </script>
 </html>

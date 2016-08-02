@@ -19,6 +19,7 @@ public class OrderBean {
 	private String distributorOrderCode;//下游订单编号
 	private String operatorCode;		//运营商编号	
 	private String operatorName;		//运营商名称
+	private String provinceCode;		//省份编码
 	private String provinceName;		//省份名称
 	private String phone;				//手机号
 	private Integer size;				//订单购买流量包大小(M)
@@ -70,6 +71,12 @@ public class OrderBean {
 	}
 	public String getProviderName() {
 		return providerName;
+	}
+	public String getProvinceCode() {
+		return provinceCode;
+	}
+	public void setProvinceCode(String provinceCode) {
+		this.provinceCode = provinceCode;
 	}
 	public void setProviderName(String providerName) {
 		this.providerName = providerName;

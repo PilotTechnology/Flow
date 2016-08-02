@@ -28,6 +28,9 @@
   		<if test="phone !=null and phone != ''"> AND a.PHONE = #{phone}</if>
   		<if test="orderCode !=null and orderCode != ''"> AND a.ORDER_CODE = #{orderCode}</if>
   		<if test="distributorOrderCode !=null and distributorOrderCode != ''"> AND a.DISTRIBUTOR_ORDER_CODE = #{distributorOrderCode}</if>
+  		<if test="providerCode !=null and providerCode != '-1'"> AND a.PROVIDER_CODE = #{providerCode}</if>
+  		<if test="operatorCode !=null and operatorCode != '-1'"> AND a.OPERATOR_CODE = #{operatorCode}</if>
+  		<!-- <if test="provinceCode !=null and provinceCode != '-1'"> AND a.OPERATOR_CODE = #{operatorCode}</if> -->
   	</where>
   </sql>
   
@@ -43,8 +46,8 @@
   	limit #{start} , #{pageSize}
   </select>
   
-  <select id="getCount" resultType="java.lang.Long">
-  	SELECT COUNT(1) FROM t_flow_order <include refid="query_body"/>
+  <select id="getCount" resultType="java.lang.Long" parameterType="java.util.Map">
+  	SELECT COUNT(1) FROM t_flow_order a <include refid="query_body"/>
   </select>
   
 </mapper>

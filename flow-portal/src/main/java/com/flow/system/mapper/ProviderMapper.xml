@@ -19,7 +19,7 @@
 		select <include refid="Base_Column_List" />
 		from t_flow_provider
 		<include refid="query_body"/>
-		limit #{start} , #{pageSize}
+		<if test="pageSize !=null and pageSize != ''"> limit #{start} , #{pageSize} </if>
   </select>
   <select id="getCount" resultType="java.lang.Long" parameterType="java.util.Map">
   	SELECT COUNT(1) FROM t_flow_provider 

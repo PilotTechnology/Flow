@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class BaseController {
-	
+
 	/**
 	 * 将request的只读map转换为可读写map
 	 * @param request
@@ -45,5 +45,4 @@ public class BaseController {
 	    }
 	    return returnMap;
 	}
-	
 }

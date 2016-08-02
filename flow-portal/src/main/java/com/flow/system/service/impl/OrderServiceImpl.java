@@ -30,7 +30,7 @@ public class OrderServiceImpl extends AbsPageService<OrderBean> implements Order
 	public PageUtil<OrderBean> listPage(Map<String, Object> map) {
 		PageUtil<OrderBean> page = findPage(map);
 		
-		Long records = orderMapper.getCount();
+		Long records = orderMapper.getCount(map);
 		page.setRecords(records);
 		
 		if(records > 0){

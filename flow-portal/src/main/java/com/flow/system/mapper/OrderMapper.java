@@ -7,8 +7,8 @@ import com.flow.system.bean.OrderBean;
 
 public interface OrderMapper {
 
-	Long getCount();
+	Long getCount(Map<String,Object> map);
 
-	List<OrderBean> listPage(Map map);
+	List<OrderBean> listPage(Map<String,Object> map);
 
 }

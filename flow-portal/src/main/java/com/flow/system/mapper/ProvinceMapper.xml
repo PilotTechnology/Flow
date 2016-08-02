@@ -20,6 +20,10 @@
 		WHERE a.ID = #{id,jdbcType=INTEGER}
 	</select>
 	
+	<!-- 加载省份列表 -->
+	<select id="findList" resultMap="BaseResultMap">
+		SELECT ID, PROVINCE_NAME FROM t_base_province
+	</select>
 	
   <sql id="Base_Column_List">
     ID, PROVINCE_NAME

@@ -35,12 +35,13 @@ public class OrderController extends BaseController{
 		Map<String,Object> map = getParameterMap(request);
 		
 		PageUtil<OrderBean> page = orderService.listPage(map);
-		System.out.println(queryBean);
+		
 		model.addAttribute("page",page);
 		//查询条件页面回显
 		model.addAttribute("order", queryBean);
 		
 		return "/view/order/orderList.jsp";
 	}
+	
 	
 }
