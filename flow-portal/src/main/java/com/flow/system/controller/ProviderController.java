@@ -80,9 +80,6 @@ public class ProviderController extends BaseController {
 	@ResponseBody
 	public Object editProvider(HttpServletRequest request, Provider provider){
 		try {
-			if(providerService.checkExists(provider)){
-				return new BaseResponse(Constant.JSON_FAIL, "供应商已存在");
-			}
 			providerService.update(provider);
 		} catch (Exception e) {
 			PubLog.error("修改角色失败 : >> "+provider, e);
@@ -96,17 +93,17 @@ public class ProviderController extends BaseController {
 		return providerService.getProviderByCode(provider.getProviderCode());
 	}
 	
-	/**
-	 * 删除供应商
-	 * @param request
-	 * @param Provider
-	 * @return
-	 */
-	@RequestMapping(value = "provider!delProvider.action")
-	@ResponseBody
-	public Object delProvider(HttpServletRequest request,Provider provider) {
-		providerService.delete(provider);
-		return Constant.successMsg;
-
-	}
+//	/**
+//	 * 删除供应商
+//	 * @param request
+//	 * @param Provider
+//	 * @return
+//	 */
+//	@RequestMapping(value = "provider!delProvider.action")
+//	@ResponseBody
+//	public Object delProvider(HttpServletRequest request,Provider provider) {
+//		providerService.delete(provider);
+//		return Constant.successMsg;
+//
+//	}
 }

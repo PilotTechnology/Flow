@@ -51,10 +51,10 @@ public class ProviderServiceImpl extends AbsPageService<Provider> implements Pro
 
 	public boolean checkExists(Provider provider){
 		Provider oldProvider = providerMapper.selectByProviderCode(provider.getProviderCode());
-		if(provider.getProviderCode()!=null){
-			return !(oldProvider.getProviderCode().equals(provider.getProviderCode()));
-		}else{
-			return oldProvider != null;
+		if (oldProvider == null) {
+			return false;
+		}else {
+			return oldProvider.getProviderCode().equals(provider.getProviderCode());
 		}
 	}
 }

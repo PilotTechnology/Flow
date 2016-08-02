@@ -128,12 +128,16 @@
         <div class="modal-body">
  
           <div class="form-group">
-            <label for="roleCode_add">角色编码</label>
-            <input type="text" name="roleCode_add" class="form-control required" id="roleCode_add" placeholder="角色编码">
+            <label for="providerCode_add">供应商编码</label>
+            <input type="text" name="providerCode_add" class="form-control required" id="providerCode_add" placeholder="供应商编码">
           </div>
           <div class="form-group">
-            <label for="roleName_add">角色名称</label>
-            <input type="text" name="roleName_add" class="form-control required" id="roleName_add" placeholder="角色名称">
+            <label for="providerName_add">供应商名称</label>
+            <input type="text" name="providerName_add" class="form-control required" id="providerName_add" placeholder="供应商名称">
+          </div>
+          <div class="form-group">
+            <label for="providerName_add">描述</label>
+            <input type="text" name="description_add" class="form-control required" id="description_add" placeholder="描述">
           </div>
         </div>
         <div class="modal-footer">
@@ -154,12 +158,16 @@
         <div class="modal-body">
  
           <div class="form-group">
-            <label for="roleCode_edit" class="control-label">角色编码</label>
-            <input type="text" name="roleCode_edit" class="form-control required" id="roleCode_edit" placeholder="角色编码">
+            <label for="providerCode_edit" class="control-label">供应商编码</label>
+            <input type="text" name="providerCode_edit" class="form-control required" id="providerCode_edit" placeholder="供应商编码">
           </div>
           <div class="form-group">
-            <label for="roleName_edit" class="control-label">角色名称</label>
-            <input type="text" name="roleName_edit" class="form-control required" id="roleName_edit" placeholder="角色名称">
+            <label for="providerName_edit" class="control-label">供应商名称</label>
+            <input type="text" name="providerName_edit" class="form-control required" id="providerName_edit" placeholder="供应商名称">
+          </div>
+          <div class="form-group">
+            <label for="description_edit" class="control-label">描述</label>
+            <input type="text" name="description_edit" class="form-control required" id="description_edit" placeholder="描述">
           </div>
         </div>
         <div class="modal-footer">
@@ -170,47 +178,11 @@
       </div>
     </div>
     </div>
-    
-    <!-- 授权 弹框 -->
-    <div class="modal fade" id="myModal_grant" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <h4 class="modal-title">角色授权：</h4>
-        </div>
-        <div class="modal-body">
- 
-          <div class="form-group">
-            <label class="control-label col-md-2">角色编码:</label>
-            <label class="control-label col-md-4" id="roleCode_grant"></label>
-            <label class="control-label col-md-2">角色名称:</label>
-            <label class="control-label col-md-4" id="roleName_grant"></label>
-          </div>
-          <div class="form-group" style="height: 200px;">
-            <label  class="col-md-2 control-label">绑定权限</label>
-            <div class="col-md-10" ><div class="well">
-              <div class="portlet">
-                <div class="portlet-body">
-               	 	<div id="menuTree" class="ztree"></div>
-                </div>
-           	  </div>
-            </div></div>
-          </div>      
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="icon-undo"></i> 取消</button>
-          <input type="hidden" id="roleCode_hidden" name="roleCode_hidden" />
-          <button type="button" id="btn_grant" class="btn btn-primary" data-dismiss="modal"><i class="icon-save"></i> 保存</button>
-        </div>
-      </div>
-    </div>
-    </div>
     <!-- 弹框结束 -->
   
   </body>
   <%@include file="../common/common.jsp" %>
-  <script type="text/javascript" src="${ctx}/view/role/role.js"></script>
+  <script type="text/javascript" src="${ctx}/view/provider/provider.js"></script>
   <script type="text/javascript" src="${ctx}/js/ztree/js/jquery.ztree.core.min.js"></script>
   <script type="text/javascript" src="${ctx}/js/ztree/js/jquery.ztree.excheck.min.js"></script>
 </html>
