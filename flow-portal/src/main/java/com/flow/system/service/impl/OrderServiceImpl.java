@@ -49,4 +49,7 @@ public class OrderServiceImpl extends AbsPageService<OrderBean> implements Order
 		return page;
 	}
 
+	public OrderBean getOrderByCode(String orderCode){
+		return orderMapper.selectByOrderCode(orderCode);
+	}
 }

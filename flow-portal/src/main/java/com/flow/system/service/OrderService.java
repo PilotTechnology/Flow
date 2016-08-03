@@ -9,4 +9,5 @@ public interface OrderService {
 
 	PageUtil<OrderBean> listPage(Map<String, Object> map);
 
+	OrderBean getOrderByCode(String orderCode);
 }

@@ -11,4 +11,5 @@ public interface OrderMapper {
 
 	List<OrderBean> listPage(Map<String,Object> map);
 
+	OrderBean selectByOrderCode(String orderCode);
 }

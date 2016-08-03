@@ -43,5 +43,8 @@ public class OrderController extends BaseController{
 		return "/view/order/orderList.jsp";
 	}
 	
-	
+	@RequestMapping(value = "order!toSearch.action")
+	public OrderBean toEdit(HttpServletRequest request, String orderCode){
+		return orderService.getOrderByCode(orderCode);
+	}
 }

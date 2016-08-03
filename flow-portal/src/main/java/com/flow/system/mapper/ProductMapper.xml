@@ -58,7 +58,7 @@
   		SELECT COUNT(*) FROM t_flow_product a
   		<include refid="query_body"/>
   </select>
-  <select id="selectByMobileCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByProductCode" parameterType="java.lang.String" resultMap="BaseResultMap">
      select a.*, b.OPERATOR_NAME, c.PROVINCE_NAME, d.NAME
 		from t_flow_product a
 		INNER JOIN t_base_operator b ON a.OPERATOR_CODE = b.ID

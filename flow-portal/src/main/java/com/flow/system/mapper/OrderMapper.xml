@@ -5,6 +5,7 @@
     <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="USER_CODE" jdbcType="VARCHAR" property="userCode" />
     <result column="PROVIDER_CODE" 	jdbcType="VARCHAR" 	property="providerCode" />
+    <result column="DISTRIBUTOR_CODE" 	jdbcType="VARCHAR" 	property="distributorCode" />
     <result column="PROVIDER_NAME" 	jdbcType="VARCHAR" 	property="providerName" />
     <result column="ORDER_CODE" 	jdbcType="VARCHAR" property="orderCode" />
     <result column="PROVIDER_ORDER_CODE" 	jdbcType="VARCHAR" property="providerOrderCode" />
@@ -35,7 +36,7 @@
   </sql>
   
   <select id="listPage" resultMap="BaseResultMap" parameterType="java.util.Map">
-  	SELECT a.ID , a.DISTRIBUTOR_CODE , a.PROVIDER_CODE , b.NAME AS PROVIDER_NAME , a.ORDER_CODE ,
+  	SELECT a.ID , a.DISTRIBUTOR_CODE , a.PROVIDER_CODE , b.NAME AS PROVIDER_NAME , a.DISTRIBUTOR_CODE, a.ORDER_CODE ,
 		a.PROVIDER_ORDER_CODE , a.DISTRIBUTOR_ORDER_CODE , a.OPERATOR_CODE , c.OPERATOR_NAME ,
 		a.PHONE , a.SIZE , a.Price ,
 		a.Discount , a.STATE , a.CREATE_DATE , a.CALLBACK_DATE , a.CALLBACK_CODE,a.CALLBACK_CODE_MESS
@@ -48,6 +49,17 @@
   
   <select id="getCount" resultType="java.lang.Long" parameterType="java.util.Map">
   	SELECT COUNT(1) FROM t_flow_order a <include refid="query_body"/>
+  </select>
+  
+  <select id="selectByOrderCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT a.ID , a.DISTRIBUTOR_CODE , a.PROVIDER_CODE , b.NAME AS PROVIDER_NAME , a.DISTRIBUTOR_CODE a.ORDER_CODE ,
+		a.PROVIDER_ORDER_CODE , a.DISTRIBUTOR_ORDER_CODE , a.OPERATOR_CODE , c.OPERATOR_NAME ,
+		a.PHONE , a.SIZE , a.Price ,
+		a.Discount , a.STATE , a.CREATE_DATE , a.CALLBACK_DATE , a.CALLBACK_CODE,a.CALLBACK_CODE_MESS
+	FROM t_flow_order a
+	INNER JOIN t_flow_provider b ON a.PROVIDER_CODE = b.PROVIDER_CODE
+	INNER JOIN t_base_operator c ON a.OPERATOR_CODE = c.ID
+	where a.ORDER_CODE = #{orderCode,jdbcType=VARCHAR}
   </select>
   
 </mapper>

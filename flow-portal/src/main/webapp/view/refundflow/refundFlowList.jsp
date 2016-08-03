@@ -155,7 +155,7 @@
  
           <div class="form-group">
             <label for="orderCode_add">订单号</label>
-            <button type="button" onclick="toSearch('$('#providerCode_add').val()');" id="btn_search_order" class="btn btn-primary" data-dismiss="modal">确定</button>
+            <button type="button" onclick="toSearch();" id="btn_search_order" class="btn btn-primary" data-dismiss="modal">确定</button>
             <input type="text" name="orderCode_add" class="form-control required" id="orderCode_add" placeholder="订单号">
           </div>
           <div class="form-group">
@@ -260,7 +260,7 @@
   
   </body>
   <%@include file="../common/common.jsp" %>
-  <script type="text/javascript" src="${ctx}/view/role/role.js"></script>
+  <script type="text/javascript" src="${ctx}/view/refundflow/refundFlow.js"></script>
   <script type="text/javascript" src="${ctx}/js/ztree/js/jquery.ztree.core.min.js"></script>
   <script type="text/javascript" src="${ctx}/js/ztree/js/jquery.ztree.excheck.min.js"></script>
 </html>

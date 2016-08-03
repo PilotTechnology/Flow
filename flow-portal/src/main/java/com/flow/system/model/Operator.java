@@ -7,8 +7,6 @@ package com.flow.system.model;
 public class Operator {
     private Integer id;				//主键
 
-    private String operatorCode;	//运营商编码
-
     private String operatorName;	//运营商名
 
     
@@ -18,14 +16,6 @@ public class Operator {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getOperatorCode() {
-        return operatorCode;
-    }
-
-    public void setOperatorCode(String operatorCode) {
-        this.operatorCode = operatorCode == null ? null : operatorCode.trim();
     }
 
     public String getOperatorName() {

@@ -80,9 +80,6 @@
                   <table class="table table-striped table-bordered table-hover table-checkable table-responsive datatable">
                     <thead>
                       <tr>
-                        <th class="checkbox-column">
-                          <input type="checkbox" class="uniform">
-                        </th>
                         <th data-class="expand">序号</th>
                         <th>供应商编码</th>
 						<th>供应商名称</th>
@@ -93,7 +90,6 @@
                     <tbody>
                       <c:forEach var="provider" items="${page.rows}" varStatus="vs">
                       	<tr>
-                        <td class="checkbox-column"><input type="checkbox" class="uniform"></td>
                         <td>${page.firstResult + vs.count}</td>
                         <td>${provider.providerCode}</td>
                         <td>${provider.name}</td>
