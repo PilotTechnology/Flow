@@ -27,7 +27,6 @@ $("#btn_submit").click(function(){
 			}
 		}
 	});
-	
 })
 //TO UPDATE
 function toEdit(providerCode){

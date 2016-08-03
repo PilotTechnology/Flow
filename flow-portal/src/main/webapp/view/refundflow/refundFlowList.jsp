@@ -103,7 +103,7 @@
                         <th>退款单ID</th>
 						<th>订单号</th>
 						<th>手机号码</th>
-						<th>流量包名称</th>
+						<th>流量包大小(M)</th>
 						<th>流量包价格(元)</th>
 						<th>分销商名称</th>
 						<th>供应商名称</th>
@@ -155,7 +155,7 @@
  
           <div class="form-group">
             <label for="orderCode_add">订单号</label>
-            <button type="button" onclick="toSearch();" id="btn_search_order" class="btn btn-primary" data-dismiss="modal">确定</button>
+            <button type="button" onclick="toSearch();" id="btn_search_order" class="btn btn-primary">确定</button>
             <input type="text" name="orderCode_add" class="form-control required" id="orderCode_add" placeholder="订单号">
           </div>
           <div class="form-group">
@@ -163,11 +163,11 @@
             <input type="text" readonly="readonly" name="phone_add" class="form-control required" id="phone_add" placeholder="手机号">
           </div>
           <div class="form-group">
-            <label for="prodcutName_add">流量包名称</label>
+            <label for="prodcutName_add">流量包大小(M)</label>
             <input type="text" readonly="readonly" name="prodcutName_add" class="form-control required" id="prodcutName_add" placeholder="流量包名称">
           </div>
           <div class="form-group">
-            <label for="purchased_add">流量包价格</label>
+            <label for="purchased_add">流量包价格(元)</label>
             <input type="text" readonly="readonly" name="purchased_add" class="form-control required" id="purchased_add" placeholder="流量包价格">
           </div>
           <div class="form-group">

@@ -39,7 +39,7 @@ public class RefundFlowServiceImpl extends AbsPageService<RefundFlow> implements
 	@Override
 	public void save(RefundFlow refundFlow) {
 		// TODO Auto-generated method stub
-		refundFlowMapper.updateByPrimaryKey(refundFlow);
+		refundFlowMapper.insert(refundFlow);
 	}
 
 	@Override
