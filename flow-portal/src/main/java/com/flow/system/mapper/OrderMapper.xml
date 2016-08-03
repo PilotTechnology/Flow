@@ -41,7 +41,7 @@
 		a.Discount , a.STATE , a.CREATE_DATE , a.CALLBACK_DATE , a.CALLBACK_CODE,a.CALLBACK_CODE_MESS
 	FROM t_flow_order a
 	INNER JOIN t_flow_provider b ON a.PROVIDER_CODE = b.PROVIDER_CODE
-	INNER JOIN t_base_operator c ON a.OPERATOR_CODE = c.OPERATOR_CODE
+	INNER JOIN t_base_operator c ON a.OPERATOR_CODE = c.ID
 	<include refid="query_body"/>
   	limit #{start} , #{pageSize}
   </select>

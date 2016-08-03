@@ -100,12 +100,8 @@
                   <table class="table table-striped table-bordered table-hover table-checkable table-responsive datatable">
                     <thead>
                       <tr>
-                        <th class="checkbox-column">
-                          <input type="checkbox" class="uniform">
-                        </th>
-                        <th data-class="expand">序号</th>
                         <th>退款单ID</th>
-						<th>订单ID</th>
+						<th>订单号</th>
 						<th>手机号码</th>
 						<th>流量包名称</th>
 						<th>流量包价格(元)</th>
@@ -113,13 +109,12 @@
 						<th>供应商名称</th>
 						<th>供应商是否已退款</th>
 						<th>创建时间</th>
+						<th>操作</th>
                       </tr>
                     </thead>
                     <tbody>
                       <c:forEach var="refundFlow" items="${page.rows}" varStatus="vs">
                       	<tr>
-                        <td class="checkbox-column"><input type="checkbox" class="uniform"></td>
-                        <td>${page.firstResult + vs.count}</td>
                         <td>${refundFlow.id}</td>
                         <td>${refundFlow.orderCode}</td>
                         <td>${refundFlow.phone}</td>
@@ -131,8 +126,6 @@
                         <td>${refundFlow.createDate}</td>
                         <td>
                         	<button class="btn btn-sm btn-info" onclick="toEdit('${role.roleCode}');"><i class="icon-edit"  ></i>编辑</button>
-                        	<button class="btn btn-sm btn-success" onclick="bindMenu('${role.roleCode}');"><i class="icon-cog"></i>授权</button>
-                        	<button class="btn btn-sm btn-danger" onclick="removeRole('${role.roleCode}','${role.id}');"><i class="icon-remove"></i>删除</button>
                         </td>
                       	</tr>
                       </c:forEach>
@@ -161,12 +154,36 @@
         <div class="modal-body">
  
           <div class="form-group">
-            <label for="roleCode_add">角色编码</label>
-            <input type="text" name="roleCode_add" class="form-control required" id="roleCode_add" placeholder="角色编码">
+            <label for="orderCode_add">订单号</label>
+            <button type="button" onclick="toSearch('$('#providerCode_add').val()');" id="btn_search_order" class="btn btn-primary" data-dismiss="modal">确定</button>
+            <input type="text" name="orderCode_add" class="form-control required" id="orderCode_add" placeholder="订单号">
           </div>
           <div class="form-group">
-            <label for="roleName_add">角色名称</label>
-            <input type="text" name="roleName_add" class="form-control required" id="roleName_add" placeholder="角色名称">
+            <label for="phone_add">手机号</label>
+            <input type="text" readonly="readonly" name="phone_add" class="form-control required" id="phone_add" placeholder="手机号">
+          </div>
+          <div class="form-group">
+            <label for="prodcutName_add">流量包名称</label>
+            <input type="text" readonly="readonly" name="prodcutName_add" class="form-control required" id="prodcutName_add" placeholder="流量包名称">
+          </div>
+          <div class="form-group">
+            <label for="purchased_add">流量包价格</label>
+            <input type="text" readonly="readonly" name="purchased_add" class="form-control required" id="purchased_add" placeholder="流量包价格">
+          </div>
+          <div class="form-group">
+            <label for="distributorName_add">分销商名称</label>
+            <input type="text" readonly="readonly" name="distributorName_add" class="form-control required" id="distributorName_add" placeholder="分销商名称">
+          </div>
+          <div class="form-group">
+            <label for="providerName_add">供应商名称</label>
+            <input type="text" readonly="readonly" name="providerName_add" class="form-control required" id="providerName_add" placeholder="供应商名称">
+          </div>
+          <div class="form-group">
+            <label for="providerIsRefund_add">供应商是否已退款</label>
+          	<select name="providerIsRefund_add" id="providerIsRefund_add" class="form-control">
+            	<option value="0">未退</option>
+            	<option value="1">已退</option>
+	        </select>
           </div>
         </div>
         <div class="modal-footer">
