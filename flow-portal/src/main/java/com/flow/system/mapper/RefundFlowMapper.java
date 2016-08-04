@@ -13,6 +13,8 @@ public interface RefundFlowMapper {
     int insertSelective(RefundFlow record);
 
     RefundFlow selectByPrimaryKey(Integer id);
+    
+    RefundFlow selectByOrderCode(String orderCode);
 
     int updateByPrimaryKeySelective(RefundFlow record);
 

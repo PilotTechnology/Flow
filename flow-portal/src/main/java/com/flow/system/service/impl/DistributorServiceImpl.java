@@ -37,6 +37,17 @@ public class DistributorServiceImpl extends AbsPageService<Distributor> implemen
 		return distributorMapper.selectByDistributorCode(distributorCode);
 	}
 
+	public Double getBalance(String distributorCode) {
+		// TODO Auto-generated method stub
+		return distributorMapper.selectBanlanceByDistributorCode(distributorCode);
+	}
+	
+	@Override
+	public void addBalance(String distributorCode, Double balance) {
+		// TODO Auto-generated method stub
+		distributorMapper.addBalance(distributorCode, balance);
+	}
+
 	@Override
 	public void save(Distributor distributor) {
 		// TODO Auto-generated method stub
@@ -65,5 +76,4 @@ public class DistributorServiceImpl extends AbsPageService<Distributor> implemen
 			return oldDistributor != null;
 		}
 	}
-
 }

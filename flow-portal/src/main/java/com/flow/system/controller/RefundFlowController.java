@@ -15,7 +15,10 @@ import com.flow.pub.common.BaseResponse;
 import com.flow.pub.common.Constant;
 import com.flow.pub.common.PubLog;
 import com.flow.pub.util.PageUtil;
+import com.flow.system.model.CostFlow;
 import com.flow.system.model.RefundFlow;
+import com.flow.system.service.CostFlowService;
+import com.flow.system.service.DistributorService;
 import com.flow.system.service.RefundFlowService;
 
 /**
@@ -28,6 +31,10 @@ import com.flow.system.service.RefundFlowService;
 public class RefundFlowController extends BaseController {
 	@Autowired
 	private RefundFlowService refundFlowService;
+	@Autowired
+	private CostFlowService costFlowService;
+	@Autowired
+	private DistributorService distributorService;
 	
 	/**
 	 * 退款单分页列表
@@ -55,17 +62,47 @@ public class RefundFlowController extends BaseController {
 	 */
 	@RequestMapping(value = "refundFlow!addRefundFlow.action")
 	@ResponseBody
-	public Object addProvider(HttpServletRequest request, RefundFlow refundFlow){
+	public Object addRefundFlow(HttpServletRequest request, RefundFlow refundFlow){
 		try {
-			
 			if(refundFlowService.checkExists(refundFlow)){
 				return new BaseResponse(Constant.JSON_FAIL, "退款单已存在");
 			}
 			refundFlowService.save(refundFlow);
+			distributorService.addBalance(refundFlow.getDistributorName(), refundFlow.getPurchased());
+			CostFlow costFlow = new CostFlow();
+			costFlow.setOrderCode(refundFlow.getOrderCode());
+			costFlow.setDistributorCode(refundFlow.getDistributorName());
+			costFlow.setCost(refundFlow.getPurchased());
+			costFlow.setCurrentBalance(distributorService.getBalance(refundFlow.getDistributorName()));
+			costFlow.setType(1);
+			costFlowService.save(costFlow);
 		} catch (Exception e) {
 			PubLog.error("新增供应商失败 : >> "+refundFlow, e);
 			return new BaseResponse(Constant.JSON_FAIL, e.getMessage());
 		}
 		return Constant.successMsg;
+	}
+	
+	/**
+	 * 修改退款单
+	 * @param request
+	 * @param RefundFlow
+	 * @return
+	 */
+	@RequestMapping(value = "refundFlow!editRefundFlow.action")
+	@ResponseBody
+	public Object editRefundFlowService(HttpServletRequest request, RefundFlow refundFlow){
+		try {
+			refundFlowService.update(refundFlow);
+		} catch (Exception e) {
+			PubLog.error("修改角色失败 : >> "+refundFlow, e);
+			return new BaseResponse(Constant.JSON_FAIL, e.getMessage());
+		}
+		return Constant.successMsg;
+	}
+	
+	@RequestMapping(value = "refundFlow!toSearch.action")
+	public RefundFlow toSearch(HttpServletRequest request, RefundFlow refundFlow){
+		return refundFlowService.getRefundFlowByPrimaryKey(refundFlow.getId());
 	}
 }

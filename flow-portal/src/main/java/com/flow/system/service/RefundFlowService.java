@@ -8,7 +8,7 @@ import com.flow.system.model.RefundFlow;
 public interface RefundFlowService {
 	PageUtil<RefundFlow> listPage(Map<String, Object> map);
 
-	RefundFlow getRefundFlowByCode(Integer refundFlowCode);
+	RefundFlow getRefundFlowByPrimaryKey(Integer id);
 	
 	void save(RefundFlow refundFlow);
 

@@ -125,7 +125,7 @@
                         <td>${refundFlow.providerIsRefund}</td>
                         <td>${refundFlow.createDate}</td>
                         <td>
-                        	<button class="btn btn-sm btn-info" onclick="toEdit('${role.roleCode}');"><i class="icon-edit"  ></i>编辑</button>
+                        	<button class="btn btn-sm btn-info" onclick="toEdit('${refundFlow.id}');"><i class="icon-edit"  ></i>编辑</button>
                         </td>
                       	</tr>
                       </c:forEach>
@@ -152,7 +152,6 @@
           <h4 class="modal-title" id="myModalLabel_add">新增</h4>
         </div>
         <div class="modal-body">
- 
           <div class="form-group">
             <label for="orderCode_add">订单号</label>
             <button type="button" onclick="toSearch();" id="btn_search_order" class="btn btn-primary">确定</button>
@@ -188,7 +187,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal"><i class="icon-undo"></i> 关闭</button>
-          <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><i class="icon-save"></i> 保存</button>
+          <button type="button" id="btn_submit" class="btn btn-primary"><i class="icon-save"></i> 保存</button>
         </div>
       </div>
     </div>
@@ -202,14 +201,36 @@
           <h4 class="modal-title" id="myModalLabel_add">编辑</h4>
         </div>
         <div class="modal-body">
- 
-          <div class="form-group">
-            <label for="roleCode_edit" class="control-label">角色编码</label>
-            <input type="text" name="roleCode_edit" class="form-control required" id="roleCode_edit" placeholder="角色编码">
+ 		  <div class="form-group">
+            <label for="orderCode_edit">订单号</label>
+            <input type="text" readonly="readonly" name="orderCode_edit" class="form-control required" id="orderCode_edit" placeholder="订单号">
           </div>
           <div class="form-group">
-            <label for="roleName_edit" class="control-label">角色名称</label>
-            <input type="text" name="roleName_edit" class="form-control required" id="roleName_edit" placeholder="角色名称">
+            <label for="phone_edit">手机号</label>
+            <input type="text" readonly="readonly" name="phone_edit" class="form-control required" id="phone_edit" placeholder="手机号">
+          </div>
+          <div class="form-group">
+            <label for="prodcutName_edit">流量包大小(M)</label>
+            <input type="text" readonly="readonly" name="prodcutName_edit" class="form-control required" id="prodcutName_edit" placeholder="流量包名称">
+          </div>
+          <div class="form-group">
+            <label for="purchased_edit">流量包价格(元)</label>
+            <input type="text" readonly="readonly" name="purchased_edit" class="form-control required" id="purchased_edit" placeholder="流量包价格">
+          </div>
+          <div class="form-group">
+            <label for="distributorName_edit">分销商名称</label>
+            <input type="text" readonly="readonly" name="distributorName_edit" class="form-control required" id="distributorName_edit" placeholder="分销商名称">
+          </div>
+          <div class="form-group">
+            <label for="providerName_edit">供应商名称</label>
+            <input type="text" readonly="readonly" name="providerName_edit" class="form-control required" id="providerName_edit" placeholder="供应商名称">
+          </div>
+          <div class="form-group">
+            <label for="providerIsRefund_edit">供应商是否已退款</label>
+          	<select name="providerIsRefund_edit" id="providerIsRefund_edit" class="form-control">
+            	<option value="0">未退</option>
+            	<option value="1">已退</option>
+	        </select>
           </div>
         </div>
         <div class="modal-footer">

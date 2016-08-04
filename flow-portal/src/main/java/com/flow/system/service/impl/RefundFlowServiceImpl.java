@@ -31,9 +31,9 @@ public class RefundFlowServiceImpl extends AbsPageService<RefundFlow> implements
 	}
 
 	@Override
-	public RefundFlow getRefundFlowByCode(Integer refundFlowCode) {
+	public RefundFlow getRefundFlowByPrimaryKey(Integer id) {
 		// TODO Auto-generated method stub
-		return refundFlowMapper.selectByPrimaryKey(refundFlowCode);
+		return refundFlowMapper.selectByPrimaryKey(id);
 	}
 
 	@Override
@@ -56,11 +56,11 @@ public class RefundFlowServiceImpl extends AbsPageService<RefundFlow> implements
 
 	@Override
 	public boolean checkExists(RefundFlow refundFlow) {
-		RefundFlow oldRefundFlow = refundFlowMapper.selectByPrimaryKey(refundFlow.getId());
-		if(refundFlow.getId()!=null){
-			return !(oldRefundFlow.getId().equals(refundFlow.getId()));
+		RefundFlow oldRefundFlow = refundFlowMapper.selectByOrderCode(refundFlow.getOrderCode());
+		if(oldRefundFlow!=null){
+			return true;
 		}else{
-			return oldRefundFlow != null;
+			return false;
 		}
 	}
 

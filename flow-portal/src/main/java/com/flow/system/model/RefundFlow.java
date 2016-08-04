@@ -7,7 +7,7 @@ public class RefundFlow {
 
     private String distributorName;
 
-    private String providerName;
+    private String providerName;// 数据库实际存放的时providerCode
 
     private String phone;
 
