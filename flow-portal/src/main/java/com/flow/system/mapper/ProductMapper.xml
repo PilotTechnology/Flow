@@ -14,7 +14,7 @@
     <result column="PRIORITY" jdbcType="INTEGER" property="priority" />
     <result column="SIZE" jdbcType="INTEGER" property="size" />
     <result column="PRICE" jdbcType="DOUBLE" property="price" />
-    <result column="DISCOUNT" jdbcType="INTEGER" property="discount" />
+    <result column="DISCOUNT" jdbcType="DOUBLE" property="discount" />
     <result column="PURCHASED" jdbcType="DOUBLE" property="purchased" />
     <result column="STATE" jdbcType="INTEGER" property="state" />
     <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
@@ -92,7 +92,7 @@
     values (#{id,jdbcType=INTEGER}, #{productCode,jdbcType=VARCHAR}, #{prodcutName,jdbcType=VARCHAR}, 
       #{operatorCode,jdbcType=VARCHAR}, #{providerCode,jdbcType=VARCHAR}, #{proProductCode,jdbcType=VARCHAR}, 
       #{provinceCode,jdbcType=VARCHAR}, #{enableArea,jdbcType=INTEGER}, #{enableType,jdbcType=INTEGER}, #{priority,jdbcType=INTEGER}, 
-      #{size,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, #{discount,jdbcType=INTEGER}, 
+      #{size,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, #{discount,jdbcType=DOUBLE}, 
       #{purchased,jdbcType=DOUBLE}, #{state,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}
       )
   </insert>
@@ -186,7 +186,7 @@
         #{price,jdbcType=DOUBLE},
       </if>
       <if test="discount != null">
-        #{discount,jdbcType=INTEGER},
+        #{discount,jdbcType=DOUBLE},
       </if>
       <if test="purchased != null">
         #{purchased,jdbcType=DOUBLE},
@@ -236,7 +236,7 @@
         PRICE = #{price,jdbcType=DOUBLE},
       </if>
       <if test="discount != null">
-        DISCOUNT = #{discount,jdbcType=INTEGER},
+        DISCOUNT = #{discount,jdbcType=DOUBLE},
       </if>
       <if test="purchased != null">
         PURCHASED = #{purchased,jdbcType=DOUBLE},
@@ -263,7 +263,7 @@
       PRIORITY = #{priority,jdbcType=INTEGER},
       SIZE = #{size,jdbcType=INTEGER},
       PRICE = #{price,jdbcType=DOUBLE},
-      DISCOUNT = #{discount,jdbcType=INTEGER},
+      DISCOUNT = #{discount,jdbcType=DOUBLE},
       PURCHASED = #{purchased,jdbcType=DOUBLE},
       STATE = #{state,jdbcType=INTEGER},
       DESCRIPTION = #{description,jdbcType=VARCHAR}

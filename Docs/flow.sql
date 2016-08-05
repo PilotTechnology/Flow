@@ -69,7 +69,7 @@ CREATE TABLE `t_flow_cost_flow` (
   `COST` double(10,2) DEFAULT NULL COMMENT '流水金额',
   `Current_balance` double(10,2) DEFAULT NULL COMMENT '当前金额',
   `type` int(11) DEFAULT NULL COMMENT '类型（0：扣款，1：退款）',
-  `Creat_date` datetime DEFAULT NULL COMMENT '创建时间',
+  `Creat_date` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -113,13 +113,13 @@ CREATE TABLE `t_flow_order` (
   `PHONE` varchar(16) DEFAULT NULL COMMENT '手机号',
   `SIZE` int(11) DEFAULT NULL COMMENT '流量包大小，以M为最小单位，1G=1024M',
   `PRICE` double(10,2) DEFAULT NULL COMMENT '运营商价格(单位：元）',
-  `DISCOUNT` int(4) DEFAULT NULL COMMENT '购买折扣（60代表6折）',
+  `DISCOUNT` double(4,2) DEFAULT NULL COMMENT '购买折扣（60代表6折）',
   `PURCHASED` double(10,2) DEFAULT NULL COMMENT '购买价格',
-  `REAL_DISCOUNT` int(4) DEFAULT NULL COMMENT '实际购买折扣（60代表6折）',
+  `REAL_DISCOUNT` double(4,2) DEFAULT NULL COMMENT '实际购买折扣（60代表6折）',
   `REAL_PURCHASED` double(10,2) DEFAULT NULL COMMENT '实际购买价格',
   `STATE` int(11) DEFAULT NULL COMMENT '充值状态（0：处理中，1：充值成功，2：充值失败）',
-  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-  `CALLBACK_DATE` datetime DEFAULT NULL COMMENT '回调时间',
+  `CREATE_DATE` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `CALLBACK_DATE` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '回调时间',
   `CALLBACK_CODE` varchar(16) DEFAULT NULL COMMENT '回调状态码',
   `CALLBACK_CODE_MESS` varchar(100) DEFAULT NULL COMMENT '回调状态码描述',
   PRIMARY KEY (`ID`)
@@ -142,7 +142,7 @@ CREATE TABLE `t_flow_product` (
   `PRIORITY` int(4) DEFAULT NULL COMMENT '优先级（0：低 1 ：中 2：高）',
   `SIZE` int(11) DEFAULT NULL COMMENT '流量包大小，以M为最小单位，1G=1024M',
   `PRICE` double(10,2) DEFAULT NULL COMMENT '运营商价格(单位：元）',
-  `DISCOUNT` int(4) DEFAULT NULL COMMENT '折扣（60代表6折）',
+  `DISCOUNT` double(4,2) DEFAULT NULL COMMENT '折扣（60代表6折）',
   `PURCHASED` double(10,2) DEFAULT NULL COMMENT '购买价格',
   `STATE` int(4) DEFAULT NULL COMMENT '状态(0：禁用 1：激活）',
   `DESCRIPTION` varchar(200) DEFAULT NULL COMMENT '描述',
@@ -171,7 +171,7 @@ CREATE TABLE `t_flow_recharge_flow` (
   `Balance_before_recharge` double DEFAULT NULL COMMENT '充值前余额',
   `Recharge` double DEFAULT NULL COMMENT '充值金额',
   `Balance_after_recharge` double DEFAULT NULL COMMENT '充值后金额',
-  `Create_date` datetime DEFAULT NULL COMMENT '创建时间',
+  `Create_date` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `Type` int(11) DEFAULT NULL COMMENT '类型（正常加款…）',
   `USER_CODE` varchar(32) DEFAULT NULL COMMENT '操作用户',
   PRIMARY KEY (`ID`)
@@ -190,7 +190,7 @@ CREATE TABLE `t_flow_refund_flow` (
   `PRODCUT_NAME` varchar(64) DEFAULT NULL COMMENT '流量包名称',
   `PURCHASED` double(10,2) DEFAULT NULL COMMENT '购买价格',
   `Provider_is_refund` int(11) DEFAULT NULL COMMENT '上游是否已退款',
-  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
+  `CREATE_DATE` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -204,7 +204,7 @@ CREATE TABLE `t_flow_service` (
   `DISTRIBUTOR_CODE` varchar(32) DEFAULT NULL COMMENT '下游编码',
   `FATHER_CODE` varchar(32) DEFAULT '' COMMENT '父ID，默认空',
   `STATE` int(4) DEFAULT NULL COMMENT '状态(0 : 禁用 1：激活）',
-  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
+  `CREATE_DATE` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `IS_DISPLAY_PROVINCE` int(11) DEFAULT NULL COMMENT '是否显示省包(1:显示  0：不显示)',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='报价单表';

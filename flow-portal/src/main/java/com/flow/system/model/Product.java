@@ -25,7 +25,7 @@ public class Product {
 
     private Double price;
 
-    private Integer discount;
+    private Double discount;
 
     private Double purchased;
 
@@ -135,11 +135,11 @@ public class Product {
         this.price = price;
     }
 
-    public Integer getDiscount() {
+    public Double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(Integer discount) {
+    public void setDiscount(Double discount) {
         this.discount = discount;
     }
 

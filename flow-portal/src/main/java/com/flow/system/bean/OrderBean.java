@@ -24,7 +24,7 @@ public class OrderBean {
 	private String phone;				//手机号
 	private Integer size;				//订单购买流量包大小(M)
 	private Double price;				//订单实际购买价格
-	private Integer discount;			//实际折扣
+	private Double discount;			//实际折扣
 	private Integer state;				//订单状态 0 ：处理中 1：充值成功 2：充值失败
 	private String stateMsg;
 	private Date	createDate;			//创建时间
@@ -135,10 +135,10 @@ public class OrderBean {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-	public Integer getDiscount() {
+	public Double getDiscount() {
 		return discount;
 	}
-	public void setDiscount(Integer discount) {
+	public void setDiscount(Double discount) {
 		this.discount = discount;
 	}
 	public Integer getState() {
