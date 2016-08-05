@@ -59,9 +59,9 @@
                   			<label class="col-md-1 control-label">创建时间:</label>
                   			<div class="col-md-5">
                   				<div class="row">
-                  					<div class="col-md-5"><input type="text" name="regular" class="form-control datepicker"></div>
+                  					<div class="col-md-5"><input type="text" id="beginTime" name="beginTime" class="form-control" placeholder="YYYY-MM-DD hh:mm:ss" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"></div>
                   					<label class="col-md-2 control-label">至</label>
-                  					<div class="col-md-5"><input type="text" name="regular" class="form-control datepicker"></div>
+                  					<div class="col-md-5"><input type="text" id="endTime" name="endTime" class="form-control" placeholder="YYYY-MM-DD hh:mm:ss" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"></div>
                   				</div>
                   			</div>
                   			<div class="col-md-2">
@@ -284,4 +284,5 @@
   <script type="text/javascript" src="${ctx}/view/refundflow/refundFlow.js"></script>
   <script type="text/javascript" src="${ctx}/js/ztree/js/jquery.ztree.core.min.js"></script>
   <script type="text/javascript" src="${ctx}/js/ztree/js/jquery.ztree.excheck.min.js"></script>
+  <script type="text/javascript" src="${ctx}/plugins/laydate/laydate.js"></script>
 </html>
