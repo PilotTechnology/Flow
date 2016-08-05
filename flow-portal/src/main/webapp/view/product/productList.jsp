@@ -48,9 +48,6 @@
                   			<div class="col-md-2">
                   				<select name="operatorCode" id="operatorCode" class="form-control">
                               		<option value="-1">全部</option>
-                              		<option value="1">中国移动</option>
-                              		<option value="2">中国联通</option>
-                              		<option value="3">中国电信</option>
 	                            </select>
                   			</div>
                   			<label class="col-md-1 control-label">供应商:</label>
@@ -70,17 +67,17 @@
                   			<label class="col-md-1 control-label">使用范围:</label>
                   			<div class="col-md-2">
                   				<select name="enableArea" id="enableArea" class="form-control">
-                  					<option value="-1">全部</option>
-                              		<option value="0">全国</option>
-                              		<option value="1">省</option>
+                  					<option value="-1" <c:if test='${product.enableArea eq -1}'> selected</c:if>>全部</option>
+                              		<option value="0" <c:if test='${product.enableArea eq 0}'> selected</c:if>>全国</option>
+                              		<option value="1" <c:if test='${product.enableArea eq 1}'> selected</c:if>>省市</option>
 	                            </select>
                   			</div>
                   			<label class="col-md-1 control-label">状态:</label>
                   			<div class="col-md-2">
                   				<select name="state" id="state" class="form-control">
-                  					<option value="-1">全部</option>
-                              		<option value="1">正常</option>
-                              		<option value="0">禁用</option>
+                  					<option value="-1" <c:if test='${product.state eq -1}'> selected</c:if>>全部</option>
+                              		<option value="1" <c:if test='${product.state eq 1}'> selected</c:if>>正常</option>
+                              		<option value="0" <c:if test='${product.state eq 0}'> selected</c:if>>禁用</option>
 	                            </select>
                   			</div>
                   			<div class="col-md-2">
@@ -119,9 +116,6 @@
                   <table class="table table-striped table-bordered table-hover table-checkable table-responsive datatable">
                     <thead>
                       <tr>
-                        <th class="checkbox-column">
-                          <input type="checkbox" class="uniform">
-                        </th>
                         <th data-class="expand">序号</th>
                         <th>流量包编码</th>
 						<th>流量包名称</th>
@@ -141,23 +135,21 @@
                     <tbody>
                       <c:forEach var="product" items="${page.rows}" varStatus="vs">
                       	<tr>
-                        <td class="checkbox-column"><input type="checkbox" class="uniform"></td>
                         <td>${page.firstResult + vs.count}</td>
                         <td>${product.productCode}</td>
                         <td>${product.prodcutName}</td>
                         <td>${product.mobileOperator.operatorName}</td>
                         <td>${product.provider.name}</td>
                         <td>${product.province.provinceName}</td>
-                        <td>${product.enableArea}</td>
+                        <td><c:if test='${product.enableArea eq 0}'>全国</c:if><c:if test='${product.enableArea eq 1}'>省市</c:if></td>
                         <td>${product.priority}</td>
                         <td>${product.size}</td>
                         <td>${product.price}</td>
                         <td>${product.discount}</td>
                         <td>${product.purchased}</td>
-                        <td>${product.state}</td>
+                        <td><c:if test='${product.state eq 0}'>禁用</c:if><c:if test='${product.state eq 1}'>正常</c:if></td>
                         <td>
                         	<button class="btn btn-sm btn-info" onclick="toEdit('${role.roleCode}');"><i class="icon-edit"  ></i>编辑</button>
-                        	<button class="btn btn-sm btn-danger" onclick="removeRole('${role.roleCode}','${role.id}');"><i class="icon-remove"></i>删除</button>
                         </td>
                       	</tr>
                       </c:forEach>
@@ -268,7 +260,13 @@
   
   </body>
   <%@include file="../common/common.jsp" %>
+  <script type="text/javascript" src="${ctx}/view/common/public.js"></script>
   <script type="text/javascript" src="${ctx}/view/role/role.js"></script>
   <script type="text/javascript" src="${ctx}/js/ztree/js/jquery.ztree.core.min.js"></script>
   <script type="text/javascript" src="${ctx}/js/ztree/js/jquery.ztree.excheck.min.js"></script>
+  <script type="text/javascript">
+	  initProvider('${product.providerCode}');
+	  initOperator('${product.operatorCode}');
+	  initProvince('${product.provinceCode}');
+  </script>
 </html>

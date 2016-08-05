@@ -24,10 +24,10 @@ function initOperator(defValue){
 		async: false,
 		success:function(data){
 			$(data).each(function(v , operator){
-				if(operator.operatorCode == defValue){
-					$("#operatorCode").append('<option selected="selected" value=' + operator.operatorCode + '>' + operator.operatorName + '</option>')
+				if(operator.id == defValue){
+					$("#operatorCode").append('<option selected="selected" value=' + operator.id + '>' + operator.operatorName + '</option>')
 				}else{
-					$("#operatorCode").append('<option value=' + operator.operatorCode + '>' + operator.operatorName + '</option>')
+					$("#operatorCode").append('<option value=' + operator.id + '>' + operator.operatorName + '</option>')
 				}
 			});
 		}
