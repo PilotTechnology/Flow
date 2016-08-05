@@ -17,6 +17,8 @@
   		<if test="orderCode !=null and orderCode != ''"> AND Order_CODE = #{orderCode}</if>
   		<if test="phone !=null and phone != ''"> AND PHONE = #{phone}</if>
   		<if test="providerIsRefund !=null and providerIsRefund != -1"> AND Provider_is_refund = #{providerIsRefund}</if>
+  		<if test="beginTime !=null and beginTime != ''"> AND CREATE_DATE <![CDATA[  >  ]]> #{beginTime}</if>
+  		<if test="endTime !=null and endTime != ''"> AND CREATE_DATE <![CDATA[  <  ]]> #{endTime}</if>
   	</where>
   </sql>
   <sql id="Base_Column_List">

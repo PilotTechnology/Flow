@@ -158,7 +158,7 @@
                         <%-- <td>${order.price}</td>
                         <td>${order.discount}</td> --%>
                         <td>${order.stateMsg}</td>
-                        <td><fmt:formatDate value="${order.createDate}"/></td>
+                        <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${order.createDate}"/></td>
                    <%-- <td>${order.callBackDate}</td>
                         <td>${order.providerOrderCode}</td>
                         <td>${order.callBackCodeMess}</td> --%>

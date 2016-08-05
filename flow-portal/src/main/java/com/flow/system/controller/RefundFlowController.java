@@ -51,6 +51,8 @@ public class RefundFlowController extends BaseController {
 		PageUtil<RefundFlow> page = refundFlowService.listPage(map);
 		model.addAttribute("page",page);
 		model.addAttribute("refundFlow",refundFlow);
+		model.addAttribute("beginTime",map.get("beginTime"));
+		model.addAttribute("endTime",map.get("endTime"));
 		return "/view/refundflow/refundFlowList.jsp";
 	}
 	

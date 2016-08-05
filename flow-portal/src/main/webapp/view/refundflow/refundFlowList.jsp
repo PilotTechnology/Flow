@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set value="${request.pagecontext.contextpath}" var="ctx"/>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">  
   <head>
@@ -49,9 +50,9 @@
                   			<label class="col-md-1 control-label">上游是否已退款:</label>
                   			<div class="col-md-2">
                   				<select name="providerIsRefund" id="providerIsRefund" class="form-control">
-                              		<option value="-1">全部</option>
-                              		<option value="0">未退</option>
-                              		<option value="1">已退</option>
+                              		<option value="-1" <c:if test='${refundFlow.providerIsRefund eq -1}'> selected</c:if>>全部</option>
+                              		<option value="0" <c:if test='${refundFlow.providerIsRefund eq 0}'> selected</c:if>>未退</option>
+                              		<option value="1" <c:if test='${refundFlow.providerIsRefund eq 1}'> selected</c:if>>已退</option>
 	                            </select>
                   			</div>
                   		</div>
@@ -59,9 +60,9 @@
                   			<label class="col-md-1 control-label">创建时间:</label>
                   			<div class="col-md-5">
                   				<div class="row">
-                  					<div class="col-md-5"><input type="text" id="beginTime" name="beginTime" class="form-control" placeholder="YYYY-MM-DD hh:mm:ss" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"></div>
+                  					<div class="col-md-5"><input type="text" id="beginTime" name="beginTime" value="${beginTime}" class="form-control" placeholder="YYYY-MM-DD hh:mm:ss" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"></div>
                   					<label class="col-md-2 control-label">至</label>
-                  					<div class="col-md-5"><input type="text" id="endTime" name="endTime" class="form-control" placeholder="YYYY-MM-DD hh:mm:ss" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"></div>
+                  					<div class="col-md-5"><input type="text" id="endTime" name="endTime" value="${endTime}" class="form-control" placeholder="YYYY-MM-DD hh:mm:ss" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"></div>
                   				</div>
                   			</div>
                   			<div class="col-md-2">
@@ -113,17 +114,17 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <c:forEach var="refundFlow" items="${page.rows}" varStatus="vs">
+                      <c:forEach var="refundflow" items="${page.rows}" varStatus="vs">
                       	<tr>
-                        <td>${refundFlow.id}</td>
-                        <td>${refundFlow.orderCode}</td>
-                        <td>${refundFlow.phone}</td>
-                        <td>${refundFlow.prodcutName}</td>
-                        <td>${refundFlow.purchased}</td>
-                        <td>${refundFlow.distributorName}</td>
-                        <td>${refundFlow.providerName}</td>
-                        <td>${refundFlow.providerIsRefund}</td>
-                        <td>${refundFlow.createDate}</td>
+                        <td>${refundflow.id}</td>
+                        <td>${refundflow.orderCode}</td>
+                        <td>${refundflow.phone}</td>
+                        <td>${refundflow.prodcutName}</td>
+                        <td>${refundflow.purchased}</td>
+                        <td>${refundflow.distributorName}</td>
+                        <td>${refundflow.providerName}</td>
+                        <td><c:if test='${refundflow.providerIsRefund eq 0}'>未退</c:if><c:if test='${refundflow.providerIsRefund eq 1}'>已退</c:if></td>
+                        <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${refundflow.createDate}"/></td>
                         <td>
                         	<button class="btn btn-sm btn-info" onclick="toEdit('${refundFlow.id}');"><i class="icon-edit"  ></i>编辑</button>
                         </td>

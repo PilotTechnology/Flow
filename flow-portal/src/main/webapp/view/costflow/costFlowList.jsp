@@ -1,5 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set value="${request.pagecontext.contextpath}" var="ctx"/>
 <!DOCTYPE html>
 <html lang="en">  
@@ -45,9 +46,9 @@
                   			<label class="col-md-1 control-label">类型:</label>
                   			<div class="col-md-2">
                   				<select name="type" id="type" class="form-control">
-                  					<option value="-1">全部</option>
-                              		<option value="0">扣款</option>
-                              		<option value="1">退款</option>
+                  					<option value="-1" <c:if test='${costFlow.type eq -1}'> selected</c:if>>全部</option>
+                              		<option value="0" <c:if test='${costFlow.type eq 0}'> selected</c:if>>扣款</option>
+                              		<option value="1"<c:if test='${costFlow.type eq 1}'> selected</c:if>>退款</option>
 	                            </select>
                   			</div>
                   			<div class="col-md-2">
@@ -79,9 +80,6 @@
                   <table class="table table-striped table-bordered table-hover table-checkable table-responsive datatable">
                     <thead>
                       <tr>
-                        <th class="checkbox-column">
-                          <input type="checkbox" class="uniform">
-                        </th>
                         <th data-class="expand">序号</th>
                         <th>订单ID</th>
                         <th>分销商ID</th>
@@ -94,14 +92,13 @@
                     <tbody>
                       <c:forEach var="costflow" items="${page.rows}" varStatus="vs">
                       	<tr>
-                        <td class="checkbox-column"><input type="checkbox" class="uniform"></td>
                         <td>${page.firstResult + vs.count}</td>
                         <td>${costflow.orderCode}</td>
                         <td>${costflow.distributorCode}</td>
                         <td>${costflow.cost}</td>
                         <td>${costflow.currentBalance}</td>
-                        <td>${costflow.type}</td>
-                        <td>${costflow.creatDate}</td>
+                        <td><c:if test='${costflow.type eq 0}'>扣款</c:if><c:if test='${costflow.type eq 1}'>退款</c:if></td>
+                        <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${costflow.creatDate}"/></td>
                       	</tr>
                       </c:forEach>
                     </tbody>
