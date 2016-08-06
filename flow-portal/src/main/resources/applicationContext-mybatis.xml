@@ -46,12 +46,13 @@
 			<list>
 				<value>classpath*:com/flow/system/mapper/*Mapper.xml</value>
 				<value>classpath*:com/flow/portal/mapper/*Mapper.xml</value>
+				<value>classpath*:com/flow/api/mapper/*Mapper.xml</value>
 			</list>
 		</property> 
   </bean> 
      <!-- spring与mybatis整合配置，扫描所有dao -->
   <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
-      p:basePackage="com.flow.portal.mapper.**,
+      p:basePackage="com.flow.portal.mapper.**,com.flow.api.mapper.**,
       com.flow.system.mapper.** "
       p:sqlSessionFactoryBeanName="sqlSessionFactory"/>
  

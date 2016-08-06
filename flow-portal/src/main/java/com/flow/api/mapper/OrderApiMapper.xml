@@ -32,4 +32,11 @@
 			  PROVIDER_CODE , OPERATOR_CODE 
 		FROM t_flow_order where STATE = 0 order by id limit 300
 	</select>
+	
+	<select id="getCallBackList" resultMap="BaseResultMap">
+		SELECT ORDER_CODE , PHONE , SIZE , Price , Discount , PURCHASED ,
+			  REAL_PURCHASED , REAL_DISCOUNT , SERV_PROD_ID , DISTRIBUTOR_ORDER_CODE ,
+			  PROVIDER_CODE , OPERATOR_CODE 
+		FROM t_flow_order where STATE = 0 order by id limit 300
+	</select>
 </mapper>

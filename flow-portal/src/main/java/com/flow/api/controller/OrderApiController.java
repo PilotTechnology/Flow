@@ -40,7 +40,7 @@ public class OrderApiController {
 	 * @param req
 	 * @return
 	 */
-	@RequestMapping(value = "/order", method = RequestMethod.GET)
+	@RequestMapping(value = "/order.do", method = RequestMethod.GET)
 	@ResponseBody
 	public OrderResponse get(OrderRequest req){
 		try {
@@ -104,7 +104,7 @@ public class OrderApiController {
 	 * @param req
 	 * @return
 	 */
-	@RequestMapping(value = "/callback", method = RequestMethod.GET)
+	@RequestMapping(value = "/callback.do", method = RequestMethod.GET)
 	@ResponseBody
 	public OrderResponse callback(CallBackRequest req){
 		OrderResponse resp = checkCallBackParam(req);
