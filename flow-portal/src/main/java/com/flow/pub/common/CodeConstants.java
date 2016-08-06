@@ -24,5 +24,8 @@ public class CodeConstants {
 	public static final int ORDER_STATE_INIT = 0;			//处理中
 	public static final int ORDER_STATE_SUCC = 1;			//处理成功
 	public static final int ORDER_STATE_ERR  = 2;			//处理失败
-	
+
+	//资金流水类型
+	public static final int COST_FLOW_TYPE_KK = 0;			//扣款
+	public static final int COST_FLOW_TYPE_REFUND = 1;		//退款
 }

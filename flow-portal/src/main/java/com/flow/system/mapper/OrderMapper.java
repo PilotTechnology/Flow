@@ -36,4 +36,9 @@ public interface OrderMapper {
 	 * @return
 	 */
 	public int insert(Order order);
+	/**
+	 * 根据上游回调更新订单信息
+	 * @param order
+	 */
+	void updateOrder(Order order);
 }

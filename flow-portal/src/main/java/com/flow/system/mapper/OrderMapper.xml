@@ -90,4 +90,13 @@
 			   #{distributorCode,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
 			   #{size,jdbcType=INTEGER},#{state,jdbcType=INTEGER},#{createDate,jdbcType=TIMESTAMP})
 	</insert>
+	
+	<!-- 更新订单 -->
+	<update id="updateOrder" parameterType="com.flow.system.model.Order">
+		 UPDATE t_flow_order 
+		 SET STATE = #{state,jdbcType=INTEGER} , CALLBACK_DATE = #{callbackDate,jdbcType=TIMESTAMP},
+			 CALLBACK_CODE = #{callbackCode,jdbcType=VARCHAR} , PROVIDER_ORDER_CODE = #{providerOrderCode},
+			 CALLBACK_CODE_MESS = #{callbackCodeMess,jdbcType=VARCHAR},
+		 WHERE ORDER_CODE = #{orderCode}
+	</update>
 </mapper>
