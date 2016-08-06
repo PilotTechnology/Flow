@@ -12,6 +12,8 @@ function initProvider(defValue){
 				}else{
 					$("#providerCode").append('<option value=' + provider.providerCode + '>' + provider.name + '</option>')
 				}
+				$("#providerCode_add").append('<option value=' + provider.providerCode + '>' + provider.name + '</option>')
+				$("#providerCode_edit").append('<option value=' + provider.providerCode + '>' + provider.name + '</option>')
 			});
 		}
 	}) 
@@ -29,6 +31,8 @@ function initOperator(defValue){
 				}else{
 					$("#operatorCode").append('<option value=' + operator.id + '>' + operator.operatorName + '</option>')
 				}
+				$("#operatorCode_add").append('<option value=' + operator.id + '>' + operator.operatorName + '</option>')
+				$("#operatorCode_edit").append('<option value=' + operator.id + '>' + operator.operatorName + '</option>')
 			});
 		}
 	}) 
@@ -46,6 +50,8 @@ function initProvince(defValue){
 				}else{
 					$("#provinceCode").append('<option value=' + pro.id + '>' + pro.provinceName + '</option>')
 				}
+				$("#provinceCode_add").append('<option value=' + pro.id + '>' + pro.provinceName + '</option>')
+				$("#provinceCode_edit").append('<option value=' + pro.id + '>' + pro.provinceName + '</option>')
 			});
 		}
 	}) 

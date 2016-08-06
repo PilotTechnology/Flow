@@ -242,44 +242,6 @@
       </div>
     </div>
     </div>
-    
-    <!-- 授权 弹框 -->
-    <div class="modal fade" id="myModal_grant" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <h4 class="modal-title">角色授权：</h4>
-        </div>
-        <div class="modal-body">
- 
-          <div class="form-group">
-            <label class="control-label col-md-2">角色编码:</label>
-            <label class="control-label col-md-4" id="roleCode_grant"></label>
-            <label class="control-label col-md-2">角色名称:</label>
-            <label class="control-label col-md-4" id="roleName_grant"></label>
-          </div>
-          <div class="form-group" style="height: 200px;">
-            <label  class="col-md-2 control-label">绑定权限</label>
-            <div class="col-md-10" ><div class="well">
-              <div class="portlet">
-                <div class="portlet-body">
-               	 	<div id="menuTree" class="ztree"></div>
-                </div>
-           	  </div>
-            </div></div>
-          </div>      
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="icon-undo"></i> 取消</button>
-          <input type="hidden" id="roleCode_hidden" name="roleCode_hidden" />
-          <button type="button" id="btn_grant" class="btn btn-primary" data-dismiss="modal"><i class="icon-save"></i> 保存</button>
-        </div>
-      </div>
-    </div>
-    </div>
-    <!-- 弹框结束 -->
-  
   </body>
   <%@include file="../common/common.jsp" %>
   <script type="text/javascript" src="${ctx}/view/refundflow/refundFlow.js"></script>

@@ -149,7 +149,7 @@
                         <td>${product.purchased}</td>
                         <td><c:if test='${product.state eq 0}'>禁用</c:if><c:if test='${product.state eq 1}'>正常</c:if></td>
                         <td>
-                        	<button class="btn btn-sm btn-info" onclick="toEdit('${role.roleCode}');"><i class="icon-edit"  ></i>编辑</button>
+                        	<button class="btn btn-sm btn-info" onclick="toSearch('${product.id}');"><i class="icon-edit"  ></i>编辑</button>
                         </td>
                       	</tr>
                       </c:forEach>
@@ -176,19 +176,85 @@
           <h4 class="modal-title" id="myModalLabel_add">新增</h4>
         </div>
         <div class="modal-body">
- 
           <div class="form-group">
-            <label for="roleCode_add">角色编码</label>
-            <input type="text" name="roleCode_add" class="form-control required" id="roleCode_add" placeholder="角色编码">
+            <label for="productCode_add">流量包编码</label>
+            <input type="text" name="productCode_add" class="form-control required" id="productCode_add" placeholder="流量包编码">
           </div>
           <div class="form-group">
-            <label for="roleName_add">角色名称</label>
-            <input type="text" name="roleName_add" class="form-control required" id="roleName_add" placeholder="角色名称">
+            <label for="productName_add">流量包名称</label>
+            <input type="text" name="productName_add" class="form-control required" id="productName_add" placeholder="流量包名称">
+          </div>
+          <div class="form-group">
+            <label for="operatorCode_add">运营商</label>
+          	<select name="operatorCode_add" id="operatorCode_add" class="form-control">
+	        </select>
+          </div>
+          <div class="form-group">
+            <label for="providerCode_add">供应商</label>
+          	<select name="providerCode_add" id="providerCode_add" class="form-control">
+	        </select>
+          </div>
+          <div class="form-group">
+            <label for="proProductCode_add">供应商流量包编码</label>
+            <input type="text" name="proProductCode_add" class="form-control required" id="proProductCode_add" placeholder="供应商流量包编码">
+          </div>
+          <div class="form-group">
+            <label for="provinceCode_add">接口区域</label>
+          	<select name="provinceCode_add" id="provinceCode_add" class="form-control">
+	        </select>
+          </div>
+          <div class="form-group">
+            <label for="enableArea_add">使用范围</label>
+          	<select name="enableArea_add" id="enableArea_add" class="form-control">
+                <option value="0">全国</option>
+                <option value="1">省市</option>
+	        </select>
+          </div>
+          <div class="form-group">
+            <label for="enableType_add">生效类型</label>
+          	<select name="enableType_add" id="enableType_add" class="form-control">
+            	<option value="0">立即生效</option>
+            	<option value="1">次月生效</option>
+            	<option value="2">24小时候生效</option>
+            	<option value="3">当天生效</option>
+            	<option value="4">当月生效</option>
+	        </select>
+          </div>
+          <div class="form-group">
+            <label for="priority_add">优先级</label>
+          	<select name="priority_add" id="priority_add" class="form-control">
+            	<option value="0">低级</option>
+            	<option value="1">中级</option>
+            	<option value="2">高级</option>
+	        </select>
+          </div>
+          <div class="form-group">
+            <label for="size_add">流量包大小</label>
+            <input type="text" name="size_add" class="form-control required" id="size_add" placeholder="流量包大小">
+          </div>
+          <div class="form-group">
+            <label for="price_add">运营商价格</label>
+            <input type="text" name="price_add" class="form-control required" id="price_add" placeholder="运营商价格">
+          </div>
+          <div class="form-group">
+            <label for="discount_add">折扣</label>
+            <input type="text" name="discount_add" class="form-control required" id="discount_add" placeholder="折扣">
+          </div>
+          <div class="form-group">
+            <label for="state_add">状态</label>
+          	<select name="state_add" id="state_add" class="form-control">
+            	<option value="1">激活</option>
+            	<option value="0">禁用</option>
+	        </select>
+          </div>
+          <div class="form-group">
+            <label for="description_add">描述</label>
+            <input type="text" name="description_add" class="form-control required" id="description_add" placeholder="描述">
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal"><i class="icon-undo"></i> 关闭</button>
-          <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><i class="icon-save"></i> 保存</button>
+          <button type="button" id="btn_submit" class="btn btn-primary"><i class="icon-save"></i> 保存</button>
         </div>
       </div>
     </div>
@@ -202,66 +268,94 @@
           <h4 class="modal-title" id="myModalLabel_add">编辑</h4>
         </div>
         <div class="modal-body">
- 
-          <div class="form-group">
-            <label for="roleCode_edit" class="control-label">角色编码</label>
-            <input type="text" name="roleCode_edit" class="form-control required" id="roleCode_edit" placeholder="角色编码">
+ 		  <div class="form-group">
+            <label for="productCode_edit">流量包编码</label>
+            <input type="text" name="productCode_edit" class="form-control required" id="productCode_edit" readonly="readonly" placeholder="流量包编码">
           </div>
           <div class="form-group">
-            <label for="roleName_edit" class="control-label">角色名称</label>
-            <input type="text" name="roleName_edit" class="form-control required" id="roleName_edit" placeholder="角色名称">
+            <label for="productName_edit">流量包名称</label>
+            <input type="text" name="productName_edit" class="form-control required" id="productName_edit" placeholder="流量包名称">
+          </div>
+          <div class="form-group">
+            <label for="operatorCode_edit">运营商</label>
+          	<select name="operatorCode_edit" id="operatorCode_edit" class="form-control">
+	        </select>
+          </div>
+          <div class="form-group">
+            <label for="providerCode_edit">供应商</label>
+          	<select name="providerCode_edit" id="providerCode_edit" class="form-control">
+	        </select>
+          </div>
+          <div class="form-group">
+            <label for="proProductCode_edit">供应商流量包名称</label>
+            <input type="text" name="proProductCode_edit" class="form-control required" id="proProductCode_edit" placeholder="供应商流量包名称">
+          </div>
+          <div class="form-group">
+            <label for="provinceCode_edit">接口区域</label>
+          	<select name="provinceCode_edit" id="provinceCode_edit" class="form-control">
+	        </select>
+          </div>
+          <div class="form-group">
+            <label for="enableArea_edit">使用范围</label>
+          	<select name="enableArea_edit" id="enableArea_edit" class="form-control">
+                <option value="0">全国</option>
+                <option value="1">省市</option>
+	        </select>
+          </div>
+          <div class="form-group">
+            <label for="enableType_edit">生效类型</label>
+          	<select name="enableType_edit" id="enableType_edit" class="form-control">
+            	<option value="0">立即生效</option>
+            	<option value="1">次月生效</option>
+            	<option value="2">24小时候生效</option>
+            	<option value="3">当天生效</option>
+            	<option value="4">当月生效</option>
+	        </select>
+          </div>
+          <div class="form-group">
+            <label for="priority_edit">优先级</label>
+          	<select name="priority_edit" id="priority_edit" class="form-control">
+            	<option value="0">低级</option>
+            	<option value="1">中级</option>
+            	<option value="2">高级</option>
+	        </select>
+          </div>
+          <div class="form-group">
+            <label for="size_edit">流量包大小</label>
+            <input type="text" name="size_edit" class="form-control required" id="size_edit" placeholder="流量包大小">
+          </div>
+          <div class="form-group">
+            <label for="price_edit">运营商价格</label>
+            <input type="text" name="price_edit" class="form-control required" id="price_edit" placeholder="运营商价格">
+          </div>
+          <div class="form-group">
+            <label for="discount_edit">折扣</label>
+            <input type="text" name="discount_edit" class="form-control required" id="discount_edit" placeholder="折扣">
+          </div>
+          <div class="form-group">
+            <label for="state_edit">状态</label>
+          	<select name="state_edit" id="state_edit" class="form-control">
+            	<option value="1">激活</option>
+            	<option value="0">禁用</option>
+	        </select>
+          </div>
+          <div class="form-group">
+            <label for="description_edit">描述</label>
+            <input type="text" name="description_edit" class="form-control required" id="description_edit" placeholder="描述">
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal"><i class="icon-undo"></i> 关闭</button>
           <input type="hidden" id="id_edit" name="id_edit" />
-          <button type="button" id="btn_update" class="btn btn-primary" data-dismiss="modal"><i class="icon-save"></i> 修改</button>
+          <button type="button" id="btn_update" class="btn btn-primary"><i class="icon-save"></i> 修改</button>
         </div>
       </div>
     </div>
     </div>
-    
-    <!-- 授权 弹框 -->
-    <div class="modal fade" id="myModal_grant" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <h4 class="modal-title">角色授权：</h4>
-        </div>
-        <div class="modal-body">
- 
-          <div class="form-group">
-            <label class="control-label col-md-2">角色编码:</label>
-            <label class="control-label col-md-4" id="roleCode_grant"></label>
-            <label class="control-label col-md-2">角色名称:</label>
-            <label class="control-label col-md-4" id="roleName_grant"></label>
-          </div>
-          <div class="form-group" style="height: 200px;">
-            <label  class="col-md-2 control-label">绑定权限</label>
-            <div class="col-md-10" ><div class="well">
-              <div class="portlet">
-                <div class="portlet-body">
-               	 	<div id="menuTree" class="ztree"></div>
-                </div>
-           	  </div>
-            </div></div>
-          </div>      
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="icon-undo"></i> 取消</button>
-          <input type="hidden" id="roleCode_hidden" name="roleCode_hidden" />
-          <button type="button" id="btn_grant" class="btn btn-primary" data-dismiss="modal"><i class="icon-save"></i> 保存</button>
-        </div>
-      </div>
-    </div>
-    </div>
-    <!-- 弹框结束 -->
-  
   </body>
   <%@include file="../common/common.jsp" %>
   <script type="text/javascript" src="${ctx}/view/common/public.js"></script>
-  <script type="text/javascript" src="${ctx}/view/role/role.js"></script>
+  <script type="text/javascript" src="${ctx}/view/product/product.js"></script>
   <script type="text/javascript" src="${ctx}/js/ztree/js/jquery.ztree.core.min.js"></script>
   <script type="text/javascript" src="${ctx}/js/ztree/js/jquery.ztree.excheck.min.js"></script>
   <script type="text/javascript">

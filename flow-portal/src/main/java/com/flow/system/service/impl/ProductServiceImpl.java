@@ -35,6 +35,11 @@ public class ProductServiceImpl extends AbsPageService<Product> implements Produ
 		// TODO Auto-generated method stub
 		return productMapper.selectByProductCode(productCode);
 	}
+	
+	@Override
+	public Product getProductByPrimaryKey(Integer id) {
+		return productMapper.selectByPrimaryKey(id);
+	}
 
 	@Override
 	public void save(Product product) {
@@ -57,10 +62,10 @@ public class ProductServiceImpl extends AbsPageService<Product> implements Produ
 	@Override
 	public boolean checkExists(Product product) {
 		Product oldProduct = productMapper.selectByProductCode(product.getProductCode());
-		if(product.getId()!=null){
-			return !(oldProduct.getProductCode().equals(product.getProductCode()));
-		}else{
-			return oldProduct != null;
+		if (oldProduct != null) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 

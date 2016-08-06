@@ -10,6 +10,8 @@ public interface ProductService {
 
 	Product getProductByCode(String productCode);
 	
+	Product getProductByPrimaryKey(Integer id);
+	
 	void save(Product product);
 
 	void delete(Product product);
