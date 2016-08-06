@@ -305,4 +305,10 @@
       SECRET_KEY = #{secretKey,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+
+    <select id="selectByAppKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    FROM t_flow_distributor
+    WHERE STATE = 1 AND APP_KEY = #{appKey,jdbcType=VARCHAR}
+  </select>
 </mapper>

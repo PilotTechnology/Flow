@@ -18,6 +18,8 @@ public interface DistributorMapper {
 
     Distributor selectByPrimaryKey(Integer id);
     
+    Distributor selectByAppKey(String distributorCode);
+    
     Distributor selectByDistributorCode(String distributorCode);
     
     Double selectBanlanceByDistributorCode(String distributorCode);
