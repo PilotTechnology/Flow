@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flow.api.mapper.OrderApiMapper">
+	
+	<resultMap id="BaseResultMap" type="com.flow.system.model.Order">
+		<id column="ID" jdbcType="INTEGER" property="id" />
+		<result column="ORDER_CODE" 			jdbcType="VARCHAR" 	property="orderCode" />
+		<result column="PROVIDER_ORDER_CODE" 	jdbcType="VARCHAR" 	property="providerOrderCode" />
+		<result column="DISTRIBUTOR_ORDER_CODE" jdbcType="VARCHAR" 	property="distributorOrderCode" />
+		<result column="OPERATOR_CODE" 			jdbcType="VARCHAR" 	property="operatorCode" />
+		<result column="PROVIDER_CODE" 			jdbcType="VARCHAR" 	property="providerCode" />
+		<result column="DISTRIBUTOR_CODE" 		jdbcType="VARCHAR" 	property="distributorCode" />
+		<result column="PHONE" 					jdbcType="VARCHAR" 	property="phone" />
+		<result column="SIZE" 					jdbcType="INTEGER" 	property="size" />
+		<result column="Price" 					jdbcType="DECIMAL" 	property="price" />
+		<result column="Discount" 				jdbcType="INTEGER" 	property="discount" />
+		<result column="PURCHASED" 				jdbcType="DECIMAL" 	property="purchased" />
+		<result column="REAL_PURCHASED" 		jdbcType="DECIMAL" 	property="realPurchased" />
+		<result column="REAL_DISCOUNT" 			jdbcType="INTEGER" 	property="realDiscount" />
+		<result column="SERV_PROD_ID" 			jdbcType="INTEGER" 	property="servProdId" />
+		<result column="STATE" 					jdbcType="INTEGER" 	property="state" />
+		<result column="CREATE_DATE" 			jdbcType="TIMESTAMP" property="createDate" />
+		<result column="CALLBACK_DATE" 			jdbcType="TIMESTAMP" property="callbackDate" />
+		<result column="CALLBACK_CODE" 			jdbcType="VARCHAR" 	property="callbackCode" />
+		<result column="CALLBACK_CODE_MESS" 	jdbcType="VARCHAR"	property="callbackCodeMess" />
+	</resultMap>
+	
+	<!-- 查询需要通知的订单，取前300个 -->
+	<select id="getOrderList" resultMap="BaseResultMap">
+		SELECT ORDER_CODE , PHONE , SIZE , Price , Discount , PURCHASED ,
+			  REAL_PURCHASED , REAL_DISCOUNT , SERV_PROD_ID , DISTRIBUTOR_ORDER_CODE ,
+			  PROVIDER_CODE , OPERATOR_CODE 
+		FROM t_flow_order where STATE = 0 order by id limit 300
+	</select>
+	
+	<select id="getCallBackList" resultMap="BaseResultMap">
+		SELECT ORDER_CODE , PHONE , SIZE , Price , Discount , PURCHASED ,
+			  REAL_PURCHASED , REAL_DISCOUNT , SERV_PROD_ID , DISTRIBUTOR_ORDER_CODE ,
+			  PROVIDER_CODE , OPERATOR_CODE 
+		FROM t_flow_order where STATE = 0 order by id limit 300
+	</select>
+</mapper>

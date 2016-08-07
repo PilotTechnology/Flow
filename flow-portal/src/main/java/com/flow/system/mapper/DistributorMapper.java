@@ -8,6 +8,13 @@ import org.apache.ibatis.annotations.Param;
 import com.flow.system.model.Distributor;
 
 public interface DistributorMapper {
+	
+	/**
+	 * 获取所有的有效下游
+	 * @return
+	 */
+	List<Distributor> getAllEnableList();
+	
     int deleteByPrimaryKey(Integer id);
     
     int deleteByDistributorCode(String distributorCode);
@@ -17,6 +24,8 @@ public interface DistributorMapper {
     int insertSelective(Distributor record);
 
     Distributor selectByPrimaryKey(Integer id);
+    
+    Distributor selectByAppKey(String distributorCode);
     
     Distributor selectByDistributorCode(String distributorCode);
     
@@ -31,4 +40,6 @@ public interface DistributorMapper {
     List<Distributor> listPage(Map map);
 
 	Long getCount(Map map);
+
+
 }

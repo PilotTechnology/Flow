@@ -49,6 +49,26 @@
     APP_KEY, SECRET_KEY
   </sql>
   
+  <!-- 获取所有有效下游 -->
+  <select id="getAllEnableList" resultMap="BaseResultMap">
+  	SELECT <include refid="Base_Column_List" />
+  	FROM t_flow_distributor WHERE state = 1
+  </select>
+  
+   <!-- 修改下游信息 -->
+  <update id="updateByPrimaryKey" parameterType="com.flow.system.model.Distributor">
+    update t_flow_distributor
+    set DISTRBUTOR_CODE = #{distrbutorCode,jdbcType=VARCHAR} , USER_CODE = #{userCode,jdbcType=VARCHAR},
+      OPERATOR_CODE = #{operatorCode,jdbcType=VARCHAR} , CHANNEL_TYPE = #{channelType,jdbcType=INTEGER},
+      COOP_MODEL = #{coopModel,jdbcType=INTEGER} , COMPANY = #{company,jdbcType=VARCHAR},
+      BALANCE = #{balance,jdbcType=DOUBLE} , FREEZING = #{freezing,jdbcType=DOUBLE},
+      TOTAL = #{total,jdbcType=DOUBLE} , SMS_CONTENT = #{smsContent,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=INTEGER} , LEVEL = #{level,jdbcType=INTEGER},
+      CALLBACK_URL = #{callbackUrl,jdbcType=VARCHAR} , CONFINING_IP = #{confiningIp,jdbcType=VARCHAR},
+      APP_KEY = #{appKey,jdbcType=VARCHAR} , SECRET_KEY = #{secretKey,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
   <select id="listPage" resultMap="BaseResultMap"  parameterType="java.util.Map">
 	select a.ID as ID, a.DISTRBUTOR_CODE as DISTRBUTOR_CODE, a.USER_CODE as USER_CODE, a.OPERATOR_CODE as OPERATOR_CODE,
 			a.CHANNEL_TYPE as CHANNEL_TYPE, a.COOP_MODEL as COOP_MODEL, a.COMPANY as COMPANY, a.BALANCE as BALANCE, a.FREEZING as FREEZING,
@@ -285,24 +305,10 @@
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.flow.system.model.Distributor">
-    update t_flow_distributor
-    set DISTRBUTOR_CODE = #{distrbutorCode,jdbcType=VARCHAR},
-      USER_CODE = #{userCode,jdbcType=VARCHAR},
-      OPERATOR_CODE = #{operatorCode,jdbcType=VARCHAR},
-      CHANNEL_TYPE = #{channelType,jdbcType=INTEGER},
-      COOP_MODEL = #{coopModel,jdbcType=INTEGER},
-      COMPANY = #{company,jdbcType=VARCHAR},
-      BALANCE = #{balance,jdbcType=DOUBLE},
-      FREEZING = #{freezing,jdbcType=DOUBLE},
-      TOTAL = #{total,jdbcType=DOUBLE},
-      SMS_CONTENT = #{smsContent,jdbcType=VARCHAR},
-      STATE = #{state,jdbcType=INTEGER},
-      LEVEL = #{level,jdbcType=INTEGER},
-      CALLBACK_URL = #{callbackUrl,jdbcType=VARCHAR},
-      CONFINING_IP = #{confiningIp,jdbcType=VARCHAR},
-      APP_KEY = #{appKey,jdbcType=VARCHAR},
-      SECRET_KEY = #{secretKey,jdbcType=VARCHAR}
-    where ID = #{id,jdbcType=INTEGER}
-  </update>
+  
+    <select id="selectByAppKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    FROM t_flow_distributor
+    WHERE STATE = 1 AND APP_KEY = #{appKey,jdbcType=VARCHAR}
+  </select>
 </mapper>
