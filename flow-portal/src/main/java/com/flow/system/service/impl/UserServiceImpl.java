@@ -25,4 +25,16 @@ public class UserServiceImpl implements UserService{
 		return userInfo;
 	}
 
+	@Override
+	public void save(SysUser user) {
+		// TODO Auto-generated method stub
+		userMapper.insert(user);
+	}
+
+	@Override
+	public void update(SysUser user) {
+		// TODO Auto-generated method stub
+		userMapper.updateByPrimaryKeySelective(user);
+	}
+
 }

@@ -4,6 +4,9 @@ import com.flow.system.bean.UserInfo;
 import com.flow.system.model.SysUser;
 
 public interface UserService {
+	void save(SysUser user);
+	void update(SysUser user);
+	
 	/**
 	 * 根据用户编码获取用户实体信息（用户登录校验）
 	 * @param userCode

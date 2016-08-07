@@ -142,7 +142,7 @@
                         <td>${product.provider.name}</td>
                         <td>${product.province.provinceName}</td>
                         <td><c:if test='${product.enableArea eq 0}'>全国</c:if><c:if test='${product.enableArea eq 1}'>省市</c:if></td>
-                        <td>${product.priority}</td>
+                        <td><c:if test='${product.priority eq 0}'>低</c:if><c:if test='${product.priority eq 1}'>中</c:if><c:if test='${product.priority eq 2}'>高</c:if></td>
                         <td>${product.size}</td>
                         <td>${product.price}</td>
                         <td>${product.discount}</td>
@@ -223,9 +223,9 @@
           <div class="form-group">
             <label for="priority_add">优先级</label>
           	<select name="priority_add" id="priority_add" class="form-control">
-            	<option value="0">低级</option>
-            	<option value="1">中级</option>
-            	<option value="2">高级</option>
+            	<option value="0">低</option>
+            	<option value="1">中</option>
+            	<option value="2">高</option>
 	        </select>
           </div>
           <div class="form-group">
@@ -315,9 +315,9 @@
           <div class="form-group">
             <label for="priority_edit">优先级</label>
           	<select name="priority_edit" id="priority_edit" class="form-control">
-            	<option value="0">低级</option>
-            	<option value="1">中级</option>
-            	<option value="2">高级</option>
+            	<option value="0">低</option>
+            	<option value="1">中</option>
+            	<option value="2">高</option>
 	        </select>
           </div>
           <div class="form-group">

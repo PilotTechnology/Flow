@@ -31,12 +31,6 @@ public class DistributorServiceImpl extends AbsPageService<Distributor> implemen
 		return page;
 	}
 
-	@Override
-	public Distributor getProviderByCode(String distributorCode) {
-		// TODO Auto-generated method stub
-		return distributorMapper.selectByDistributorCode(distributorCode);
-	}
-
 	public Double getBalance(String distributorCode) {
 		// TODO Auto-generated method stub
 		return distributorMapper.selectBanlanceByDistributorCode(distributorCode);
@@ -70,10 +64,16 @@ public class DistributorServiceImpl extends AbsPageService<Distributor> implemen
 	public boolean checkExists(Distributor distributor) {
 		// TODO Auto-generated method stub
 		Distributor oldDistributor = distributorMapper.selectByDistributorCode(distributor.getDistrbutorCode());
-		if(distributor.getId()!=null){
-			return !(oldDistributor.getDistrbutorCode().equals(distributor.getDistrbutorCode()));
-		}else{
-			return oldDistributor != null;
+		if (oldDistributor != null) {
+			return true;
+		} else {
+			return false;
 		}
+	}
+
+	@Override
+	public Distributor getDistributorByCode(String distributorCode) {
+		// TODO Auto-generated method stub
+		return distributorMapper.selectByDistributorCode(distributorCode);
 	}
 }

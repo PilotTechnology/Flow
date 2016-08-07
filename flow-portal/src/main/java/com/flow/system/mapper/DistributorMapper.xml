@@ -68,7 +68,7 @@
   	INNER JOIN t_sys_user b ON a.USER_CODE = b.USER_CODE
   	<include refid="query_body"/>
   </select>
-  <select id="selectByMobileCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByDistributorCode" parameterType="java.lang.String" resultMap="BaseResultMap">
      select a.ID as ID, a.DISTRBUTOR_CODE as DISTRBUTOR_CODE, a.USER_CODE as USER_CODE, a.OPERATOR_CODE as OPERATOR_CODE,
 			a.CHANNEL_TYPE as CHANNEL_TYPE, a.COOP_MODEL as COOP_MODEL, a.COMPANY as COMPANY, a.BALANCE as BALANCE, a.FREEZING as FREEZING,
 			a.TOTAL as TOTAL, a.SMS_CONTENT as SMS_CONTENT, a.SMS_CONTENT as SMS_CONTENT, a.STATE as STATE, a.LEVEL as LEVEL,

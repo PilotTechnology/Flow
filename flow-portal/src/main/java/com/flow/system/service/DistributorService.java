@@ -8,7 +8,7 @@ import com.flow.system.model.Distributor;
 public interface DistributorService {
 	PageUtil<Distributor> listPage(Map<String, Object> map);
 
-	Distributor getProviderByCode(String distributorCode);
+	Distributor getDistributorByCode(String distributorCode);
 	
 	Double getBalance(String distributorCode);
 	
