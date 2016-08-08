@@ -76,4 +76,10 @@ public class DistributorServiceImpl extends AbsPageService<Distributor> implemen
 		// TODO Auto-generated method stub
 		return distributorMapper.selectByDistributorCode(distributorCode);
 	}
+
+	@Override
+	public Distributor getDistributorByInfo(String distributorInfo) {
+		// TODO Auto-generated method stub
+		return distributorMapper.selectByDistributorInfo(distributorInfo);
+	}
 }

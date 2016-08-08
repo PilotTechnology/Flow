@@ -29,6 +29,8 @@ public interface DistributorMapper {
     
     Distributor selectByDistributorCode(String distributorCode);
     
+    Distributor selectByDistributorInfo(String distributorInfo);
+    
     Double selectBanlanceByDistributorCode(String distributorCode);
     
     void addBalance(@Param("distributorCode")String distributorCode, @Param("balance")Double balance);
@@ -40,6 +42,4 @@ public interface DistributorMapper {
     List<Distributor> listPage(Map map);
 
 	Long getCount(Map map);
-
-
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set value="${request.pagecontext.contextpath}" var="ctx"/>
 <!DOCTYPE html>
 <html lang="en">  
@@ -94,9 +95,6 @@
                   <table class="table table-striped table-bordered table-hover table-checkable table-responsive datatable">
                     <thead>
                       <tr>
-                        <th class="checkbox-column">
-                          <input type="checkbox" class="uniform">
-                        </th>
                         <th data-class="expand">序号</th>
                         <th>分销商名称</th>
 						<th>充值前余额(元)</th>
@@ -110,15 +108,23 @@
                     <tbody>
                       <c:forEach var="rechargeFlow" items="${page.rows}" varStatus="vs">
                       	<tr>
-                        <td class="checkbox-column"><input type="checkbox" class="uniform"></td>
                         <td>${page.firstResult + vs.count}</td>
                         <td>${rechargeFlow.distributorName}</td>
                         <td>${rechargeFlow.balanceBeforeRecharge}</td>
                         <td>${rechargeFlow.recharge}</td>
                         <td>${rechargeFlow.balanceAfterRecharge}</td>
-                        <td>${rechargeFlow.type}</td>
+                        <td>
+                      		<c:if test='${rechargeFlow.type eq 1}'>正常加款</c:if>
+              	        	<c:if test='${rechargeFlow.type eq 2}'>授信加款</c:if>
+               	        	<c:if test='${rechargeFlow.type eq 3}'>赔付加款</c:if>
+                        	<c:if test='${rechargeFlow.type eq 4}'>运营补款</c:if>
+                        	<c:if test='${rechargeFlow.type eq 5}'>测试加款</c:if>
+                        	<c:if test='${rechargeFlow.type eq 6}'>返点加款</c:if>
+                        	<c:if test='${rechargeFlow.type eq 7}'>赠送加款</c:if>
+                        	<c:if test='${rechargeFlow.type eq 8}'>提现加款</c:if>
+                        </td>
                         <td>${rechargeFlow.userName}</td>
-                        <td>${rechargeFlow.createDate}</td>
+                        <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${rechargeFlow.createDate}"/></td>
                       	</tr>
                       </c:forEach>
                     </tbody>
@@ -144,91 +150,59 @@
           <h4 class="modal-title" id="myModalLabel_add">新增</h4>
         </div>
         <div class="modal-body">
- 
           <div class="form-group">
-            <label for="roleCode_add">角色编码</label>
-            <input type="text" name="roleCode_add" class="form-control required" id="roleCode_add" placeholder="角色编码" minlength="5">
+            <label for="phone_add">分销商信息</label>
+            <button type="button" onclick="toSearch();" id="btn_search_order" class="btn btn-primary">查询</button>
+            <input type="text" name="distributorInfo_add" class="form-control required" id="distributorInfo_add" placeholder="输入分销商编码、名称、公司，查询账户">
           </div>
           <div class="form-group">
-            <label for="roleName_add">角色名称</label>
-            <input type="text" name="roleName_add" class="form-control required" id="roleName_add" placeholder="角色名称" minlength="5">
+            <label for="distributorCode_add">账户名</label>
+            <input type="text" name="distributorCode_add" readonly="readonly" class="form-control required" id="distributorCode_add" placeholder="账户名" style="color:#dd5145" >
+          </div>
+          <div class="form-group">
+            <label for="nickname_add">账户昵称</label>
+            <input type="text" name="nickname_add" readonly="readonly" class="form-control required" id="nickname_add" placeholder="账户昵称" style="color:#dd5145">
+          </div>
+          <div class="form-group">
+            <label for="company_add">公司</label>
+            <input type="text" name="company_add" readonly="readonly" class="form-control required" id="company_add" placeholder="公司" style="color:#dd5145">
+          </div>
+          <div class="form-group">
+            <label for="linkman_add">联系人</label>
+            <input type="text" name="linkman_add" readonly="readonly" class="form-control required" id="linkman_add" placeholder="联系人" style="color:#dd5145">
+          </div>
+          <div class="form-group">
+            <label for="balanceBeforeRecharge_add">余额</label>
+            <input type="text" name="balanceBeforeRecharge_add" readonly="readonly" class="form-control required" id="balanceBeforeRecharge_add" placeholder="余额">
+          </div>
+          <div class="form-group">
+            <label for="recharge_add">充值金额</label>
+            <input type="text" name="recharge_add" class="form-control required" id="recharge_add" placeholder="充值金额">
+          </div>
+          <div class="form-group">
+            <label for="type_add">充值类型</label>
+            <select name="type_add" id="type_add" class="form-control">
+                <option value="1">正常加款</option>
+                <option value="2">授信加款</option>
+                <option value="3">赔付加款</option>
+                <option value="4">运营补款</option>
+                <option value="5">测试加款</option>
+                <option value="6">返点加款</option>
+                <option value="7">赠送加款</option>
+                <option value="8">提现加款</option>
+	        </select>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal"><i class="icon-undo"></i> 关闭</button>
-          <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><i class="icon-save"></i> 保存</button>
+          <button type="button" id="btn_submit" class="btn btn-primary"><i class="icon-save"></i> 保存</button>
         </div>
       </div>
     </div>
     </div>
-    <!-- edit 弹框 -->
-    <div class="modal fade" id="myModal_edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <h4 class="modal-title" id="myModalLabel_add">编辑</h4>
-        </div>
-        <div class="modal-body">
- 
-          <div class="form-group">
-            <label for="roleCode_edit" class="control-label">角色编码</label>
-            <input type="text" name="roleCode_edit" class="form-control required" id="roleCode_edit" placeholder="角色编码">
-          </div>
-          <div class="form-group">
-            <label for="roleName_edit" class="control-label">角色名称</label>
-            <input type="text" name="roleName_edit" class="form-control required" id="roleName_edit" placeholder="角色名称">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="icon-undo"></i> 关闭</button>
-          <input type="hidden" id="id_edit" name="id_edit" />
-          <button type="button" id="btn_update" class="btn btn-primary" data-dismiss="modal"><i class="icon-save"></i> 修改</button>
-        </div>
-      </div>
-    </div>
-    </div>
-    
-    <!-- 授权 弹框 -->
-    <div class="modal fade" id="myModal_grant" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <h4 class="modal-title">角色授权：</h4>
-        </div>
-        <div class="modal-body">
- 
-          <div class="form-group">
-            <label class="control-label col-md-2">角色编码:</label>
-            <label class="control-label col-md-4" id="roleCode_grant"></label>
-            <label class="control-label col-md-2">角色名称:</label>
-            <label class="control-label col-md-4" id="roleName_grant"></label>
-          </div>
-          <div class="form-group" style="height: 200px;">
-            <label  class="col-md-2 control-label">绑定权限</label>
-            <div class="col-md-10" ><div class="well">
-              <div class="portlet">
-                <div class="portlet-body">
-               	 	<div id="menuTree" class="ztree"></div>
-                </div>
-           	  </div>
-            </div></div>
-          </div>      
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="icon-undo"></i> 取消</button>
-          <input type="hidden" id="roleCode_hidden" name="roleCode_hidden" />
-          <button type="button" id="btn_grant" class="btn btn-primary" data-dismiss="modal"><i class="icon-save"></i> 保存</button>
-        </div>
-      </div>
-    </div>
-    </div>
-    <!-- 弹框结束 -->
-  
   </body>
   <%@include file="../common/common.jsp" %>
-  <script type="text/javascript" src="${ctx}/view/role/role.js"></script>
+  <script type="text/javascript" src="${ctx}/view/rechargeflow/rechargeflow.js"></script>
   <script type="text/javascript" src="${ctx}/js/ztree/js/jquery.ztree.core.min.js"></script>
   <script type="text/javascript" src="${ctx}/js/ztree/js/jquery.ztree.excheck.min.js"></script>
 </html>

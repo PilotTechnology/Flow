@@ -155,7 +155,7 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="orderCode_add">订单号</label>
-            <button type="button" onclick="toSearch();" id="btn_search_order" class="btn btn-primary">确定</button>
+            <button type="button" onclick="toSearch();" id="btn_search_order" class="btn btn-primary">查询</button>
             <input type="text" name="orderCode_add" class="form-control required" id="orderCode_add" placeholder="订单号">
           </div>
           <div class="form-group">

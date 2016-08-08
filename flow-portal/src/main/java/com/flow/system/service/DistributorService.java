@@ -10,6 +10,8 @@ public interface DistributorService {
 
 	Distributor getDistributorByCode(String distributorCode);
 	
+	Distributor getDistributorByInfo(String distributorInfo);
+	
 	Double getBalance(String distributorCode);
 	
 	void addBalance(String distributorCode, Double balance);

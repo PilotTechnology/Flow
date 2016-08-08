@@ -34,7 +34,7 @@ public class RechargeFlowServiceImpl extends AbsPageService<RechargeFlow> implem
 	@Override
 	public void save(RechargeFlow rechargeFlow) {
 		// TODO Auto-generated method stub
-		rechargeFlowMapper.insert(rechargeFlow);
+		rechargeFlowMapper.insertSelective(rechargeFlow);
 	}
 
 }

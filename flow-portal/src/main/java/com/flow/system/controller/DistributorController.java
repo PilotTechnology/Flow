@@ -80,8 +80,15 @@ public class DistributorController extends BaseController {
 	
 	@RequestMapping(value = "distributor!toSearch.action")
 	public Distributor toSearch(HttpServletRequest request, Distributor distributor){
-		System.out.println(distributor);
 		return distributorService.getDistributorByCode(distributor.getDistrbutorCode());
+	}
+	
+	@RequestMapping(value = "distributor!toSearchWithInfo.action")
+	public Distributor toSearchWithInfo(HttpServletRequest request, String distributorInfo){
+		if (distributorInfo == "") {
+			return null;
+		}
+		return distributorService.getDistributorByInfo(distributorInfo);
 	}
 	
 	/**
