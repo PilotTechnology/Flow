@@ -20,7 +20,7 @@ public interface RefundFlowMapper {
 
     int updateByPrimaryKey(RefundFlow record);
     
-    List<RefundFlow> listPage(Map map);
+    List<RefundFlow> listPage(Map<String, Object> map);
 
-	Long getCount(Map map);
+	Long getCount(Map<String, Object> map);
 }

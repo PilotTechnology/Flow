@@ -34,11 +34,12 @@ public class MobileController extends BaseController {
 	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "mobile!selectPage.action")
-	public String selectPage(HttpServletRequest request, Model model) throws Exception {
+	public String selectPage(HttpServletRequest request, Mobile mobile, Model model) throws Exception {
 		//转换request参数为map
 		Map<String,Object> map = getParameterMap(request);
 		PageUtil<Mobile> page = mobileService.listPage(map);
 		model.addAttribute("page",page);
+		model.addAttribute("mobile",mobile);
 		return "/view/mobile/mobileList.jsp";
 	}
 }

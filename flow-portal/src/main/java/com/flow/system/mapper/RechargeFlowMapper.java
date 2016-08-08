@@ -18,7 +18,7 @@ public interface RechargeFlowMapper {
 
     int updateByPrimaryKey(RechargeFlow record);
     
-    List<RechargeFlow> listPage(Map map);
+    List<RechargeFlow> listPage(Map<String, Object> map);
 
-	Long getCount(Map map);
+	Long getCount(Map<String, Object> map);
 }

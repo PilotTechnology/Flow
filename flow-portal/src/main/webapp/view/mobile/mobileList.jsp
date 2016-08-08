@@ -33,6 +33,27 @@
             </ul>
           </div>
           
+          <br/>
+          
+          <div class="row">
+          	<div class="col-md-12">
+          		<div class="widget box">
+          			<div class="widget-header"><h4><i class="icon-search"></i>条件搜索</h4></div>
+          			<div class="widget-content">
+                  		<form id="searchForm" action="" method="post" class="form-horizontal row-border">
+                  			<div class="form-group">
+                  				<label class="col-md-1 control-label">号段:</label>
+                  				<div class="col-md-2"><input class="form-control" type="text" id="mobileCode" name="mobileCode" value="${mobile.mobileCode}"></div>
+                  				<div class="col-md-2">
+                  					<button class="btn btn-sm btn-warning" type="submit" id="search">搜索</button>
+                  				</div>
+                  			</div>
+                 		 </form>
+                	</div>
+          		</div>
+          	</div>
+          </div>
+          
           <div class="row">
           	<div class="col-md-12">
           	  <div class="widget box">
@@ -50,40 +71,24 @@
              	<!-- 表格内容  start-->
              	<div class="widget-content">
              	  
-             	  <div class="row">
-             	  	<div class="col-md-12">
-             	  		<button class="btn btn-sm btn-warning" id="addButton">+ 新增</button>
-             	  	</div>
-             	  </div>
-             	  
                   <table class="table table-striped table-bordered table-hover table-checkable table-responsive datatable">
                     <thead>
                       <tr>
-                        <th class="checkbox-column">
-                          <input type="checkbox" class="uniform">
-                        </th>
                         <th data-class="expand">序号</th>
                         <th>号段</th>
                         <th data-hide="phone">省份</th>
                         <th data-hide="phone">地市</th>
                         <th data-hide="phone">运营商</th>
-                        <th data-hide="phone,tablet">操作</th>
                       </tr>
                     </thead>
                     <tbody>
                       <c:forEach var="mobile" items="${page.rows}" varStatus="vs">
                       	<tr>
-                        <td class="checkbox-column"><input type="checkbox" class="uniform"></td>
                         <td>${page.firstResult + vs.count}</td>
                         <td>${mobile.mobileCode}</td>
                         <td>${mobile.city.province.provinceName}</td>
                         <td>${mobile.city.cityName}</td>
                         <td>${mobile.mobileOperator.operatorName}</td>
-                        <td>
-                        	<button class="btn btn-sm btn-info" onclick="toEdit('${role.roleCode}');"><i class="icon-edit"  ></i>编辑</button>
-                        	<button class="btn btn-sm btn-success" onclick="bindMenu('${role.roleCode}');"><i class="icon-cog"></i>授权</button>
-                        	<button class="btn btn-sm btn-danger" onclick="removeRole('${role.roleCode}','${role.id}');"><i class="icon-remove"></i>删除</button>
-                        </td>
                       	</tr>
                       </c:forEach>
                     </tbody>

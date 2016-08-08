@@ -21,10 +21,12 @@ public class MobileServiceImpl extends AbsPageService<Mobile> implements MobileS
 	public PageUtil<Mobile> listPage(Map<String, Object> map) {
 		//分页参数获取
 		PageUtil<Mobile> page = findPage(map);
-		Long records = mobileMapper.getCount();
+		Long records = mobileMapper.getCount(map);
 		page.setRecords(records);
 		if(records > 0){
-			page.setRows(mobileMapper.listPage(page.getFirstResult(),page.getPageSize()));
+			map.put("start", page.getFirstResult());
+			map.put("pageSize",page.getPageSize());
+			page.setRows(mobileMapper.listPage(map));
 		}
 		return page;
 	}

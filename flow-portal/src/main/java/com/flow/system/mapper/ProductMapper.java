@@ -22,7 +22,7 @@ public interface ProductMapper {
 
     int updateByPrimaryKey(Product record);
     
-    List<Product> listPage(Map map);
+    List<Product> listPage(Map<String, Object> map);
 
-	Long getCount(Map map);
+	Long getCount(Map<String, Object> map);
 }

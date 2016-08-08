@@ -3,8 +3,6 @@ package com.flow.system.mapper;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.flow.system.model.Quotation;
 
 public interface QuotationMapper {
@@ -22,11 +20,11 @@ public interface QuotationMapper {
 
     int updateByPrimaryKey(Quotation record);
     
-    List<Quotation> listPage(Map map);
+    List<Quotation> listPage(Map<String, Object> map);
 
-	Long getCount(Map map);
+	Long getCount(Map<String, Object> map);
 	
-	List<Quotation> sonListPage(Map map);
+	List<Quotation> sonListPage(Map<String, Object> map);
 
-	Long getSonCount(Map map);
+	Long getSonCount(Map<String, Object> map);
 }

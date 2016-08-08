@@ -18,7 +18,7 @@ public interface CostFlowMapper {
 
     int updateByPrimaryKey(CostFlow record);
     
-    List<CostFlow> listPage(Map map);
+    List<CostFlow> listPage(Map<String, Object> map);
 
-	Long getCount(Map map);
+	Long getCount(Map<String, Object> map);
 }

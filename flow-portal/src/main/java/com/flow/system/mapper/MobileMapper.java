@@ -1,8 +1,7 @@
 package com.flow.system.mapper;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
+import java.util.Map;
 
 import com.flow.system.model.Mobile;
 
@@ -19,9 +18,9 @@ public interface MobileMapper {
 
     int updateByPrimaryKey(Mobile record);
     
-    List<Mobile> listPage(@Param("start") Integer start , @Param("pageSize") Integer pageSize);
+    List<Mobile> listPage(Map<String, Object> map);
 
-	Long getCount();
+	Long getCount(Map<String, Object> map);
 	
 	/**
 	 * 获取电话归属地

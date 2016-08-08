@@ -39,7 +39,7 @@ public interface DistributorMapper {
 
     int updateByPrimaryKey(Distributor record);
     
-    List<Distributor> listPage(Map map);
+    List<Distributor> listPage(Map<String, Object> map);
 
-	Long getCount(Map map);
+	Long getCount(Map<String, Object> map);
 }
