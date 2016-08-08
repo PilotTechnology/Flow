@@ -20,7 +20,7 @@
 					</c:choose>		
 					
 					
-					<c:forEach var="p" begin="1" end="${page.totalPage}">
+					<c:forEach var="p" begin="${page.page - 3 < 0 ? 1 : page.page - 3}" end="${page.page + 3 > page.totalPage ? page.totalPage : page.page + 3}">
 						<c:choose>
 							<c:when test="${page.page eq p}">
 								<li class="active"><a href="${url}?page=${p}">${p}</a></li>
