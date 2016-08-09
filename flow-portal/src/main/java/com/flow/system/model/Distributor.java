@@ -35,6 +35,8 @@ public class Distributor {
 
     private String secretKey;
     
+    private String fatherDistributorCode;
+    
     private SysUser user;
     
     private MobileOperator mobileOperator;
@@ -173,6 +175,14 @@ public class Distributor {
 
     public void setSecretKey(String secretKey) {
         this.secretKey = secretKey == null ? null : secretKey.trim();
+    }
+    
+    public String getFatherDistributorCode() {
+        return fatherDistributorCode;
+    }
+
+    public void setFatherDistributorCode(String fatherDistributorCode) {
+        this.fatherDistributorCode = fatherDistributorCode == null ? null : fatherDistributorCode.trim();
     }
     
     public SysUser getUser() {

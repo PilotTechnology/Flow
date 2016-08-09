@@ -121,7 +121,7 @@
                         <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${distributor.user.createDate}"/></td>
                         <td>
                         	<button class="btn btn-sm btn-info" onclick="toSearch('${distributor.distrbutorCode}');"><i class="icon-edit"  ></i>编辑</button>
-                        	<button class="btn btn-sm btn-success" onclick="toSearchChildren'${distributor.distrbutorCode}');"><i class="icon-cog"></i>查看二级</button>
+                        	<a class="btn btn-sm btn-success" href="${ctx}/portal/distributor!selectPage.action?fatherDistributorCode=${distributor.fatherDistributorCode}"><i class="icon-cog"></i>查看二级</a>
                         </td>
                       	</tr>
                       </c:forEach>

@@ -74,7 +74,6 @@ $("#btn_submit").click(function(){
     SysUser.userCode =distrbutorCode;
     SysUser.password =password;
     SysUser.nickname =nickname;
-    SysUser.company =company;
     SysUser.linkman =linkman;
     SysUser.phone =phone;
     SysUser.email =email;
@@ -83,10 +82,10 @@ $("#btn_submit").click(function(){
 //    Distributor.user.userCode =distrbutorCode;
 //    Distributor.user.password =password;
 //    Distributor.user.nickname =nickname;
-//    Distributor.user.company =company;
 //    Distributor.user.linkman =linkman;
 //    Distributor.user.phone =phone;
 //    Distributor.user.email =email;
+    Distributor.company =company;
     Distributor.channelType =channelType;
     Distributor.coopModel =coopModel;
     Distributor.smsContent =smsContent;

@@ -85,9 +85,9 @@ CREATE TABLE `t_flow_distributor` (
   `CHANNEL_TYPE` int(11) DEFAULT '0' COMMENT '渠道类型( 0 :  分销  1：营销 ) ',
   `COOP_MODEL` int(11) DEFAULT '0' COMMENT '合作模式( 0 :  批发  1: 分成) ',
   `COMPANY` varchar(64) DEFAULT NULL COMMENT '公司名称',
-  `BALANCE` double DEFAULT NULL COMMENT '余额',
-  `FREEZING` double DEFAULT NULL COMMENT '冻结金额',
-  `TOTAL` double DEFAULT NULL COMMENT '消费总额',
+  `BALANCE` double DEFAULT '0' COMMENT '余额',
+  `FREEZING` double DEFAULT '0' COMMENT '冻结金额',
+  `TOTAL` double DEFAULT '0' COMMENT '消费总额',
   `SMS_CONTENT` varchar(200) DEFAULT NULL COMMENT '短信内容模版',
   `STATE` int(4) DEFAULT '1' COMMENT '下游状态（0：禁用 1：正常）',
   `LEVEL` int(4) DEFAULT '0' COMMENT '服务级别（0：普通 1：一级 2：特技）',
@@ -95,6 +95,7 @@ CREATE TABLE `t_flow_distributor` (
   `CONFINING_IP` varchar(100) NOT NULL COMMENT 'ip白名单',
   `APP_KEY` varchar(64) DEFAULT NULL COMMENT '密钥',
   `SECRET_KEY` varchar(64) DEFAULT NULL COMMENT '密钥',
+  `FATHER_CODE` varchar(32) DEFAULT '0' COMMENT '二级分销商的父分销商编码',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='下游表';
 

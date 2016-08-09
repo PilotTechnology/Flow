@@ -19,6 +19,7 @@
     <result column="CONFINING_IP" jdbcType="VARCHAR" property="confiningIp" />
     <result column="APP_KEY" jdbcType="VARCHAR" property="appKey" />
     <result column="SECRET_KEY" jdbcType="VARCHAR" property="secretKey" />
+    <result column="FATHER_DISTRIBUTOR_CODE" jdbcType="VARCHAR" property="fatherDistributorCode" />
     <association property="user" javaType="com.flow.system.model.SysUser">
 		<id column="U_ID" jdbcType="INTEGER" property="id" />
 		<result column="U_CODE" jdbcType="VARCHAR" property="userCode" />
@@ -46,7 +47,7 @@
   <sql id="Base_Column_List">
     ID, DISTRBUTOR_CODE, USER_CODE, OPERATOR_CODE, CHANNEL_TYPE, COOP_MODEL, COMPANY, 
     BALANCE, FREEZING, TOTAL, SMS_CONTENT, STATE, LEVEL, CALLBACK_URL, CONFINING_IP, 
-    APP_KEY, SECRET_KEY
+    APP_KEY, SECRET_KEY, FATHER_DISTRIBUTOR_CODE
   </sql>
   
   <!-- 获取所有有效下游 -->
@@ -66,6 +67,7 @@
       STATE = #{state,jdbcType=INTEGER} , LEVEL = #{level,jdbcType=INTEGER},
       CALLBACK_URL = #{callbackUrl,jdbcType=VARCHAR} , CONFINING_IP = #{confiningIp,jdbcType=VARCHAR},
       APP_KEY = #{appKey,jdbcType=VARCHAR} , SECRET_KEY = #{secretKey,jdbcType=VARCHAR}
+      FATHER_DISTRIBUTOR_CODE = #{fatherDistributorCode,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
   
@@ -74,6 +76,7 @@
 			a.CHANNEL_TYPE as CHANNEL_TYPE, a.COOP_MODEL as COOP_MODEL, a.COMPANY as COMPANY, a.BALANCE as BALANCE, a.FREEZING as FREEZING,
 			a.TOTAL as TOTAL, a.SMS_CONTENT as SMS_CONTENT, a.SMS_CONTENT as SMS_CONTENT, a.STATE as STATE, a.LEVEL as LEVEL,
 			a.CALLBACK_URL as CALLBACK_URL, a.CONFINING_IP as CONFINING_IP, a.APP_KEY as APP_KEY, a.SECRET_KEY as SECRET_KEY,
+			a.FATHER_DISTRIBUTOR_CODE as FATHER_DISTRIBUTOR_CODE,
 			b.ID as U_ID, b.USER_CODE as U_CODE, b.PASSWORD as PASSWORD, b.NICK_NAME as NICK_NAME, b.LINK_MAN as LINK_MAN, b.PHONE as PHONE,
 			b.EMAIL as EMAIL, b.STATE as STATE, b.CREATE_DATE as CREATE_DATE, b.ROLE_CODE as ROLE_CODE, c.ID as M_ID,
 			c.OPERATOR_NAME AS OPERATOR_NAME
@@ -93,6 +96,7 @@
 			a.CHANNEL_TYPE as CHANNEL_TYPE, a.COOP_MODEL as COOP_MODEL, a.COMPANY as COMPANY, a.BALANCE as BALANCE, a.FREEZING as FREEZING,
 			a.TOTAL as TOTAL, a.SMS_CONTENT as SMS_CONTENT, a.SMS_CONTENT as SMS_CONTENT, a.STATE as STATE, a.LEVEL as LEVEL,
 			a.CALLBACK_URL as CALLBACK_URL, a.CONFINING_IP as CONFINING_IP, a.APP_KEY as APP_KEY, a.SECRET_KEY as SECRET_KEY,
+			a.FATHER_DISTRIBUTOR_CODE as FATHER_DISTRIBUTOR_CODE,
 			b.ID as U_ID, b.USER_CODE as U_CODE, b.PASSWORD as PASSWORD, b.NICK_NAME as NICK_NAME, b.LINK_MAN as LINK_MAN, b.PHONE as PHONE,
 			b.EMAIL as EMAIL, b.STATE as STATE, b.CREATE_DATE as CREATE_DATE, b.ROLE_CODE as ROLE_CODE, c.ID as M_ID,
 			c.OPERATOR_NAME AS OPERATOR_NAME
@@ -106,6 +110,7 @@
 			a.CHANNEL_TYPE as CHANNEL_TYPE, a.COOP_MODEL as COOP_MODEL, a.COMPANY as COMPANY, a.BALANCE as BALANCE, a.FREEZING as FREEZING,
 			a.TOTAL as TOTAL, a.SMS_CONTENT as SMS_CONTENT, a.SMS_CONTENT as SMS_CONTENT, a.STATE as STATE, a.LEVEL as LEVEL,
 			a.CALLBACK_URL as CALLBACK_URL, a.CONFINING_IP as CONFINING_IP, a.APP_KEY as APP_KEY, a.SECRET_KEY as SECRET_KEY,
+			a.FATHER_DISTRIBUTOR_CODE as FATHER_DISTRIBUTOR_CODE,
 			b.ID as U_ID, b.USER_CODE as U_CODE, b.PASSWORD as PASSWORD, b.NICK_NAME as NICK_NAME, b.LINK_MAN as LINK_MAN, b.PHONE as PHONE,
 			b.EMAIL as EMAIL, b.STATE as STATE, b.CREATE_DATE as CREATE_DATE, b.ROLE_CODE as ROLE_CODE, c.ID as M_ID,
 			c.OPERATOR_NAME AS OPERATOR_NAME
@@ -147,13 +152,13 @@
       COMPANY, BALANCE, FREEZING, 
       TOTAL, SMS_CONTENT, STATE, 
       LEVEL, CALLBACK_URL, CONFINING_IP, 
-      APP_KEY, SECRET_KEY)
+      APP_KEY, SECRET_KEY, FATHER_DISTRIBUTOR_CODE)
     values (#{id,jdbcType=INTEGER}, #{distrbutorCode,jdbcType=VARCHAR}, #{userCode,jdbcType=VARCHAR}, 
       #{operatorCode,jdbcType=VARCHAR}, #{channelType,jdbcType=INTEGER}, #{coopModel,jdbcType=INTEGER}, 
       #{company,jdbcType=VARCHAR}, #{balance,jdbcType=DOUBLE}, #{freezing,jdbcType=DOUBLE}, 
       #{total,jdbcType=DOUBLE}, #{smsContent,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, 
       #{level,jdbcType=INTEGER}, #{callbackUrl,jdbcType=VARCHAR}, #{confiningIp,jdbcType=VARCHAR}, 
-      #{appKey,jdbcType=VARCHAR}, #{secretKey,jdbcType=VARCHAR})
+      #{appKey,jdbcType=VARCHAR}, #{secretKey,jdbcType=VARCHAR}, #{fatherDistributorCode,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.flow.system.model.Distributor">
     insert into t_flow_distributor
@@ -209,6 +214,9 @@
       <if test="secretKey != null">
         SECRET_KEY,
       </if>
+      <if test="fatherDistributorCode != null">
+        FATHER_DISTRIBUTOR_CODE,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -262,6 +270,9 @@
       <if test="secretKey != null">
         #{secretKey,jdbcType=VARCHAR},
       </if>
+      <if test="fatherDistributorCode != null">
+        #{fatherDistributorCode,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.flow.system.model.Distributor">
@@ -314,6 +325,9 @@
       </if>
       <if test="secretKey != null">
         SECRET_KEY = #{secretKey,jdbcType=VARCHAR},
+      </if>
+      <if test="fatherDistributorCode != null">
+        FATHER_DISTRIBUTOR_CODE = #{fatherDistributorCode,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=INTEGER}
