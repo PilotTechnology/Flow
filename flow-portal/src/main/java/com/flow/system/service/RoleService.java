@@ -1,5 +1,6 @@
 package com.flow.system.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.flow.pub.util.PageUtil;
@@ -9,6 +10,8 @@ import com.flow.system.model.SysRole;
 public interface RoleService {
 
 	PageUtil<SysRole> listPage(Map<String, Object> map);
+
+	List<SysRole> findAllRoleList();
 
 	SysRole getRoleByCode(String roleCode);
 
@@ -23,5 +26,6 @@ public interface RoleService {
 	boolean checkExists(SysRole role);
 
 	void grant(String roleCode, String menuCodes, UserInfo user);
+
 
 }

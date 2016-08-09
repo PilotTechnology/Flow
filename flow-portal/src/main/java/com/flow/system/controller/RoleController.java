@@ -151,4 +151,20 @@ public class RoleController extends BaseController{
 		return Constant.successMsg;
 	}
 	
+	
+	/**
+	 * 角色列表
+	 * @param request
+	 * @param Role
+	 * @return
+	 */
+	@RequestMapping(value = "role!findAll.action")
+	@ResponseBody
+	public Object findAll(HttpServletRequest request){
+		return roleService.findAllRoleList();
+	}
+	
+	
+	
+	
 }

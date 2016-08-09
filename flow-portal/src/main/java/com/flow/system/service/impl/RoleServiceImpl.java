@@ -83,4 +83,8 @@ public class RoleServiceImpl extends AbsPageService<SysRole> implements RoleServ
 		roleMapper.grantMenu(roleCode,menuCodeList,user);//重新授权
 	}
 
+	public List<SysRole> findAllRoleList() {
+		return roleMapper.listPage(0, 1000); //TODO 默认写死 后续优化
+	}
+
 }

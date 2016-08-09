@@ -1,7 +1,11 @@
 package com.flow.system.bean;
 
 import java.util.Date;
-
+/**
+ * 页面UserInfo参数
+ * @author hadoop
+ *
+ */
 public class UserInfo {
     private Integer id;
 
@@ -21,9 +25,19 @@ public class UserInfo {
 
     private Date createDate;
 
-    private Integer roleid;
+    private String roleCode;
+    
+    private String roleName;
+    
+    public String getRoleName() {
+		return roleName;
+	}
 
-    public Integer getId() {
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -95,11 +109,12 @@ public class UserInfo {
         this.createDate = createDate;
     }
 
-    public Integer getRoleid() {
-        return roleid;
-    }
+	public String getRoleCode() {
+		return roleCode;
+	}
 
-    public void setRoleid(Integer roleid) {
-        this.roleid = roleid;
-    }
+	public void setRoleCode(String roleCode) {
+		this.roleCode = roleCode;
+	}
+
 }

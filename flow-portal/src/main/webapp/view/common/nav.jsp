@@ -16,7 +16,7 @@
 		<li><a href="${ctx}/portal/system/role!selectPage.action"> <i class="icon-angle-right">
 			</i> 角色管理
 		</a></li>
-		<li><a href="ui_buttons.html"> <i class="icon-angle-right">
+		<li><a href="${ctx}/portal/system/user!selectPage.action"> <i class="icon-angle-right">
 			</i> 系统用户
 		</a></li>
 	  </ul>
