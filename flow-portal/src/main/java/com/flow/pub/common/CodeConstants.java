@@ -24,7 +24,11 @@ public class CodeConstants {
 	public static final int ORDER_STATE_INIT = 0;			//处理中
 	public static final int ORDER_STATE_SUCC = 1;			//处理成功
 	public static final int ORDER_STATE_ERR  = 2;			//处理失败
-
+	
+	//用户状态
+	public static final String USER_STATE_OFF = "0"	;			//禁用
+	public static final String USER_STATE_ON = "1"	;			//激活
+	
 	//资金流水类型
 	public static final int COST_FLOW_TYPE_KK = 0;			//扣款
 	public static final int COST_FLOW_TYPE_REFUND = 1;		//退款

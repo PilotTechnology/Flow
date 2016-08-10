@@ -21,7 +21,7 @@ public class SysUser {
 
     private Date createDate;
 
-    private Integer roleid;
+    private String roleCode;
 
     public Integer getId() {
         return id;
@@ -95,11 +95,12 @@ public class SysUser {
         this.createDate = createDate;
     }
 
-    public Integer getRoleid() {
-        return roleid;
-    }
+	public String getRoleCode() {
+		return roleCode;
+	}
 
-    public void setRoleid(Integer roleid) {
-        this.roleid = roleid;
-    }
+	public void setRoleCode(String roleCode) {
+		this.roleCode = roleCode;
+	}
+
 }
