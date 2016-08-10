@@ -20,6 +20,7 @@ public class Order {
 	private Integer realDiscount;
 	private Integer servProdId;
 	private Integer state;
+	private String platformErrorCode;
 	private Date createDate;
 	private Date callbackDate;
 	private String callbackCode;
@@ -151,6 +152,14 @@ public class Order {
 
 	public void setState(Integer state) {
 		this.state = state;
+	}
+	
+	public void setPlatformErrorCode(String platformErrorCode) {
+		this.platformErrorCode = platformErrorCode;
+	}
+
+	public String getPlatformErrorCode() {
+		return platformErrorCode;
 	}
 
 	public Date getCreateDate() {

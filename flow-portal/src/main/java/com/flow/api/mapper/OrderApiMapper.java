@@ -17,4 +17,10 @@ public interface OrderApiMapper {
 	 */
 	List<Order> getCallBackList();
 	
+	/**
+	 * 根据orderId查询订单信息
+	 * @param orderId
+	 * @return
+	 */
+	Order getOrderByDistributorOrderId(String distributorOrderId);
 }

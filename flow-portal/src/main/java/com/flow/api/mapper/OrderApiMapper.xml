@@ -19,6 +19,7 @@
 		<result column="REAL_DISCOUNT" 			jdbcType="INTEGER" 	property="realDiscount" />
 		<result column="SERV_PROD_ID" 			jdbcType="INTEGER" 	property="servProdId" />
 		<result column="STATE" 					jdbcType="INTEGER" 	property="state" />
+		<result column="PLATFORM_ERROR_CODE" 	jdbcType="VARCHAR"	property="platformErrorCode" />
 		<result column="CREATE_DATE" 			jdbcType="TIMESTAMP" property="createDate" />
 		<result column="CALLBACK_DATE" 			jdbcType="TIMESTAMP" property="callbackDate" />
 		<result column="CALLBACK_CODE" 			jdbcType="VARCHAR" 	property="callbackCode" />
@@ -38,5 +39,10 @@
 			  REAL_PURCHASED , REAL_DISCOUNT , SERV_PROD_ID , DISTRIBUTOR_ORDER_CODE ,
 			  PROVIDER_CODE , OPERATOR_CODE 
 		FROM t_flow_order where STATE = 0 order by id limit 300
+	</select>
+	<select id="getOrderByOrderId"  parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT ORDER_CODE , DISTRIBUTOR_ORDER_CODE , PLATFORM_ERROR_CODE
+		FROM t_flow_order 
+		where DISTRIBUTOR_ORDER_CODE = #{distributorOrderId,jdbcType=VARCHAR}
 	</select>
 </mapper>
