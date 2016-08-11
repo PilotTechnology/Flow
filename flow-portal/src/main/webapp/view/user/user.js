@@ -55,32 +55,43 @@ $("#btn_submit").click(function(){
 	
 })
 //TO UPDATE
-function toEdit(roleCode){
-	$.post("/portal/system/role!toEdit.action",{"roleCode":roleCode},function(role){
+function toEdit(userCode){
+	$.post("/portal/system/user!toEdit.action",{"userCode":userCode},function(user){
 	    $('#myModal_edit').modal();
-	    $("#roleCode_edit").val(role.sysRole.roleCode);
-	    $("#roleName_edit").val(role.sysRole.roleName);
-	    $("#id_edit").val(role.sysRole.id);
+	    $("#userCode_edit").val(user.userCode);
+	    $("#nickname_edit").val(user.nickname);
+	    $("#linkman_edit").val(user.linkman);
+	    $("#phone_edit").val(user.phone);
+	    $("#email_edit").val(user.email);
+	    $("#userCode_edit").val(user.userCode);
+	    initRole($("#roleCode_edit"),user.roleCode)
     },"json");
 }
 //UPDATE
 $("#btn_update").click(function(){
-	var Role={"_method":"post"};
+	var UserInfo={"_method":"post"};
 	var roleCode=$("#roleCode_edit").val();
-    var roleName=$("#roleName_edit").val();
-    var id=$("#id_edit").val();
-    Role.id = id;
-	Role.roleCode = roleCode;
-    Role.roleName = roleName;
+	var userCode=$("#userCode_edit").val();
+	var nickname=$("#nickname_edit").val();
+	var linkman=$("#linkman_edit").val();
+	var phone=$("#phone_edit").val();
+	var email=$("#email_edit").val();
+    
+	UserInfo.roleCode = roleCode;
+	UserInfo.userCode = userCode;
+	UserInfo.nickname = nickname;
+	UserInfo.linkman = linkman;
+	UserInfo.phone = phone;
+	UserInfo.email = email;
 	$.ajax({
 		type : "POST",
-		url : '/portal/system/role!editRole.action',
-		data: Role,
+		url : '/portal/system/user!editUser.action',
+		data: UserInfo,
 		async : false,
 		success : function(data) {
 			if(data.result == "success"){
 				alert("修改成功！");
-				location.href="/portal/system/role!selectPage.action";
+				location.href="/portal/system/user!selectPage.action";
 			}else{
 				alert(data.errMsg);
 				return false;
@@ -90,61 +101,13 @@ $("#btn_update").click(function(){
 	
 })
 
-//TO GRANT
-function bindMenu(roleCode) {
-	$.post("/portal/system/role!toGrant.action",{"roleCode":roleCode},function(role){
-	    $('#myModal_grant').modal();
-	    $("#roleCode_grant").text(role.roleCode);
-	    $("#roleName_grant").text(role.roleName);
-	    $("#roleCode_hidden").val(role.roleCode);
-	    
-	    var data = role.menuList;
-	    
-	    $.each(data,function(n,obj){
-	    	if(obj.isGrant==1){
-	    		obj.checked = true;
-	    	}
-	    });
-	    tree = $.fn.zTree.init($("#menuTree"), setting, data);
-	    tree.expandAll(true);
-	    
-    },"json");
-}
-//GRANT
-$("#btn_grant").click(function(){
-    var roleCode=$("#roleCode_hidden").val();
-    var nodes = tree.getCheckedNodes(true);
-    var menuCodes = "";
-    $.each(nodes, function(n, v) {
-    	menuCodes = menuCodes + v.menuCode + ",";
-    }); 
-    if(menuCodes.length>0){
-    	menuCodes=menuCodes.substring(0,menuCodes.length-1)
-    }
-	$.ajax({
-		type : "POST",
-		url : '/portal/system/role!grant.action',
-		data: {roleCode:roleCode , menuCodes : menuCodes},
-		async : false,
-		success : function(data) {
-			if(data.result == "success"){
-				alert("授权成功！");
-				location.href="/portal/system/role!selectPage.action";
-			}else{
-				alert(data.errMsg);
-				return false;
-			}
-		}
-	});
-	
-})
 //REMOVE
-function removeRole(roleCode,id){
-	if(confirm("您确定要删除该角色吗？")){
-		$.post("/portal/system/role!delRole.action",{"roleCode":roleCode,"id":id},function(data){
+function removeUser(userCode){
+	if(confirm("您确定要删除该用户吗？")){
+		$.post("/portal/system/user!delUser.action",{"userCode":userCode},function(data){
 	    	if(data.result == "success"){
 	    		alert("删除成功！");
-				location.href="/portal/system/role!selectPage.action";
+				location.href="/portal/system/user!selectPage.action";
 			}else{
 				alert(data.errMsg);
 				return false;
@@ -152,8 +115,3 @@ function removeRole(roleCode,id){
 	    },"json");
 	}
 }
-var tree = "";
-var setting = {
-		check:{ enable: true,chkStyle: "checkbox",	chkboxType: { "Y": "ps", "N": "p" }},
-		data: { key:{name:"menuName"} , simpleData: { enable:true , idKey: "id" , pIdKey: "pId", rootPId: ""}}
-	};

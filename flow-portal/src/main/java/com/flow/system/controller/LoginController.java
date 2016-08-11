@@ -1,5 +1,7 @@
 package com.flow.system.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.flow.pub.common.PubLog;
 import com.flow.system.bean.UserInfo;
+import com.flow.system.model.SysMenu;
+import com.flow.system.model.SysRole;
 import com.flow.system.model.SysUser;
 import com.flow.system.service.LoginService;
+import com.flow.system.service.RoleService;
 import com.flow.system.service.UserService;
 
 @Controller
@@ -25,6 +30,9 @@ public class LoginController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private RoleService roleService;
 	
 	// 跳转到登录页面
 	@RequestMapping("login!selectPage.action")
@@ -72,6 +80,11 @@ public class LoginController {
 			}
 			UserInfo userInfo = userService.getUserInfoByUserCode(userCode);
 			session.setAttribute("userInfo", userInfo);
+			
+			//获取菜单权限
+			List<SysMenu> menuList = roleService.getMenuListByRoleCode(userInfo.getRoleCode());
+			session.setAttribute("menuList", menuList);
+			System.out.println("----------->>>>>>" + menuList);
 			return "/portal/index.jsp";
 		} catch (Exception e) {
 			PubLog.error("登录过程出现异常！", e);

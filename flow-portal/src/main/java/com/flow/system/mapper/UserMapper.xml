@@ -63,9 +63,8 @@
 		<include refid="query_body" />
 	</select>
 	
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-		delete from t_sys_user
-		where ID = #{id,jdbcType=INTEGER}
+	<delete id="deleteUser" parameterType="java.lang.String">
+		delete from t_sys_user where USER_CODE = #{userCode}
 	</delete>
 	
 	<insert id="insert" parameterType="com.flow.system.model.SysUser">
@@ -82,14 +81,14 @@
 	<update id="updateUser" parameterType="com.flow.system.model.SysUser">
 		UPDATE t_sys_user
 		<set>
-			<if test="nickname != null and nickname != '' ">	NICKNAME = #{nickname,jdbcType=VARCHAR},	</if>
-			<if test="linkman != null and linkman != ''">		LINKMAN = #{linkman,jdbcType=VARCHAR},		</if>
+			<if test="nickname != null and nickname != '' ">	NICK_NAME = #{nickname,jdbcType=VARCHAR},	</if>
+			<if test="linkman != null and linkman != ''">		LINK_MAN = #{linkman,jdbcType=VARCHAR},		</if>
 			<if test="phone != null and phone !=''">			PHONE = #{phone,jdbcType=VARCHAR},			</if>
 			<if test="email != null and email != ''">			EMAIL = #{email,jdbcType=VARCHAR},			</if>
 			<if test="isEnable != null">						STATE = #{isEnable,jdbcType=VARCHAR},	</if>
 			<if test="roleCode != null">						ROLE_CODE = #{roleCode,jdbcType=INTEGER},		</if>
 		</set>
-		WHERE userCode = #{userCode}
+		WHERE USER_CODE = #{userCode}
 	</update>
 	
 </mapper>

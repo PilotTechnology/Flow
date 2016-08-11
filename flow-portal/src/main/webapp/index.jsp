@@ -4,6 +4,5 @@ final String url = request.getContextPath() + "/portal/system/login!selectPage.a
 %>
 <html>
   <body onload="window.location.href='<%=url%>'">
-  	HELLO 
   </body>
 </html>

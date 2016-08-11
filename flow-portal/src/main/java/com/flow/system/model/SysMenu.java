@@ -1,6 +1,7 @@
 package com.flow.system.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class SysMenu {
     private Integer id;
@@ -10,6 +11,8 @@ public class SysMenu {
     private String menuName;
 
     private String upMenu;
+    
+    private List<SysMenu> subList;
 
     private String menuPath;
 
@@ -92,4 +95,18 @@ public class SysMenu {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
+
+	public List<SysMenu> getSubList() {
+		return subList;
+	}
+
+	public void setSubList(List<SysMenu> subList) {
+		this.subList = subList;
+	}
+
+	@Override
+	public String toString() {
+		return "SysMenu [id=" + id + ", menuCode=" + menuCode + ", menuName=" + menuName + ", upMenu=" + upMenu
+				+ ", subList=" + subList + ", menuPath=" + menuPath + "]";
+	}
 }

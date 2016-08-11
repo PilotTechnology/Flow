@@ -10,7 +10,7 @@
     <title>流量平台</title>
     <c:set value="${ctx}/portal/system/user!selectPage.action" scope="page" var="url"/>
   </head>
-  
+  <%@include file="../common/common.jsp" %>  
   <body>
     <%@ include file="../common/header.jsp" %>
     <div id="container">
@@ -116,15 +116,15 @@
         <div class="modal-body">
  
           <div class="form-group">
-            <label for="roleCode_add">用户编码</label>
+            <label for="userCode_add">用户编码</label>
             <input type="text" name="userCode_add" class="form-control required" id="userCode_add" placeholder="用户编码" maxlength="20">
           </div>
           <div class="form-group">
-            <label for="roleName_add">用户昵称</label>
+            <label for="nickname_add">用户昵称</label>
             <input type="text" name="nickname_add" class="form-control required" id="nickname_add" placeholder="用户昵称" maxlength="32">
           </div>
           <div class="form-group">
-            <label for="roleName_add">所属部门</label>
+            <label for="linkman_add">所属部门</label>
             <input type="text" name="linkman_add" class="form-control required" id="linkman_add" placeholder="所属部门" maxlength="32">
           </div>
           <div class="form-group">
@@ -134,11 +134,11 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="roleName_add">用户电话</label>
+            <label for="phone_add">用户电话</label>
             <input type="text" name="phone_add" class="form-control required" id="phone_add" placeholder="用户电话" maxlength="16">
           </div>
           <div class="form-group">
-            <label for="roleName_add">电子邮箱</label>
+            <label for="email_add">电子邮箱</label>
             <input type="text" name="email_add" class="form-control required" id="email_add" placeholder="电子邮箱" maxlength="32">
           </div>
 
@@ -161,17 +161,34 @@
         <div class="modal-body">
  
           <div class="form-group">
-            <label for="roleCode_edit" class="control-label">角色编码</label>
-            <input type="text" name="roleCode_edit" class="form-control required" id="roleCode_edit" placeholder="角色编码">
+            <label for="userCode_edit">用户编码</label>
+            <input type="text" readonly="readonly" name="userCode_edit" class="form-control required" id="userCode_edit" placeholder="用户编码" maxlength="20">
           </div>
           <div class="form-group">
-            <label for="roleName_edit" class="control-label">角色名称</label>
-            <input type="text" name="roleName_edit" class="form-control required" id="roleName_edit" placeholder="角色名称">
+            <label for="nickname_edit">用户昵称</label>
+            <input type="text" name="nickname_edit" class="form-control required" id="nickname_edit" placeholder="用户昵称" maxlength="32">
+          </div>
+          <div class="form-group">
+            <label for="linkman_edit">所属部门</label>
+            <input type="text" name="linkman_edit" class="form-control required" id="linkman_edit" placeholder="所属部门" maxlength="32">
+          </div>
+          <div class="form-group">
+            <label for="roleCode_edit">选择角色</label>
+            <select name="roleCode_edit" id="roleCode_edit" class="form-control">
+          		<option value="-1">全部</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="phone_edit">用户电话</label>
+            <input type="text" name="phone_edit" class="form-control required" id="phone_edit" placeholder="用户电话" maxlength="16">
+          </div>
+          <div class="form-group">
+            <label for="email_edit">电子邮箱</label>
+            <input type="text" name="email_edit" class="form-control required" id="email_edit" placeholder="电子邮箱" maxlength="32">
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal"><i class="icon-undo"></i> 关闭</button>
-          <input type="hidden" id="id_edit" name="id_edit" />
           <button type="button" id="btn_update" class="btn btn-primary" data-dismiss="modal"><i class="icon-save"></i> 修改</button>
         </div>
       </div>
@@ -179,6 +196,5 @@
     </div>
     
   </body>
-  <%@include file="../common/common.jsp" %>
   <script type="text/javascript" src="${ctx}/view/user/user.js"></script>
 </html>

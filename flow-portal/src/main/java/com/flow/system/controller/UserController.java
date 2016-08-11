@@ -98,13 +98,9 @@ public class UserController extends BaseController{
 	
 	@RequestMapping(value = "user!toEdit.action")
 	@ResponseBody
-	public Object toEdit(HttpServletRequest request, String userCode){
+	public UserInfo toEdit(HttpServletRequest request, String userCode){
 		UserInfo user = userService.getUserInfoByUserCode(userCode);
-		List<SysRole> roleList = roleService.findAllRoleList();
-		Map<String,Object> map = new HashMap<>();
-		map.put("user", user);
-		map.put("roleList", roleList);
-		return map;
+		return user;
 	}
 	
 	/**

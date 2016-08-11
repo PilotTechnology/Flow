@@ -13,6 +13,7 @@ import com.flow.system.bean.RoleMenu;
 import com.flow.system.bean.UserInfo;
 import com.flow.system.mapper.MenuMapper;
 import com.flow.system.mapper.RoleMapper;
+import com.flow.system.model.SysMenu;
 import com.flow.system.model.SysRole;
 import com.flow.system.service.RoleService;
 @Service
@@ -85,6 +86,11 @@ public class RoleServiceImpl extends AbsPageService<SysRole> implements RoleServ
 
 	public List<SysRole> findAllRoleList() {
 		return roleMapper.listPage(0, 1000); //TODO 默认写死 后续优化
+	}
+
+	@Override
+	public List<SysMenu> getMenuListByRoleCode(String roleCode) {
+		return menuMapper.getSysMenuByRoleCode(roleCode);
 	}
 
 }

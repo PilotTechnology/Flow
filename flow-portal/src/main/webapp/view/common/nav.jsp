@@ -8,6 +8,24 @@
 	    <i class="icon-dashboard"> </i> 后台首页
 	  </a>
 	</li>
+	
+	<c:if test="${not empty sessionScope.menuList}">
+	  <c:forEach var="menu" items="${sessionScope.menuList}">
+		 <li>
+		  <a href="javascript:void(0);"> 
+		    <i class="icon-desktop"></i> ${menu.menuName} <!-- <span class="label label-info pull-right">2</span> -->
+		  </a>
+		  <ul class="sub-menu">
+		    <c:forEach var="subMenu" items="${menu.subList}">
+		    	<li><a href="${ctx}${subMenu.menuPath}"> <i class="icon-angle-right">
+					</i> ${subMenu.menuName}</a>
+				</li>
+		    </c:forEach>
+		  </ul>
+		 </li>
+	  </c:forEach>
+	</c:if>
+	<%-- 
 	<li>
 	  <a href="javascript:void(0);"> 
 	    <i class="icon-desktop"></i> 系统管理 <span class="label label-info pull-right">2</span>
@@ -85,7 +103,7 @@
 		</a></li>
 	  </ul>
 	</li>
-	
+	 --%>
 	<!-- <li>
 	  <a href="javascript:void(0);"> 
 	    <i class="icon-desktop"></i> 通知管理 <span class="label label-info pull-right">2</span>

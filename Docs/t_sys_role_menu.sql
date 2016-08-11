@@ -31,3 +31,12 @@ CREATE TABLE `t_sys_role_menu` (
 -- ----------------------------
 -- Records of t_sys_role_menu
 -- ----------------------------
+INSERT INTO `t_sys_role_menu` VALUES ('3532', 'admin', 'SYS_MANAGE', 'admin', '2016-08-12 00:11:04');
+INSERT INTO `t_sys_role_menu` VALUES ('3533', 'admin', 'SYS_ROLE', 'admin', '2016-08-12 00:11:04');
+INSERT INTO `t_sys_role_menu` VALUES ('3534', 'admin', 'SYS_USER', 'admin', '2016-08-12 00:11:04');
+INSERT INTO `t_sys_role_menu` VALUES ('3535', 'admin', 'FLOW_MANAGE', 'admin', '2016-08-12 00:11:04');
+INSERT INTO `t_sys_role_menu` VALUES ('3536', 'admin', 'FLOW_ORDER', 'admin', '2016-08-12 00:11:04');
+INSERT INTO `t_sys_role_menu` VALUES ('3537', 'admin', 'FLOW_ORDER_REPORT', 'admin', '2016-08-12 00:11:04');
+INSERT INTO `t_sys_role_menu` VALUES ('3538', 'admin', 'FLOW_PROVIDER', 'admin', '2016-08-12 00:11:04');
+INSERT INTO `t_sys_role_menu` VALUES ('3539', 'admin', 'FLOW_PRODUCT', 'admin', '2016-08-12 00:11:04');
+INSERT INTO `t_sys_role_menu` VALUES ('3540', 'admin', 'FLOW_COST', 'admin', '2016-08-12 00:11:04');

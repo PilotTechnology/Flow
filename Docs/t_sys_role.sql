@@ -32,7 +32,4 @@ CREATE TABLE `t_sys_role` (
 -- ----------------------------
 -- Records of t_sys_role
 -- ----------------------------
-INSERT INTO `t_sys_role` VALUES ('1', 'ROLE_ADMIN', '系统管理员', 'system', '2016-07-17 00:00:00');
-INSERT INTO `t_sys_role` VALUES ('2', 'ROLE_TEST', '测试', 'system', '2016-07-17 00:00:00');
-INSERT INTO `t_sys_role` VALUES ('4', 'admin', 'test测速', 'admin', '2016-07-17 17:02:54');
-INSERT INTO `t_sys_role` VALUES ('5', 'admin_123', '测试123', 'admin', '2016-07-17 17:45:06');
+INSERT INTO `t_sys_role` VALUES ('1', 'admin', '系统管理员', 'admin', '2016-07-17 17:02:54');
