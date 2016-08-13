@@ -31,12 +31,17 @@ CREATE TABLE `t_sys_role_menu` (
 -- ----------------------------
 -- Records of t_sys_role_menu
 -- ----------------------------
-INSERT INTO `t_sys_role_menu` VALUES ('3532', 'admin', 'SYS_MANAGE', 'admin', '2016-08-12 00:11:04');
-INSERT INTO `t_sys_role_menu` VALUES ('3533', 'admin', 'SYS_ROLE', 'admin', '2016-08-12 00:11:04');
-INSERT INTO `t_sys_role_menu` VALUES ('3534', 'admin', 'SYS_USER', 'admin', '2016-08-12 00:11:04');
-INSERT INTO `t_sys_role_menu` VALUES ('3535', 'admin', 'FLOW_MANAGE', 'admin', '2016-08-12 00:11:04');
-INSERT INTO `t_sys_role_menu` VALUES ('3536', 'admin', 'FLOW_ORDER', 'admin', '2016-08-12 00:11:04');
-INSERT INTO `t_sys_role_menu` VALUES ('3537', 'admin', 'FLOW_ORDER_REPORT', 'admin', '2016-08-12 00:11:04');
-INSERT INTO `t_sys_role_menu` VALUES ('3538', 'admin', 'FLOW_PROVIDER', 'admin', '2016-08-12 00:11:04');
-INSERT INTO `t_sys_role_menu` VALUES ('3539', 'admin', 'FLOW_PRODUCT', 'admin', '2016-08-12 00:11:04');
-INSERT INTO `t_sys_role_menu` VALUES ('3540', 'admin', 'FLOW_COST', 'admin', '2016-08-12 00:11:04');
+insert into `flow`.`t_sys_role_menu` ( `ROLE_CODE`, `MENU_CODE`, `CREATE_USER`, `CREATE_TIME`) values ( 'admin', 'SYS_MANAGE', 'admin', '2016-08-12 00:11:04');
+insert into `flow`.`t_sys_role_menu` ( `ROLE_CODE`, `MENU_CODE`, `CREATE_USER`, `CREATE_TIME`) values ( 'admin', 'SYS_ROLE', 'admin', '2016-08-12 00:11:04');
+insert into `flow`.`t_sys_role_menu` ( `ROLE_CODE`, `MENU_CODE`, `CREATE_USER`, `CREATE_TIME`) values ( 'admin', 'SYS_USER', 'admin', '2016-08-12 00:11:04');
+insert into `flow`.`t_sys_role_menu` ( `ROLE_CODE`, `MENU_CODE`, `CREATE_USER`, `CREATE_TIME`) values ( 'admin', 'FLOW_MANAGE', 'admin', '2016-08-12 00:11:04');
+insert into `flow`.`t_sys_role_menu` ( `ROLE_CODE`, `MENU_CODE`, `CREATE_USER`, `CREATE_TIME`) values ( 'admin', 'FLOW_ORDER', 'admin', '2016-08-12 00:11:04');
+insert into `flow`.`t_sys_role_menu` ( `ROLE_CODE`, `MENU_CODE`, `CREATE_USER`, `CREATE_TIME`) values ( 'admin', 'FLOW_ORDER_REPORT', 'admin', '2016-08-12 00:11:04');
+insert into `flow`.`t_sys_role_menu` ( `ROLE_CODE`, `MENU_CODE`, `CREATE_USER`, `CREATE_TIME`) values ( 'admin', 'FLOW_PROVIDER', 'admin', '2016-08-12 00:11:04');
+insert into `flow`.`t_sys_role_menu` ( `ROLE_CODE`, `MENU_CODE`, `CREATE_USER`, `CREATE_TIME`) values ( 'admin', 'FLOW_PRODUCT', 'admin', '2016-08-12 00:11:04');
+insert into `flow`.`t_sys_role_menu` ( `ROLE_CODE`, `MENU_CODE`, `CREATE_USER`, `CREATE_TIME`) values ( 'admin', 'FLOW_COST', 'admin', '2016-08-12 00:11:04');
+insert into `flow`.`t_sys_role_menu` ( `ROLE_CODE`, `MENU_CODE`, `CREATE_USER`, `CREATE_TIME`) values ( 'admin', 'FLOW_DISTRIBUTOR_MANAGE', 'admin', '2016-08-13 18:22:09');
+insert into `flow`.`t_sys_role_menu` ( `ROLE_CODE`, `MENU_CODE`, `CREATE_USER`, `CREATE_TIME`) values ( 'admin', 'FLOW_DISTRIBUTOR', 'admin', '2016-08-13 18:22:12');
+insert into `flow`.`t_sys_role_menu` ( `ROLE_CODE`, `MENU_CODE`, `CREATE_USER`, `CREATE_TIME`) values ( 'admin', 'FLOW_QUOTATION', 'admin', '2016-08-13 18:22:14');
+insert into `flow`.`t_sys_role_menu` ( `ROLE_CODE`, `MENU_CODE`, `CREATE_USER`, `CREATE_TIME`) values ( 'admin', 'FLOW_RECHARGE', 'admin', '2016-08-13 18:22:17');
+insert into `flow`.`t_sys_role_menu` ( `ROLE_CODE`, `MENU_CODE`, `CREATE_USER`, `CREATE_TIME`) values ( 'admin', 'FLOW_BATCH', 'admin', '2016-08-13 18:22:19');

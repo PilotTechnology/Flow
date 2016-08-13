@@ -36,12 +36,17 @@ CREATE TABLE `t_sys_menu` (
 -- ----------------------------
 -- Records of t_sys_menu
 -- ----------------------------
-INSERT INTO `t_sys_menu` VALUES ('1', 'SYS_MANAGE', '系统管理', '0', '', '1', '1', null, null);
-INSERT INTO `t_sys_menu` VALUES ('2', 'SYS_ROLE', '角色管理', '1', '/portal/system/role!selectPage.action', '1', '1', null, null);
-INSERT INTO `t_sys_menu` VALUES ('3', 'SYS_USER', '系统用户', '1', '/portal/system/user!selectPage.action', '2', '1', null, null);
-INSERT INTO `t_sys_menu` VALUES ('4', 'FLOW_MANAGE', '流量管理', '0', null, '2', '1', null, null);
-INSERT INTO `t_sys_menu` VALUES ('5', 'FLOW_ORDER', '分销平台订单', '4', '/portal/order!selectPage.action', '1', '1', null, null);
-INSERT INTO `t_sys_menu` VALUES ('6', 'FLOW_ORDER_REPORT', '分销平台订单统计', '4', '', '2', '1', null, null);
-INSERT INTO `t_sys_menu` VALUES ('7', 'FLOW_PROVIDER', '供应商管理', '4', '/portal/provider!selectPage.action', '3', '1', null, null);
-INSERT INTO `t_sys_menu` VALUES ('8', 'FLOW_PRODUCT', '流量包管理', '4', '/portal/product!selectPage.action', '4', '1', null, null);
-INSERT INTO `t_sys_menu` VALUES ('9', 'FLOW_COST', '资金流水', '4', '/portal/costflow!selectPage.action', '5', '1', null, null);
+insert into `flow`.`t_sys_menu` ( `MENU_CODE`, `MENU_NAME`, `UP_MENU`, `MENU_PATH`, `SORT_NO`, `IS_ENABLE`, `CREATE_USER`, `CREATE_TIME`) values ( 'SYS_MANAGE', '系统管理', '0', '', '1', '1', 'admin', '2016-08-13 18:36:44');
+insert into `flow`.`t_sys_menu` ( `MENU_CODE`, `MENU_NAME`, `UP_MENU`, `MENU_PATH`, `SORT_NO`, `IS_ENABLE`, `CREATE_USER`, `CREATE_TIME`) values ( 'SYS_ROLE', '角色管理', '1', '/portal/system/role!selectPage.action', '1', '1', 'admin', '2016-08-13 18:36:48');
+insert into `flow`.`t_sys_menu` ( `MENU_CODE`, `MENU_NAME`, `UP_MENU`, `MENU_PATH`, `SORT_NO`, `IS_ENABLE`, `CREATE_USER`, `CREATE_TIME`) values ( 'SYS_USER', '系统用户', '1', '/portal/system/user!selectPage.action', '2', '1', 'admin', '2016-08-13 18:36:48');
+insert into `flow`.`t_sys_menu` ( `MENU_CODE`, `MENU_NAME`, `UP_MENU`, `MENU_PATH`, `SORT_NO`, `IS_ENABLE`, `CREATE_USER`, `CREATE_TIME`) values ( 'FLOW_MANAGE', '流量管理', '0', null, '2', '1', 'admin', '2016-08-13 18:36:48');
+insert into `flow`.`t_sys_menu` ( `MENU_CODE`, `MENU_NAME`, `UP_MENU`, `MENU_PATH`, `SORT_NO`, `IS_ENABLE`, `CREATE_USER`, `CREATE_TIME`) values ( 'FLOW_ORDER', '分销平台订单', '4', '/portal/order!selectPage.action', '1', '1', 'admin', '2016-08-13 18:36:48');
+insert into `flow`.`t_sys_menu` ( `MENU_CODE`, `MENU_NAME`, `UP_MENU`, `MENU_PATH`, `SORT_NO`, `IS_ENABLE`, `CREATE_USER`, `CREATE_TIME`) values ( 'FLOW_ORDER_REPORT', '分销平台订单统计', '4', '/portal/order!statistics.action', '2', '1', 'admin', '2016-08-13 18:36:48');
+insert into `flow`.`t_sys_menu` ( `MENU_CODE`, `MENU_NAME`, `UP_MENU`, `MENU_PATH`, `SORT_NO`, `IS_ENABLE`, `CREATE_USER`, `CREATE_TIME`) values ( 'FLOW_PROVIDER', '供应商管理', '4', '/portal/provider!selectPage.action', '3', '1', 'admin', '2016-08-13 18:36:48');
+insert into `flow`.`t_sys_menu` ( `MENU_CODE`, `MENU_NAME`, `UP_MENU`, `MENU_PATH`, `SORT_NO`, `IS_ENABLE`, `CREATE_USER`, `CREATE_TIME`) values ( 'FLOW_PRODUCT', '流量包管理', '4', '/portal/product!selectPage.action', '4', '1', 'admin', '2016-08-13 18:36:48');
+insert into `flow`.`t_sys_menu` ( `MENU_CODE`, `MENU_NAME`, `UP_MENU`, `MENU_PATH`, `SORT_NO`, `IS_ENABLE`, `CREATE_USER`, `CREATE_TIME`) values ( 'FLOW_COST', '资金流水', '4', '/portal/costflow!selectPage.action', '5', '1', 'admin', '2016-08-13 18:36:48');
+insert into `flow`.`t_sys_menu` ( `MENU_CODE`, `MENU_NAME`, `UP_MENU`, `MENU_PATH`, `SORT_NO`, `IS_ENABLE`, `CREATE_USER`, `CREATE_TIME`) values ( 'FLOW_DISTRIBUTOR_MANAGE', '分销商管理', '0', null, '3', '1', 'admin', '2016-08-13 18:36:48');
+insert into `flow`.`t_sys_menu` ( `MENU_CODE`, `MENU_NAME`, `UP_MENU`, `MENU_PATH`, `SORT_NO`, `IS_ENABLE`, `CREATE_USER`, `CREATE_TIME`) values ( 'FLOW_DISTRIBUTOR', '分销商管理', '10', '/portal/distributor!selectPage.action', '1', '1', 'admin', '2016-08-13 18:36:48');
+insert into `flow`.`t_sys_menu` ( `MENU_CODE`, `MENU_NAME`, `UP_MENU`, `MENU_PATH`, `SORT_NO`, `IS_ENABLE`, `CREATE_USER`, `CREATE_TIME`) values ( 'FLOW_QUOTATION', '报价单管理', '10', '/portal/quotation!selectPage.action', '2', '1', 'admin', '2016-08-13 18:36:48');
+insert into `flow`.`t_sys_menu` ( `MENU_CODE`, `MENU_NAME`, `UP_MENU`, `MENU_PATH`, `SORT_NO`, `IS_ENABLE`, `CREATE_USER`, `CREATE_TIME`) values ( 'FLOW_RECHARGE', '账户充值', '10', '/portal/rechargeflow!selectPage.action', '3', '1', 'admin', '2016-08-13 18:36:48');
+insert into `flow`.`t_sys_menu` ( `MENU_CODE`, `MENU_NAME`, `UP_MENU`, `MENU_PATH`, `SORT_NO`, `IS_ENABLE`, `CREATE_USER`, `CREATE_TIME`) values ( 'FLOW_BATCH', '批量充值', '10', null, '4', '1', 'admin', '2016-08-13 18:36:48');
