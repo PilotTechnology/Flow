@@ -8,8 +8,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <title>流量平台</title>
-    <c:set value="${ctx}/portal/costflow!selectPage.action" scope="page" var="url"/>
-    <link rel="stylesheet" href="${ctx}/js/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <%@include file="../common/common.jsp" %>
+    <c:set value="${ctx}/portal/order!statistics.action" scope="page" var="url"/>
   </head>
   
   <body>
@@ -30,7 +30,7 @@
           <div class="crumbs">
             <ul id="breadcrumbs" class="breadcrumb">
               <li><i class="icon-home"></i><a href="${ctx}/portal/system/login!selectPage.action">首页</a></li>
-              <li class="current"><a href="${ctx}/portal/costflow!selectPage.action" title="">资金流水</a></li>
+              <li class="current"><a href="${ctx}/portal/order!statistics.action" title="">分销商订单统计</a></li>
             </ul>
           </div>
           
@@ -43,13 +43,19 @@
           			<div class="widget-content">
                   		<form id="searchForm" action="" method="post" class="form-horizontal row-border">
                   		<div class="form-group">
-                  			<label class="col-md-1 control-label">类型:</label>
+                  			<label class="col-md-1 control-label">供应商:</label>
                   			<div class="col-md-2">
-                  				<select name="type" id="type" class="form-control">
-                  					<option value="-1" <c:if test='${costFlow.type eq -1}'> selected</c:if>>全部</option>
-                              		<option value="0" <c:if test='${costFlow.type eq 0}'> selected</c:if>>扣款</option>
-                              		<option value="1"<c:if test='${costFlow.type eq 1}'> selected</c:if>>退款</option>
+                  				<select name="providerCode" id="providerCode" class="form-control">
+                              		<option value="-1">全部</option>
 	                            </select>
+                  			</div>
+                  			<label class="col-md-1 control-label">创建时间:</label>
+                  			<div class="col-md-5">
+                  				<div class="row">
+                  					<div class="col-md-5"><input type="text" id="beginTime" name="beginTime" value="${beginTime}" class="form-control" placeholder="YYYY-MM-DD hh:mm:ss" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"></div>
+                  					<label class="col-md-2 control-label">至</label>
+                  					<div class="col-md-5"><input type="text" id="endTime" name="endTime" value="${endTime}" class="form-control" placeholder="YYYY-MM-DD hh:mm:ss" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"></div>
+                  				</div>
                   			</div>
                   			<div class="col-md-2">
                   				<button class="btn btn-sm btn-warning" type="submit" id="search">搜索</button>
@@ -60,13 +66,12 @@
           		</div>
           	</div>
           </div>
-          
           <div class="row">
           	<div class="col-md-12">
           	  <div class="widget box">
           	  	<!--  表格导航栏 -->
           	  	<div class="widget-header">
-                  <h4><i class="icon-reorder"></i>资金流水</h4>
+                  <h4><i class="icon-reorder"></i>平台订单列表</h4>
                   <div class="toolbar no-padding">
                     <div class="btn-group">
                       <span class="btn btn-xs widget-collapse">
@@ -75,36 +80,31 @@
                     </div>
                   </div>
              	</div>
+             	
              	<!-- 表格内容  start-->
              	<div class="widget-content">
                   <table class="table table-striped table-bordered table-hover table-checkable table-responsive datatable">
                     <thead>
                       <tr>
                         <th data-class="expand">序号</th>
-                        <th>订单ID</th>
-                        <th>分销商ID</th>
-                        <th>资金流水(元)</th>
-                        <th>当前余额</th>
-                        <th>类型</th>
-                        <th>创建时间</th>
+                        <th>分销商编码</th>
+						<th>充值成功订单数</th>
+						<th>充值失败订单数</th>
+						<th>消费金额(元)</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <c:forEach var="costflow" items="${page.rows}" varStatus="vs">
+                      <c:forEach var="orderStatistics" items="${list}" varStatus="vs">
                       	<tr>
-                        <td>${page.firstResult + vs.count}</td>
-                        <td>${costflow.orderCode}</td>
-                        <td>${costflow.distributorCode}</td>
-                        <td>${costflow.cost}</td>
-                        <td>${costflow.currentBalance}</td>
-                        <td><c:if test='${costflow.type eq 0}'>扣款</c:if><c:if test='${costflow.type eq 1}'>退款</c:if></td>
-                        <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${costflow.creatDate}"/></td>
+                        <td>${vs.count}</td>
+                        <td>${orderStatistics.distributorCode}</td>
+                        <td>${orderStatistics.successNum}</td>
+                        <td>${orderStatistics.failNum}</td>
+                        <td>${orderStatistics.moneyOfSuccess}</td>
                       	</tr>
                       </c:forEach>
                     </tbody>
-                  </table>
-                
-				  <%@ include file="../common/page.jsp"%>                  
+                  </table>            
                 </div>
                 <!-- 表格内容  end-->
           	  </div>
@@ -115,8 +115,8 @@
       </div>
     </div>
   </body>
-  <%@include file="../common/common.jsp" %>
-  <script type="text/javascript" src="${ctx}/view/role/role.js"></script>
-  <script type="text/javascript" src="${ctx}/js/ztree/js/jquery.ztree.core.min.js"></script>
-  <script type="text/javascript" src="${ctx}/js/ztree/js/jquery.ztree.excheck.min.js"></script>
+  <script type="text/javascript" src="${ctx}/view/common/public.js"></script>
+  <script type="text/javascript">
+	  initProvider('${order.providerCode}');
+  </script>
 </html>

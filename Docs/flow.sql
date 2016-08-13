@@ -112,6 +112,8 @@ CREATE TABLE `t_flow_order` (
   `PROVIDER_CODE` varchar(32) DEFAULT NULL COMMENT '上游编号',
   `DISTRIBUTOR_CODE` varchar(32) DEFAULT NULL COMMENT '下游编号',
   `PHONE` varchar(16) DEFAULT NULL COMMENT '手机号',
+  `PHONE_PROVINCE` varchar(32) DEFAULT NULL COMMENT '手机号所在省',
+  `PHONE_CITY` varchar(32) DEFAULT NULL COMMENT '手机号所在市',
   `SIZE` int(11) DEFAULT NULL COMMENT '流量包大小，以M为最小单位，1G=1024M',
   `PRICE` double(10,2) DEFAULT NULL COMMENT '运营商价格(单位：元）',
   `DISCOUNT` double(4,2) DEFAULT NULL COMMENT '购买折扣（60代表6折）',

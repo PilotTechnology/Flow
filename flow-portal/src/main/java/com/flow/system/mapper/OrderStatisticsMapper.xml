@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flow.system.mapper.OrderStatisticsMapper">
+  <resultMap id="BaseResultMap" type="com.flow.system.model.OrderStatistics">
+    <result column="DISTRIBUTOR_CODE" jdbcType="VARCHAR" property="distributorCode" />
+    <result column="SIZE" jdbcType="INTEGER" property="size" />
+    <result column="PROVINCE" jdbcType="VARCHAR" property="province" />
+    <result column="SUCCESS_NUM" jdbcType="INTEGER" property="successNum" />
+    <result column="FAIL_NUM" jdbcType="INTEGER" property="failNum" />
+    <result column="MONEY_OF_SUCCESS" jdbcType="DOUBLE" property="moneyOfSuccess" />
+  </resultMap>
+  
+  <sql id="query_body">
+  	<where>
+  		<if test="distributorCode !=null and distributorCode != ''"> AND DISTRIBUTOR_CODE = #{distributorCode}</if>
+  		<if test="beginTime !=null and beginTime != ''"> AND CREATE_DATE <![CDATA[  >  ]]> #{beginTime}</if>
+  		<if test="endTime !=null and endTime != ''"> AND CREATE_DATE <![CDATA[  <  ]]> #{endTime}</if>
+  	</where>
+  </sql>
+  
+  <select id="orderStatisticsByDistributor" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	SELECT DISTRIBUTOR_CODE, COUNT(ORDER_CODE) as SUCCESS_NUM, SUM(PURCHASED) as MONEY_OF_SUCCESS 
+	FROM t_flow_order 
+	WHERE state = 1
+	<include refid="query_body"/>
+	GROUP BY DISTRIBUTOR_CODE
+  </select>
+  
+  <select id="orderStatisticsBySize" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	SELECT SIZE, COUNT(ORDER_CODE) as SUCCESS_NUM FROM t_flow_order
+  	<include refid="query_body"/>
+	GROUP BY SIZE
+	ORDER BY SIZE
+  </select>
+  
+  <select id="orderStatisticsByProvince" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	SELECT PHONE_PROVINCE, COUNT(ORDER_CODE) as SUCCESS_NUM FROM t_flow_order
+  	<include refid="query_body"/>
+	GROUP BY PHONE_PROVINCE
+	ORDER BY PHONE_PROVINCE
+  </select>
+  
+</mapper>
