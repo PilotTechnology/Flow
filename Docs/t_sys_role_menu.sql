@@ -45,3 +45,5 @@ insert into `flow`.`t_sys_role_menu` ( `ROLE_CODE`, `MENU_CODE`, `CREATE_USER`, 
 insert into `flow`.`t_sys_role_menu` ( `ROLE_CODE`, `MENU_CODE`, `CREATE_USER`, `CREATE_TIME`) values ( 'admin', 'FLOW_QUOTATION', 'admin', '2016-08-13 18:22:14');
 insert into `flow`.`t_sys_role_menu` ( `ROLE_CODE`, `MENU_CODE`, `CREATE_USER`, `CREATE_TIME`) values ( 'admin', 'FLOW_RECHARGE', 'admin', '2016-08-13 18:22:17');
 insert into `flow`.`t_sys_role_menu` ( `ROLE_CODE`, `MENU_CODE`, `CREATE_USER`, `CREATE_TIME`) values ( 'admin', 'FLOW_BATCH', 'admin', '2016-08-13 18:22:19');
+insert into `flow`.`t_sys_role_menu` ( `ROLE_CODE`, `MENU_CODE`, `CREATE_USER`, `CREATE_TIME`) values ( 'admin', 'FLOW_PHONE_MANAGE', 'admin', '2016-08-14 11:18:22');
+insert into `flow`.`t_sys_role_menu` ( `ROLE_CODE`, `MENU_CODE`, `CREATE_USER`, `CREATE_TIME`) values ( 'admin', 'FLOW_PHONE', 'admin', '2016-08-14 11:19:27');
