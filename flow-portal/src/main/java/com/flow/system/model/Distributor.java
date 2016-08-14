@@ -38,8 +38,6 @@ public class Distributor {
     private String fatherDistributorCode;
     
     private SysUser user;
-    
-    private MobileOperator mobileOperator;
 
     public Integer getId() {
         return id;
@@ -191,13 +189,5 @@ public class Distributor {
 
     public void setUser(SysUser user) {
         this.user = user;
-    }
-    
-    public MobileOperator getMobileOperator() {
-        return mobileOperator;
-    }
-
-    public void setMobileOperator(MobileOperator mobileOperator) {
-        this.mobileOperator = mobileOperator;
     }
 }

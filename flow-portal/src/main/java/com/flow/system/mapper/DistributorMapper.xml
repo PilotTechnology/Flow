@@ -32,10 +32,6 @@
 		<result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
 		<result column="ROLE_CODE" jdbcType="INTEGER" property="roleCode" />
 	</association>
-	<association property="mobileOperator" javaType="com.flow.system.model.MobileOperator">
-		<id column="M_ID" jdbcType="INTEGER" property="id" />
-    <result column="OPERATOR_NAME" jdbcType="VARCHAR" property="operatorName" />
-	</association>
   </resultMap>
   <sql id="query_body">
   	<where>
@@ -79,11 +75,9 @@
 			a.CALLBACK_URL as CALLBACK_URL, a.CONFINING_IP as CONFINING_IP, a.APP_KEY as APP_KEY, a.SECRET_KEY as SECRET_KEY,
 			a.FATHER_DISTRIBUTOR_CODE as FATHER_DISTRIBUTOR_CODE,
 			b.ID as U_ID, b.USER_CODE as U_CODE, b.PASSWORD as PASSWORD, b.NICK_NAME as NICK_NAME, b.LINK_MAN as LINK_MAN, b.PHONE as PHONE,
-			b.EMAIL as EMAIL, b.STATE as STATE, b.CREATE_DATE as CREATE_DATE, b.ROLE_CODE as ROLE_CODE, c.ID as M_ID,
-			c.OPERATOR_NAME AS OPERATOR_NAME
+			b.EMAIL as EMAIL, b.STATE as STATE, b.CREATE_DATE as CREATE_DATE, b.ROLE_CODE as ROLE_CODE
 		from t_flow_distributor a
 		INNER JOIN t_sys_user b ON a.USER_CODE = b.USER_CODE
-		INNER JOIN t_base_operator c ON a.OPERATOR_CODE = c.ID
 		<include refid="query_body"/>
 		limit #{start} , #{pageSize}
   </select>
@@ -99,11 +93,9 @@
 			a.CALLBACK_URL as CALLBACK_URL, a.CONFINING_IP as CONFINING_IP, a.APP_KEY as APP_KEY, a.SECRET_KEY as SECRET_KEY,
 			a.FATHER_DISTRIBUTOR_CODE as FATHER_DISTRIBUTOR_CODE,
 			b.ID as U_ID, b.USER_CODE as U_CODE, b.PASSWORD as PASSWORD, b.NICK_NAME as NICK_NAME, b.LINK_MAN as LINK_MAN, b.PHONE as PHONE,
-			b.EMAIL as EMAIL, b.STATE as STATE, b.CREATE_DATE as CREATE_DATE, b.ROLE_CODE as ROLE_CODE, c.ID as M_ID,
-			c.OPERATOR_NAME AS OPERATOR_NAME
+			b.EMAIL as EMAIL, b.STATE as STATE, b.CREATE_DATE as CREATE_DATE, b.ROLE_CODE as ROLE_CODE
 		from t_flow_distributor a
 		INNER JOIN t_sys_user b ON a.USER_CODE = b.USER_CODE
-		INNER JOIN t_base_operator c ON a.OPERATOR_CODE = c.ID
 		where a.DISTRBUTOR_CODE = #{distributorCode,jdbcType=VARCHAR}
   </select>
   <select id="selectByDistributorInfo" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -113,11 +105,9 @@
 			a.CALLBACK_URL as CALLBACK_URL, a.CONFINING_IP as CONFINING_IP, a.APP_KEY as APP_KEY, a.SECRET_KEY as SECRET_KEY,
 			a.FATHER_DISTRIBUTOR_CODE as FATHER_DISTRIBUTOR_CODE,
 			b.ID as U_ID, b.USER_CODE as U_CODE, b.PASSWORD as PASSWORD, b.NICK_NAME as NICK_NAME, b.LINK_MAN as LINK_MAN, b.PHONE as PHONE,
-			b.EMAIL as EMAIL, b.STATE as STATE, b.CREATE_DATE as CREATE_DATE, b.ROLE_CODE as ROLE_CODE, c.ID as M_ID,
-			c.OPERATOR_NAME AS OPERATOR_NAME
+			b.EMAIL as EMAIL, b.STATE as STATE, b.CREATE_DATE as CREATE_DATE, b.ROLE_CODE as ROLE_CODE
 		from t_flow_distributor a
 		INNER JOIN t_sys_user b ON a.USER_CODE = b.USER_CODE
-		INNER JOIN t_base_operator c ON a.OPERATOR_CODE = c.ID
 		where a.DISTRBUTOR_CODE like "%"#{distributorInfo}"%" or b.NICK_NAME like "%"#{distributorInfo}"%" or a.COMPANY like "%"#{distributorInfo}"%"
   </select>
   <select id="selectBanlanceByDistributorCode" parameterType="java.lang.Integer" resultType="java.lang.Double">
