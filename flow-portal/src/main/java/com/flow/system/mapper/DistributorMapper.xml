@@ -30,7 +30,7 @@
 		<result column="EMAIL" jdbcType="VARCHAR" property="email" />
 		<result column="STATE" jdbcType="VARCHAR" property="isEnable" />
 		<result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
-		<result column="ROLE_CODE" jdbcType="INTEGER" property="roleid" />
+		<result column="ROLE_CODE" jdbcType="INTEGER" property="roleCode" />
 	</association>
 	<association property="mobileOperator" javaType="com.flow.system.model.MobileOperator">
 		<id column="M_ID" jdbcType="INTEGER" property="id" />
@@ -39,6 +39,7 @@
   </resultMap>
   <sql id="query_body">
   	<where>
+  		<if test="fatherDistributorCode !=null and fatherDistributorCode != ''"> AND a.FATHER_DISTRIBUTOR_CODE = #{fatherDistributorCode}</if>
   		<if test="distrbutorCode !=null and distrbutorCode != ''"> AND a.DISTRBUTOR_CODE like "%"#{distrbutorCode}"%" or b.NICK_NAME like "%"#{distrbutorCode}"%" or a.COMPANY like "%"#{distrbutorCode}"%"</if>
   		<if test="phone !=null and phone != ''"> AND b.PHONE = #{phone}</if>
   		<if test="state !=null and state != '' and state != '-1'"> AND a.STATE = #{state}</if>

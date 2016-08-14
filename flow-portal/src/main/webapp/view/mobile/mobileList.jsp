@@ -29,7 +29,7 @@
           <div class="crumbs">
             <ul id="breadcrumbs" class="breadcrumb">
               <li><i class="icon-home"></i><a href="${ctx}/portal/system/login!selectPage.action">首页</a></li>
-              <li class="current"><a href="pages_calendar.html" title="">号段管理</a></li>
+              <li class="current"><a href="${ctx}/portal/mobile!selectPage.action" title="">号段管理</a></li>
             </ul>
           </div>
           

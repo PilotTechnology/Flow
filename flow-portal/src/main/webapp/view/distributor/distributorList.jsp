@@ -30,7 +30,10 @@
           <div class="crumbs">
             <ul id="breadcrumbs" class="breadcrumb">
               <li><i class="icon-home"></i><a href="${ctx}/portal/system/login!selectPage.action">首页</a></li>
-              <li class="current"><a href="pages_calendar.html" title="">分销商管理</a></li>
+              <li class="current"><a href="${ctx}/portal/distributor!selectPage.action" title="">分销商管理</a></li>
+              <c:if test='${fatherDistributorCode ne "0" && fatherDistributorCode ne null}'>
+              	<li class="current"><a href="${ctx}/portal/distributor!selectPage.action?fatherDistributorCode=${fatherDistributorCode}" title="">二级分销商管理</a></li>
+              </c:if>
             </ul>
           </div>
           
@@ -55,6 +58,14 @@
                               		<option value="0" <c:if test='${distributor.state eq 0}'> selected</c:if>>禁用</option>
 	                            </select>
                   			</div>
+                  			
+                  			<c:if test='${fatherDistributorCode ne "0" && fatherDistributorCode ne null}'>
+                  				<input type="hidden" id="fatherDistributorCode" name="fatherDistributorCode" value="${fatherDistributorCode}"/>
+                  			</c:if>
+                  			<c:if test='${fatherDistributorCode eq "0" || fatherDistributorCode eq null}'>
+                  				<input type="hidden" id="fatherDistributorCode" name="fatherDistributorCode" value="0"/>
+                  			</c:if>
+                  			
                   			<div class="col-md-2">
                   				<button class="btn btn-sm btn-warning" type="submit" id="search">搜索</button>
                   			</div>
@@ -121,7 +132,7 @@
                         <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${distributor.user.createDate}"/></td>
                         <td>
                         	<button class="btn btn-sm btn-info" onclick="toSearch('${distributor.distrbutorCode}');"><i class="icon-edit"  ></i>编辑</button>
-                        	<a class="btn btn-sm btn-success" href="${ctx}/portal/distributor!selectPage.action?fatherDistributorCode=${distributor.fatherDistributorCode}"><i class="icon-cog"></i>查看二级</a>
+                        	<a class="btn btn-sm btn-success" href="${ctx}/portal/distributor!selectPage.action?fatherDistributorCode=${distributor.distrbutorCode}"><i class="icon-cog"></i>查看二级</a>
                         </td>
                       	</tr>
                       </c:forEach>

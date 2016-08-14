@@ -46,6 +46,9 @@ public class DistributorController extends BaseController {
 	public String selectPage(HttpServletRequest request, Distributor distributor, Model model) throws Exception {
 		//转换request参数为map
 		Map<String,Object> map = getParameterMap(request);
+		if (map.get("fatherDistributorCode") == null) {
+			map.put("fatherDistributorCode", "0");
+		}
 		PageUtil<Distributor> page = distributorService.listPage(map);
 		model.addAttribute("page",page);
 		if (distributor.getUser() == null) {
@@ -53,6 +56,7 @@ public class DistributorController extends BaseController {
 		}
 		distributor.getUser().setPhone((String) map.get("phone"));
 		model.addAttribute("distributor",distributor);
+		model.addAttribute("fatherDistributorCode",map.get("fatherDistributorCode"));
 		return "/view/distributor/distributorList.jsp";
 	}
 	

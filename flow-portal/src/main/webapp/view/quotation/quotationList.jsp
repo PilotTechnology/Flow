@@ -143,11 +143,11 @@
  
           <div class="form-group">
             <label for="roleCode_add">角色编码</label>
-            <input type="text" name="roleCode_add" class="form-control required" id="roleCode_add" placeholder="角色编码" minlength="5">
+            <input type="text" name="roleCode_add" class="form-control required" id="roleCode_add" placeholder="角色编码">
           </div>
           <div class="form-group">
             <label for="roleName_add">角色名称</label>
-            <input type="text" name="roleName_add" class="form-control required" id="roleName_add" placeholder="角色名称" minlength="5">
+            <input type="text" name="roleName_add" class="form-control required" id="roleName_add" placeholder="角色名称">
           </div>
         </div>
         <div class="modal-footer">
