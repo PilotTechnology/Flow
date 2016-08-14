@@ -8,9 +8,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <title>流量平台</title>
+    <%@include file="../common/common.jsp" %>  
     <c:set value="${ctx}/portal/system/user!selectPage.action" scope="page" var="url"/>
   </head>
-  <%@include file="../common/common.jsp" %>  
   <body>
     <%@ include file="../common/header.jsp" %>
     <div id="container">
