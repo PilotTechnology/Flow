@@ -24,6 +24,7 @@ import com.flow.system.model.Distributor;
 import com.flow.system.model.SysUser;
 import com.flow.system.service.DistributorService;
 import com.flow.system.service.UserService;
+import com.flow.pub.common.Constant;
 
 /**
  * 
@@ -51,6 +52,14 @@ public class DistributorController extends BaseController {
 	public String selectPage(HttpServletRequest request, Distributor distributor, Model model) throws Exception {
 		//转换request参数为map
 		Map<String,Object> map = getParameterMap(request);
+		
+		UserInfo userInfo = (UserInfo) request.getSession().getAttribute("userInfo");
+		if (userInfo.getRoleCode().equals(Constant.DISTRIBUTOR_ROLE_CODE)) {
+			Distributor loginDistributor = distributorService.getDistributorByCode(userInfo.getUserCode());
+			if (loginDistributor != null) {
+				map.put("fatherDistributorCode", loginDistributor.getDistrbutorCode());
+			}
+		}
 		if (map.get("fatherDistributorCode") == null) {
 			map.put("fatherDistributorCode", "0");
 		}
@@ -79,7 +88,7 @@ public class DistributorController extends BaseController {
 				return new BaseResponse(Constant.JSON_FAIL, "分销商已存在");
 			}
 			SysUser user = distributor.getUser();
-			user.setRoleCode("2");
+			user.setRoleCode(Constant.DISTRIBUTOR_ROLE_CODE);
 			user.setIsEnable("1");
 			user.setCreateDate(new Date());
 			user.setPassword(MD5Util.EncodeString(user.getPassword()));
