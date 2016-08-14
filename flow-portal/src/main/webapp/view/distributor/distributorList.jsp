@@ -252,7 +252,7 @@
         <div class="modal-body">
  		  <div class="form-group">
             <label for="distrbutorCode_edit">分销商编码</label>
-            <input type="text" name="distrbutorCode_edit" class="form-control required" id="distrbutorCode_edit" placeholder="分销商编码">
+            <input type="text" readonly="readonly" name="distrbutorCode_edit" class="form-control required" id="distrbutorCode_edit" placeholder="分销商编码">
           </div>
           <div class="form-group">
             <label for="password_edit">密码</label>

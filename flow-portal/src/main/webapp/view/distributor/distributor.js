@@ -5,8 +5,6 @@ $("#addButton").click(function () {
 
 //ADD
 $("#btn_submit").click(function(){
-	var Distributor={"_method":"post"};
-	var SysUser={"_method":"post"};
     var distrbutorCode=$("#distrbutorCode_add").val();
     var password=$("#password_add").val();
     var confirmPassword=$("#confirm_password_add").val();
@@ -67,49 +65,36 @@ $("#btn_submit").click(function(){
     	alert("ip白名单不能为空！");
     	return;
     }
-    
-    Distributor.distrbutorCode =distrbutorCode;
-    Distributor.userCode =distrbutorCode;
-    
-    SysUser.userCode =distrbutorCode;
-    SysUser.password =password;
-    SysUser.nickname =nickname;
-    SysUser.linkman =linkman;
-    SysUser.phone =phone;
-    SysUser.email =email;
-    Distributor.user =SysUser;
-    
-//    Distributor.user.userCode =distrbutorCode;
-//    Distributor.user.password =password;
-//    Distributor.user.nickname =nickname;
-//    Distributor.user.linkman =linkman;
-//    Distributor.user.phone =phone;
-//    Distributor.user.email =email;
-    Distributor.company =company;
-    Distributor.channelType =channelType;
-    Distributor.coopModel =coopModel;
-    Distributor.smsContent =smsContent;
-    Distributor.level =level;
-    Distributor.callbackUrl =callbackUrl;
-    Distributor.confiningIp =confiningIp;
-    Distributor.state =state;
-    
-	$.ajax({
-		type : "POST",
-		url : '/portal/distributor!addDistributor.action',
-		data: Distributor,
-		async : false,
-		success : function(data) {
-			if(data.result == "success"){
-				alert("添加成功！");
-				location.href="/portal/distributor!selectPage.action";
-				$("#btn_submit").attr("data-dismiss", "modal");
-			}else{
-				alert(data.errMsg);
-				return false;
-			}
-		}
-	});
+    $.post(
+    	"/portal/distributor!addDistributor.action",
+    	{"distrbutorCode":distrbutorCode,
+   		 "userCode":distrbutorCode,
+   		 "user.userCode":distrbutorCode,
+    	 "user.password":password,
+         "user.nickname":nickname,
+   	     "user.linkman":linkman,
+         "user.phone":phone,
+    	 "user.email":email,
+    	 "company":company,
+    	 "channelType":channelType,
+         "coopModel":coopModel,
+   	     "smsContent":smsContent,
+   	     "level":level,
+   	     "callbackUrl":callbackUrl,
+   	     "confiningIp":confiningIp,
+   	     "state":state,
+    	},
+    	function(json){
+    		if(json.result == "success"){
+    			alert("添加成功！");
+    			location.href="/portal/distributor!selectPage.action";
+   				$("#btn_submit").attr("data-dismiss", "modal");
+   			}else{
+   				alert(json.errMsg);
+   				return false;
+   			}
+   		},"json"
+   	);
 })
 
 //TO SEARCH
@@ -118,8 +103,6 @@ function toSearch(distributorCode){
 	    $('#myModal_edit').modal();
 	    $("#id_edit").val(json.distributor.id);
 	    $("#distrbutorCode_edit").val(json.distributor.distrbutorCode);
-//	    $("#password_edit").val(json.distributor.user.password);
-//	    $("#confirm_password_edit").val(json.distributor.user.password);
 	    $("#nickname_edit").val(json.distributor.user.nickname);
 	    $("#company_edit").val(json.distributor.company);
 	    $("#linkman_edit").val(json.distributor.user.linkman);
@@ -137,8 +120,6 @@ function toSearch(distributorCode){
 
 //UPDATE
 $("#btn_update").click(function(){
-	var Distributor={"_method":"post"};
-	var SysUser={"_method":"post"};
 	var id=$("#id_edit").val();
 	var distrbutorCode=$("#distrbutorCode_edit").val();
     var password=$("#password_edit").val();
@@ -160,18 +141,6 @@ $("#btn_update").click(function(){
     	alert("分销商编码不能为空！");
     	return;
     }
-//    if (password.length == 0) {
-//    	alert("密码不能为空！");
-//    	return;
-//    }
-//    if (confirmPassword.length == 0) {
-//    	alert("确认密码不能为空！");
-//    	return;
-//    }
-//    if (password != confirmPassword) {
-//    	alert("密码不一致！");
-//    	return;
-//    }
     if (nickname.length == 0) {
     	alert("昵称不能为空！");
     	return;
@@ -201,47 +170,35 @@ $("#btn_update").click(function(){
     	return;
     }
     
-    Distributor.distrbutorCode =distrbutorCode;
-    Distributor.userCode =distrbutorCode;
-    
-    SysUser.userCode =distrbutorCode;
-    SysUser.password =password;
-    SysUser.nickname =nickname;
-    SysUser.company =company;
-    SysUser.linkman =linkman;
-    SysUser.phone =phone;
-    SysUser.email =email;
-    Distributor.user =SysUser;
-    
-//    Distributor.user.userCode =distrbutorCode;
-//    Distributor.user.password =password;
-//    Distributor.user.nickname =nickname;
-//    Distributor.user.company =company;
-//    Distributor.user.linkman =linkman;
-//    Distributor.user.phone =phone;
-//    Distributor.user.email =email;
-    Distributor.channelType =channelType;
-    Distributor.coopModel =coopModel;
-    Distributor.smsContent =smsContent;
-    Distributor.level =level;
-    Distributor.callbackUrl =callbackUrl;
-    Distributor.confiningIp =confiningIp;
-    Distributor.state =state;
-    
-	$.ajax({
-		type : "POST",
-		url : '/portal/distributor!editDistributor.action',
-		data: Distributor,
-		async : false,
-		success : function(data) {
-			if(data.result == "success"){
-				alert("修改成功！");
-				location.href="/portal/distributor!selectPage.action";
-				$("#btn_update").attr("data-dismiss", "modal");
-			}else{
-				alert(data.errMsg);
-				return false;
-			}
-		}
-	});
+    $.post(
+        "/portal/distributor!editDistributor.action",
+       	{"id":id,
+         "distrbutorCode":distrbutorCode,
+         "userCode":distrbutorCode,
+   		 "user.userCode":distrbutorCode,
+         "user.password":password,
+         "user.nickname":nickname,
+   	     "user.linkman":linkman,
+         "user.phone":phone,
+      	 "user.email":email,
+       	 "company":company,
+       	 "channelType":channelType,
+         "coopModel":coopModel,
+   	     "smsContent":smsContent,
+   	     "level":level,
+   	     "callbackUrl":callbackUrl,
+         "confiningIp":confiningIp,
+   	     "state":state,
+   	    },
+       	function(json){
+     		if(json.result == "success"){
+      			alert("修改成功！");
+       			location.href="/portal/distributor!selectPage.action";
+       			$("#btn_submit").attr("data-dismiss", "modal");
+       		}else{
+       			alert(json.errMsg);
+       			return false;
+   			}
+   		},"json"
+   	);
 })

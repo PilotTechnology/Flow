@@ -81,6 +81,7 @@
 	<update id="updateUser" parameterType="com.flow.system.model.SysUser">
 		UPDATE t_sys_user
 		<set>
+			<if test="password != null and password != '' ">	PASSWORD = #{password,jdbcType=VARCHAR},	</if>
 			<if test="nickname != null and nickname != '' ">	NICK_NAME = #{nickname,jdbcType=VARCHAR},	</if>
 			<if test="linkman != null and linkman != ''">		LINK_MAN = #{linkman,jdbcType=VARCHAR},		</if>
 			<if test="phone != null and phone !=''">			PHONE = #{phone,jdbcType=VARCHAR},			</if>

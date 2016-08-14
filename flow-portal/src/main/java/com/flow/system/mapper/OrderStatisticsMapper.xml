@@ -19,9 +19,11 @@
   </sql>
   
   <select id="orderStatisticsByDistributor" resultMap="BaseResultMap" parameterType="java.util.Map">
-  	SELECT DISTRIBUTOR_CODE, COUNT(ORDER_CODE) as SUCCESS_NUM, SUM(PURCHASED) as MONEY_OF_SUCCESS 
-	FROM t_flow_order 
-	<!-- WHERE state = 1 -->
+  	SELECT DISTRIBUTOR_CODE,
+	SUM(CASE WHEN STATE = 1 THEN 1 ELSE 0 END) as SUCCESS_NUM , 
+	SUM(CASE WHEN STATE = 2 THEN 1 ELSE 0 END) as FAIL_NUM , 
+	SUM(PURCHASED) as MONEY_OF_SUCCESS
+	FROM t_flow_order
 	<include refid="query_body"/>
 	GROUP BY DISTRIBUTOR_CODE
   </select>

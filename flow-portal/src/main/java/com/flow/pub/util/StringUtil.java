@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.UUID;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -924,5 +925,16 @@ public class StringUtil
       message = message.replaceFirst( placeHolder, datas[i] );
     }
     return message;
+  }
+  /**
+   * 生成随机字符串
+   *
+   * @return String
+   */
+  public static String UUID() {
+      UUID uuid = UUID.randomUUID();
+      String str = uuid.toString();
+      str = str.replaceAll("-", "");
+      return str;
   }
 }

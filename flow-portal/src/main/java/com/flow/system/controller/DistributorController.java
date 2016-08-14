@@ -1,9 +1,11 @@
 package com.flow.system.controller;
 
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +16,10 @@ import com.flow.portal.controller.BaseController;
 import com.flow.pub.common.BaseResponse;
 import com.flow.pub.common.Constant;
 import com.flow.pub.common.PubLog;
+import com.flow.pub.util.MD5Util;
 import com.flow.pub.util.PageUtil;
+import com.flow.pub.util.StringUtil;
+import com.flow.system.bean.UserInfo;
 import com.flow.system.model.Distributor;
 import com.flow.system.model.SysUser;
 import com.flow.system.service.DistributorService;
@@ -73,7 +78,14 @@ public class DistributorController extends BaseController {
 			if(distributorService.checkExists(distributor)){
 				return new BaseResponse(Constant.JSON_FAIL, "分销商已存在");
 			}
+			SysUser user = distributor.getUser();
+			user.setRoleCode("2");
+			user.setIsEnable("1");
+			user.setCreateDate(new Date());
+			user.setPassword(MD5Util.EncodeString(user.getPassword()));
 			userService.save(distributor.getUser());
+			distributor.setAppKey(StringUtil.UUID());
+			distributor.setSecretKey(StringUtil.UUID());
 			distributorService.save(distributor);
 		} catch (Exception e) {
 			PubLog.error("新增分销商失败 : >> "+distributor, e);
@@ -105,7 +117,12 @@ public class DistributorController extends BaseController {
 	@ResponseBody
 	public Object editProvider(HttpServletRequest request, Distributor distributor){
 		try {
-			userService.save(distributor.getUser());
+			UserInfo userInfo = new UserInfo();
+			BeanUtils.copyProperties(distributor.getUser(), userInfo);
+			if (userInfo.getPassword() != null && userInfo.getPassword().length() > 0) {
+				userInfo.setPassword(MD5Util.EncodeString(userInfo.getPassword()));
+			}
+			userService.update(userInfo);
 			distributorService.update(distributor);;
 		} catch (Exception e) {
 			PubLog.error("修改分销商失败 : >> "+distributor, e);

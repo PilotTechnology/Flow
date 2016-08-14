@@ -164,15 +164,6 @@
   <insert id="insertSelective" parameterType="com.flow.system.model.Distributor">
     insert into t_flow_distributor
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        ID,
-      </if>
-      <if test="distrbutorCode != null">
-        DISTRBUTOR_CODE,
-      </if>
-      <if test="userCode != null">
-        USER_CODE,
-      </if>
       <if test="operatorCode != null">
         OPERATOR_CODE,
       </if>
@@ -220,15 +211,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="distrbutorCode != null">
-        #{distrbutorCode,jdbcType=VARCHAR},
-      </if>
-      <if test="userCode != null">
-        #{userCode,jdbcType=VARCHAR},
-      </if>
       <if test="operatorCode != null">
         #{operatorCode,jdbcType=VARCHAR},
       </if>
@@ -279,12 +261,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.flow.system.model.Distributor">
     update t_flow_distributor
     <set>
-      <if test="distrbutorCode != null">
-        DISTRBUTOR_CODE = #{distrbutorCode,jdbcType=VARCHAR},
-      </if>
-      <if test="userCode != null">
-        USER_CODE = #{userCode,jdbcType=VARCHAR},
-      </if>
       <if test="operatorCode != null">
         OPERATOR_CODE = #{operatorCode,jdbcType=VARCHAR},
       </if>

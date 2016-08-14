@@ -45,7 +45,7 @@ public class DistributorServiceImpl extends AbsPageService<Distributor> implemen
 	@Override
 	public void save(Distributor distributor) {
 		// TODO Auto-generated method stub
-		distributorMapper.insert(distributor);
+		distributorMapper.insertSelective(distributor);
 	}
 
 	@Override
