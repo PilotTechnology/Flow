@@ -12,7 +12,7 @@
   
   <sql id="query_body">
   	<where>
-  		<if test="distributorCode !=null and distributorCode != ''"> AND DISTRIBUTOR_CODE = #{distributorCode}</if>
+  		<if test="distributorCode !=null and distributorCode != ''"> AND DISTRIBUTOR_CODE like "%"#{distributorCode}"%"</if>
   		<if test="beginTime !=null and beginTime != ''"> AND CREATE_DATE <![CDATA[  >  ]]> #{beginTime}</if>
   		<if test="endTime !=null and endTime != ''"> AND CREATE_DATE <![CDATA[  <  ]]> #{endTime}</if>
   	</where>
@@ -21,7 +21,7 @@
   <select id="orderStatisticsByDistributor" resultMap="BaseResultMap" parameterType="java.util.Map">
   	SELECT DISTRIBUTOR_CODE, COUNT(ORDER_CODE) as SUCCESS_NUM, SUM(PURCHASED) as MONEY_OF_SUCCESS 
 	FROM t_flow_order 
-	WHERE state = 1
+	<!-- WHERE state = 1 -->
 	<include refid="query_body"/>
 	GROUP BY DISTRIBUTOR_CODE
   </select>

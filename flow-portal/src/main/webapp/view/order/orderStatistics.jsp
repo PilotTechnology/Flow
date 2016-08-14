@@ -43,12 +43,8 @@
           			<div class="widget-content">
                   		<form id="searchForm" action="" method="post" class="form-horizontal row-border">
                   		<div class="form-group">
-                  			<label class="col-md-1 control-label">供应商:</label>
-                  			<div class="col-md-2">
-                  				<select name="providerCode" id="providerCode" class="form-control">
-                              		<option value="-1">全部</option>
-	                            </select>
-                  			</div>
+                  			<label class="col-md-1 control-label">分销商:</label>
+                  			<div class="col-md-2"><input class="form-control" type="text" id="distributorCode" name="distributorCode" value="${distributorCode}"></div>
                   			<label class="col-md-1 control-label">创建时间:</label>
                   			<div class="col-md-5">
                   				<div class="row">
@@ -111,12 +107,8 @@
           	</div>
           </div>
           </div>
-      	
       </div>
     </div>
   </body>
-  <script type="text/javascript" src="${ctx}/view/common/public.js"></script>
-  <script type="text/javascript">
-	  initProvider('${order.providerCode}');
-  </script>
+  <script type="text/javascript" src="${ctx}/plugins/laydate/laydate.js"></script>
 </html>
