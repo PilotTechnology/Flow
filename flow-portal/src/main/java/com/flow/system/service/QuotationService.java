@@ -12,7 +12,7 @@ public interface QuotationService {
 
 	Quotation getQuotationByCode(String quotationCode);
 	
-	void save(Quotation quotation);
+	void save(Quotation quotation,String products);
 
 	void delete(Quotation quotation);
 

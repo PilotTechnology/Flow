@@ -1,5 +1,6 @@
 package com.flow.system.controller;
 
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.flow.portal.controller.BaseController;
 import com.flow.pub.common.BaseResponse;
 import com.flow.pub.common.Constant;
+import com.flow.pub.common.KeyGenerate;
 import com.flow.pub.common.PubLog;
 import com.flow.pub.util.PageUtil;
 import com.flow.system.model.Quotation;
@@ -54,14 +56,23 @@ public class QuotationController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "quotation!addQuotation.action")
+	@SuppressWarnings("unchecked")
 	@ResponseBody
-	public Object addProvider(HttpServletRequest request, Quotation quotation){
+	public Object addProvider(HttpServletRequest request){
+		//接收请求参数
+		Quotation quotation = new Quotation();
+		Map<String,String> map = getParameterMap(request);
+		quotation.setCreateDate(new Date());
+		quotation.setDistributorCode(map.get("distributorCode"));
+		quotation.setFatherCode("");
+		quotation.setIsDisplayProvince(Integer.parseInt(map.get("display_province")));
+		quotation.setServiceCode(KeyGenerate.getServiceCode(quotation.getDistributorCode()));
+		String products = map.get("products"); //eg:proCode1_disCount1,proCode2_disCount2,
 		try {
-			
-			if(quotationService.checkExists(quotation)){
-				return new BaseResponse(Constant.JSON_FAIL, "供应商已存在");
-			}
-			quotationService.save(quotation);
+//			if(quotationService.checkExists(quotation)){
+//				return new BaseResponse(Constant.JSON_FAIL, "供应商已存在");
+//			}
+			quotationService.save(quotation,products);
 		} catch (Exception e) {
 			PubLog.error("新增报价单失败 : >> "+quotation, e);
 			return new BaseResponse(Constant.JSON_FAIL, e.getMessage());

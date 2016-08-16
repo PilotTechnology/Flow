@@ -2,6 +2,7 @@ package com.flow.system.service.impl;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
@@ -96,6 +97,11 @@ public class UserServiceImpl extends AbsPageService<UserInfo> implements UserSer
 	@Override
 	public void save(SysUser user) {
 		userMapper.insert(user);
+	}
+
+	@Override
+	public List<UserInfo> findAllUser() {
+		return userMapper.findAllUser();
 	}
 
 }

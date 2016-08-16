@@ -3,6 +3,9 @@ package com.flow.system.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.flow.system.model.Product;
 import com.flow.system.model.Quotation;
 
 public interface QuotationMapper {
@@ -27,4 +30,10 @@ public interface QuotationMapper {
 	List<Quotation> sonListPage(Map<String, Object> map);
 
 	Long getSonCount(Map<String, Object> map);
+	/**
+	 * 添加报价单的流量包
+	 * @param serviceCode
+	 * @param list
+	 */
+	void insertServProd(@Param("serviceCode") String serviceCode, @Param("list") List<Product> list);
 }

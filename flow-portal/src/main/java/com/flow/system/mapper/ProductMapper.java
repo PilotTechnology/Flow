@@ -25,4 +25,6 @@ public interface ProductMapper {
     List<Product> listPage(Map<String, Object> map);
 
 	Long getCount(Map<String, Object> map);
+
+	List<Product> findAllProduct();
 }

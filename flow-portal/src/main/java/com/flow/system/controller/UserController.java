@@ -58,6 +58,23 @@ public class UserController extends BaseController{
 	}
 	
 	/**
+	 * 新的用户列表分页
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "user!userList.action")
+	@ResponseBody
+	public Map<String,Object> userList()throws Exception {
+		List<UserInfo> userList = userService.findAllUser();
+		Map<String,Object> info = new HashMap<>();
+		info.put("data", userList);
+	    info.put("recordsTotal", String.valueOf(userList.size()));
+	    info.put("recordsFiltered", String.valueOf(userList.size()));
+	    info.put("draw", "1");
+		return info;
+	}
+	
+	/**
 	 * 新增用户
 	 * @param request
 	 * @param Role
