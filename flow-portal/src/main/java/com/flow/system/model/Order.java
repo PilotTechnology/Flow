@@ -12,19 +12,26 @@ public class Order {
 	private String providerCode;
 	private String distributorCode;			//接口1写值>> 下游编号
 	private String phone;					//接口1写值>> 平台订单编号
+	private String phoneProvince;
+	private String phoneCity;
 	private Integer size;					
 	private BigDecimal price;
-	private Integer discount;
+	private BigDecimal discount;
 	private BigDecimal purchased;
 	private BigDecimal realPurchased;
-	private Integer realDiscount;
-	private Integer servProdId;
+	private BigDecimal realDiscount;
 	private Integer state;
 	private String platformErrorCode;
+	private Integer noticeState;
+	private Integer errorTime;
 	private Date createDate;
 	private Date callbackDate;
 	private String callbackCode;
 	private String callbackCodeMess;
+	
+	private String operatorName;
+	private String distributorName;
+	private String providerName;
 
 	public Integer getId() {
 		return id;
@@ -89,6 +96,22 @@ public class Order {
 	public void setPhone(String phone) {
 		this.phone = phone == null ? null : phone.trim();
 	}
+	
+	public String getPhoneProvince() {
+		return phoneProvince;
+	}
+
+	public void setPhoneProvince(String phoneProvince) {
+		this.phoneProvince = phoneProvince == null ? null : phoneProvince.trim();
+	}
+	
+	public String getPhoneCity() {
+		return phoneCity;
+	}
+
+	public void setPhoneCity(String phoneCity) {
+		this.phoneCity = phoneCity == null ? null : phoneCity.trim();
+	}
 
 	public Integer getSize() {
 		return size;
@@ -106,11 +129,11 @@ public class Order {
 		this.price = price;
 	}
 
-	public Integer getDiscount() {
+	public BigDecimal getDiscount() {
 		return discount;
 	}
 
-	public void setDiscount(Integer discount) {
+	public void setDiscount(BigDecimal discount) {
 		this.discount = discount;
 	}
 
@@ -130,20 +153,12 @@ public class Order {
 		this.realPurchased = realPurchased;
 	}
 
-	public Integer getRealDiscount() {
+	public BigDecimal getRealDiscount() {
 		return realDiscount;
 	}
 
-	public void setRealDiscount(Integer realDiscount) {
+	public void setRealDiscount(BigDecimal realDiscount) {
 		this.realDiscount = realDiscount;
-	}
-
-	public Integer getServProdId() {
-		return servProdId;
-	}
-
-	public void setServProdId(Integer servProdId) {
-		this.servProdId = servProdId;
 	}
 
 	public Integer getState() {
@@ -160,6 +175,22 @@ public class Order {
 
 	public String getPlatformErrorCode() {
 		return platformErrorCode;
+	}
+	
+	public Integer getNoticeState() {
+		return noticeState;
+	}
+
+	public void setNoticeState(Integer noticeState) {
+		this.noticeState = noticeState;
+	}
+	
+	public Integer getErrorTime() {
+		return errorTime;
+	}
+
+	public void setErrorTime(Integer errorTime) {
+		this.errorTime = errorTime;
 	}
 
 	public Date getCreateDate() {
@@ -192,5 +223,29 @@ public class Order {
 
 	public void setCallbackCodeMess(String callbackCodeMess) {
 		this.callbackCodeMess = callbackCodeMess == null ? null : callbackCodeMess.trim();
+	}
+	
+	public String getOperatorName() {
+		return operatorName;
+	}
+
+	public void setOperatorName(String operatorName) {
+		this.operatorName = operatorName == null ? null : operatorName.trim();
+	}
+	
+	public String getDistributorName() {
+		return distributorName;
+	}
+
+	public void setDistributorName(String distributorName) {
+		this.distributorName = distributorName == null ? null : distributorName.trim();
+	}
+	
+	public String getProviderName() {
+		return providerName;
+	}
+
+	public void setProviderName(String providerName) {
+		this.providerName = providerName == null ? null : providerName.trim();
 	}
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.flow.portal.controller.BaseController;
 import com.flow.pub.util.PageUtil;
-import com.flow.system.bean.OrderBean;
+import com.flow.system.model.Order;
 import com.flow.system.service.OrderService;
 
 @Controller
@@ -30,11 +30,11 @@ public class OrderController extends BaseController{
 	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "order!selectPage.action")
-	public String selectPage(HttpServletRequest request,OrderBean queryBean , Model model) throws Exception {
+	public String selectPage(HttpServletRequest request,Order queryBean , Model model) throws Exception {
 		//转换request参数为map
 		Map<String,Object> map = getParameterMap(request);
 		
-		PageUtil<OrderBean> page = orderService.listPage(map);
+		PageUtil<Order> page = orderService.listPage(map);
 		
 		model.addAttribute("page",page);
 		//查询条件页面回显

@@ -17,7 +17,6 @@
 		<result column="PURCHASED" 				jdbcType="DECIMAL" 	property="purchased" />
 		<result column="REAL_PURCHASED" 		jdbcType="DECIMAL" 	property="realPurchased" />
 		<result column="REAL_DISCOUNT" 			jdbcType="INTEGER" 	property="realDiscount" />
-		<result column="SERV_PROD_ID" 			jdbcType="INTEGER" 	property="servProdId" />
 		<result column="STATE" 					jdbcType="INTEGER" 	property="state" />
 		<result column="PLATFORM_ERROR_CODE" 	jdbcType="VARCHAR"	property="platformErrorCode" />
 		<result column="CREATE_DATE" 			jdbcType="TIMESTAMP" property="createDate" />

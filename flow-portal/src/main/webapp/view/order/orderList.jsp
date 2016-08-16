@@ -72,8 +72,12 @@
                   			</div>
                   		</div>
 	                    <div class="form-group">
-                  			<label class="col-md-1 control-label">用户号:</label>
-                  			<div class="col-md-2"><input class="form-control" type="text" name="regular"></div>
+                  			<label class="col-md-1 control-label">分销商:</label>
+                  			<div class="col-md-2">
+                  				<select name="distributorCode" id="distributorCode" class="form-control">
+                              		<option value="-1">全部</option>
+	                            </select>
+                  			</div>
                   			<label class="col-md-1 control-label">手机号:</label>
                   			<div class="col-md-2"><input class="form-control" type="text" id="phone" name="phone" value="${order.phone}"></div>
                   			<label class="col-md-1 control-label">平台订单:</label>
@@ -82,16 +86,20 @@
                   			<div class="col-md-2"><input class="form-control" type="text" id="distributorOrderCode" name="distributorOrderCode" value="${order.distributorOrderCode}"></div>
                   		</div>
                   		<div class="form-group">
-                  			<label class="col-md-1 control-label">创建时间:</label>
-                  			<div class="col-md-5">
-                  				<div class="row">
-                  					<div class="col-md-5"><input type="text" name="regular" class="form-control datepicker"></div>
-                  					<label class="col-md-2 control-label">至</label>
-                  					<div class="col-md-5"><input type="text" name="regular" class="form-control datepicker"></div>
-                  				</div>
-                  			</div>
-                  			<div class="col-md-2">
+                  			<div class="col-md-1">
                   				<button class="btn btn-sm btn-warning" type="submit" id="search">搜索</button>
+                  			</div>
+                  			<div class="col-md-1">
+                  				<button class="btn btn-sm btn-warning" type="submit" id="search">12小时卡单</button>
+                  			</div>
+                  			<div class="col-md-1">
+                  				<button class="btn btn-sm btn-warning" type="submit" id="search">24小时卡单</button>
+                  			</div>
+                  			<div class="col-md-1">
+                  				<button class="btn btn-sm btn-warning" type="submit" id="search">36小时卡单</button>
+                  			</div>
+                  			<div class="col-md-1">
+                  				<button class="btn btn-sm btn-warning" type="submit" id="search">48小时卡单</button>
                   			</div>
                   		</div>
                   </form>
@@ -116,63 +124,63 @@
              	
              	<!-- 表格内容  start-->
              	<div class="widget-content">
-             	  
-                  <table class="display nowrap table-hover table-striped table-bordered dataTable" width="100%">
-                    <thead >
+                  <table class="table table-striped table-bordered table-hover table-checkable table-responsive datatable">
+                    <thead>
                       <tr>
-                        <th class="checkbox-column">
-                          <input type="checkbox" class="uniform">
-                        </th>
                         <th>序号</th>
-                        <th>用户</th>
-                        <th>供应商</th>
-                        <th>平台订单号</th>
-                        <th>下游订单号</th>
+                        <th>手机号</th>
                         <th>运营商</th>
                         <th>省份</th>
-                        <th>手机号码</th>
-                       <!--  <th data-hide="phone">大小</th>
-                        <th data-hide="phone">价格</th> -->
+                        <th>订单号</th>
+                        <th>分销商</th>
+                        <th>分销商订单号</th>
+                        <th>供应商</th>
+                        <th>供应商订单号</th>
+                        <th>大小</th>
                         <th>折扣</th>
+                        <th>价格</th>
                         <th>订单状态</th>
+                        <th>错误码</th>
+                        <th>供应商响应码</th>
+                        <th>供应商响应码描述</th>
                         <th>创建时间</th>
-                       <!--  <th data-hide="phone">回调时间</th>
-                        <th data-hide="phone">上游订单号</th>
-                        <th data-hide="phone">回调情况</th> -->
+                        <th>回调时间</th>
                         <th>操作</th>
                       </tr>
                     </thead>
                     <tbody>
                       <c:forEach var="order" items="${page.rows}" varStatus="vs">
                       	<tr>
-                        <td class="checkbox-column"><input type="checkbox" class="uniform"></td>
                         <td>${page.firstResult + vs.count}</td>
-                        <td>${order.distributorCode}</td>
-                        <td>${order.providerName}</td>
-                        <td>${order.orderCode}</td>
-                        <td>${order.distributorOrderCode}</td>
-                        <td>${order.operatorName}</td>
-                        <td>${order.provinceName}</td>
                         <td>${order.phone}</td>
-                        <td>${order.size}</td>
-                        <%-- <td>${order.price}</td>
-                        <td>${order.discount}</td> --%>
-                        <td>${order.stateMsg}</td>
-                        <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${order.createDate}"/></td>
-                   <%-- <td>${order.callBackDate}</td>
+                        <td>${order.operatorName}</td>
+                        <td>${order.phoneProvince}-${order.phoneCity}</td>
+                        <td>${order.orderCode}</td>
+                        <td>${order.distributorName}</td>
+                        <td>${order.distributorOrderCode}</td>
+                        <td>${order.providerName}</td>
                         <td>${order.providerOrderCode}</td>
-                        <td>${order.callBackCodeMess}</td> --%>
+                        <td>${order.size}</td>
+                        <td>${order.discount}</td>
+                        <td>${order.purchased}</td>
                         <td>
-                        	<button class="btn btn-sm btn-info" onclick="toEdit('${role.roleCode}');"><i class="icon-edit"  ></i>编辑</button>
-                        	<button class="btn btn-sm btn-success" onclick="bindMenu('${role.roleCode}');"><i class="icon-cog"></i>授权</button>
-                        	<button class="btn btn-sm btn-danger" onclick="removeRole('${role.roleCode}','${role.id}');"><i class="icon-remove"></i>删除</button>
+                        	<c:if test='${order.state eq 0}'>处理中</c:if>
+                        	<c:if test='${order.state eq 1}'>充值成功</c:if>
+                        	<c:if test='${order.state eq 2}'>充值失败</c:if>
+                        </td>
+                        <td>${order.platformErrorCode}</td>
+                        <td>${order.callbackCode}</td>
+                        <td>${order.callbackCodeMess}</td>
+                        <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${order.createDate}"/></td>
+                        <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${order.callbackDate}"/></td>
+                        <td>
+                        	<button class="btn btn-sm btn-info" onclick="toSearch('${role.roleCode}');"><i class="icon-edit"  ></i>详细信息</button>
                         </td>
                       	</tr>
                       </c:forEach>
                     </tbody>
-                  </table>
-                
-				  <%@ include file="../common/page.jsp"%>                  
+                  </table>            
+                  <%@ include file="../common/page.jsp"%>      
                 </div>
                 <!-- 表格内容  end-->
           	  </div>
@@ -183,10 +191,10 @@
       </div>
     </div>
   </body>
-  <script type="text/javascript" src="${ctx}/view/common/public.js"></script>
+<%--   <script type="text/javascript" src="${ctx}/view/common/public.js"></script>
   <script type="text/javascript">
 	  initProvider('${order.providerCode}');
 	  initOperator('${order.operatorCode}');
 	  initProvince('${order.provinceCode}');
-  </script>
+  </script> --%>
 </html>

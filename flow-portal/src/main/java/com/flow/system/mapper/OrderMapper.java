@@ -5,16 +5,15 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.flow.system.bean.OrderBean;
 import com.flow.system.model.Order;
 
 public interface OrderMapper {
 
 	Long getCount(Map<String,Object> map);
 
-	List<OrderBean> listPage(Map<String,Object> map);
+	List<Order> listPage(Map<String,Object> map);
 
-	OrderBean selectByOrderCode(String orderCode);
+	Order selectByOrderCode(String orderCode);
 	/**
 	 * 根据appkey获取密钥
 	 * @param appKey

@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.flow.pub.util.MD5Util;
 import com.flow.pub.util.PageUtil;
-import com.flow.system.bean.OrderBean;
+import com.flow.system.model.Order;
 import com.flow.system.service.OrderService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -51,7 +51,7 @@ public class OrderTest {
 	@Test
 	public void testListPage(){
 		Map<String,Object> map = new HashMap<String,Object>();
-		PageUtil<OrderBean> orderList = orderService.listPage(map);
+		PageUtil<Order> orderList = orderService.listPage(map);
 		System.out.println(orderList);
 	}
 }
