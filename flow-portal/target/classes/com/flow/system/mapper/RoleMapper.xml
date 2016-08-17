@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flow.system.mapper.RoleMapper">
+  <resultMap id="BaseResultMap" type="com.flow.system.model.SysRole">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="ROLE_CODE" jdbcType="VARCHAR" property="roleCode" />
+    <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName" />
+    <result column="CREATE_USER" jdbcType="VARCHAR" property="createUser" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  
+  <select id="listPage" resultMap="BaseResultMap">
+  	SELECT <include refid="Base_Column_List" /> FROM t_sys_role limit #{start} , #{pageSize}
+  </select>
+  
+  <select id="getCount" resultType="java.lang.Long">
+  	SELECT COUNT(1) FROM t_sys_role 
+  </select>
+  
+  <select id="getRoleByCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	SELECT <include refid="Base_Column_List" /> FROM t_sys_role WHERE ROLE_CODE=#{roleCode,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="removeMenu" parameterType="int">
+  	DELETE FROM t_sys_role_menu WHERE ROLE_CODE = #{roleCode}
+  </delete>
+  
+  <insert id="grantMenu">
+  	INSERT INTO t_sys_role_menu(role_code , menu_code , CREATE_USER,CREATE_TIME)
+  	VALUES
+  	<foreach collection="list" item="item" separator=",">
+        (#{roleCode} , #{item} , #{user.userCode} , now())
+    </foreach>
+  </insert>
+  
+  <sql id="Base_Column_List">
+    ID, ROLE_CODE, ROLE_NAME, CREATE_USER, CREATE_TIME
+  </sql>
+
+  <insert id="insert" parameterType="com.flow.system.model.SysRole">
+    insert into t_sys_role (ROLE_CODE, ROLE_NAME, 
+      CREATE_USER, CREATE_TIME)
+    values (#{roleCode,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <delete id="deleteByPrimaryKey" parameterType="int">
+  	DELETE FROM t_sys_role where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <update id="updateByPrimaryKey" parameterType="com.flow.system.model.SysRole">
+    update t_sys_role
+    set ROLE_CODE = #{roleCode,jdbcType=VARCHAR} , ROLE_NAME = #{roleName,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

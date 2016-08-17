@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flow.system.mapper.CityMapper">
+	
+	<resultMap id="BaseResultMap" type="com.flow.system.model.City">
+		<id column="ID" jdbcType="INTEGER" property="id" />
+		<result column="CITY_NAME" jdbcType="VARCHAR" property="cityName" />
+		<result column="PROVINCE_CODE" jdbcType="VARCHAR" property="provinceCode" />
+		<association property="province" javaType="com.flow.system.model.Province">
+			<id column="PROVINCE_CODE" jdbcType="INTEGER" property="id" />
+			<result column="PROVINCE_NAME" jdbcType="VARCHAR" property="provinceName" />
+		</association>
+	</resultMap>
+	
+	<!-- 根据城市编码获取城市信息 -->
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select a.ID, a.CITY_NAME, a.PROVINCE_CODE, b.PROVINCE_NAME
+		FROM t_base_city a
+		INNER JOIN t_base_province b ON a.PROVINCE_CODE = b.ID
+		WHERE a.ID = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<sql id="Base_Column_List">
+		ID, CITY_NAME, PROVINCE_CODE 
+	</sql>
+	<select id="listPage" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_base_city  limit #{start} , #{pageSize}
+	</select>
+	<select id="getCount" resultType="java.lang.Long">
+		SELECT COUNT(1) FROM t_base_city
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_base_city
+		where ID = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.flow.system.model.City">
+		insert into t_base_city (ID, CITY_NAME, PROVINCE_CODE
+		)
+		values (#{id,jdbcType=INTEGER}, #{cityName,jdbcType=VARCHAR},
+		#{provinceCode,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.flow.system.model.City">
+		insert into t_base_city
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="cityName != null">
+				CITY_NAME,
+			</if>
+			<if test="provinceCode != null">
+				PROVINCE_CODE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="cityName != null">
+				#{cityName,jdbcType=VARCHAR},
+			</if>
+			<if test="provinceCode != null">
+				#{provinceCode,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.flow.system.model.City">
+		update t_base_city
+		<set>
+			<if test="cityName != null">
+				CITY_NAME = #{cityName,jdbcType=VARCHAR},
+			</if>
+			<if test="provinceCode != null">
+				PROVINCE_CODE = #{provinceCode,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.flow.system.model.City">
+		update t_base_city
+		set CITY_NAME = #{cityName,jdbcType=VARCHAR},
+		PROVINCE_CODE = #{provinceCode,jdbcType=VARCHAR}
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+  xsi:schemaLocation="  
+  http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd  
+  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd  
+  http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd  
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd  
+  http://www.springframework.org/schema/mvc  http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+  <!-- jsp视图解释器 -->
+  <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="viewNames" value="*.jsp" />
+    <property name="prefix" value="" />
+    <property name="suffix" value="" />
+    <property name="order" value="2" />
+  </bean>
+  <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+    <property name="mediaTypes">
+      <map>
+        <!-- 告诉视图解析器，返回的类型为json格式 -->
+        <entry key="json" value="application/json" />
+      </map>
+    </property>
+    <property name="defaultViews">
+      <list>
+        <!-- ModelAndView里的数据变成JSON -->
+        <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
+      </list>
+    </property>
+  </bean>
+
+  <!-- ajax -->
+  <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+    <property name="messageConverters">
+      <list>
+        <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+          <property name="supportedMediaTypes">
+            <list>
+              <value>text/html;charset=UTF-8</value>
+            </list>
+          </property>
+        </bean>
+      </list>
+    </property>
+  </bean>
+
+</beans>  

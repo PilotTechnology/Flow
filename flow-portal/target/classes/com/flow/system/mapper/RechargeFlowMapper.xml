@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flow.system.mapper.RechargeFlowMapper">
+  <resultMap id="BaseResultMap" type="com.flow.system.model.RechargeFlow">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="Distributor_code" jdbcType="VARCHAR" property="distributorCode" />
+    <result column="Balance_before_recharge" jdbcType="DOUBLE" property="balanceBeforeRecharge" />
+    <result column="Recharge" jdbcType="DOUBLE" property="recharge" />
+    <result column="Balance_after_recharge" jdbcType="DOUBLE" property="balanceAfterRecharge" />
+    <result column="Create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="Type" jdbcType="INTEGER" property="type" />
+    <result column="USER_CODE" jdbcType="VARCHAR" property="userCode" />
+    <result column="DISTRIBUTION_NAME" jdbcType="VARCHAR" property="distributorName" />
+    <result column="OPERATOR_USER_NAME" jdbcType="VARCHAR" property="userName" />
+  </resultMap>
+  <sql id="query_body">
+  	<where>
+  		<if test="distributorName !=null and distributorName != ''"> AND c.NICK_NAME like "%"#{distributorName}"%"</if>
+  		<if test="type !=null and type != -1"> AND a.Type = #{type}</if>
+  	</where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, Distributor_code, Balance_before_recharge, Recharge, Balance_after_recharge, 
+    Create_date, Type, USER_CODE
+  </sql>
+  <select id="listPage" resultMap="BaseResultMap">
+		SELECT a.* , c.NICK_NAME as DISTRIBUTION_NAME, d.NICK_NAME as OPERATOR_USER_NAME
+		FROM t_flow_recharge_flow a
+		INNER JOIN t_flow_distributor b ON a.Distributor_code = b.DISTRBUTOR_CODE
+		INNER JOIN t_sys_user c ON a.USER_CODE = c.USER_CODE
+		INNER JOIN t_sys_user d ON b.USER_CODE = d.USER_CODE
+		<include refid="query_body"/>
+		limit #{start} , #{pageSize}
+  </select>
+  <select id="getCount" resultType="java.lang.Long">
+  	SELECT COUNT(1) FROM t_flow_recharge_flow a
+  	INNER JOIN t_flow_distributor b ON a.Distributor_code = b.DISTRBUTOR_CODE
+	INNER JOIN t_sys_user c ON a.USER_CODE = c.USER_CODE
+	INNER JOIN t_sys_user d ON b.USER_CODE = d.USER_CODE
+	<include refid="query_body"/>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT a.* , c.NICK_NAME as DISTRIBUTION_NAME, d.NICK_NAME as OPERATOR_USER_NAME
+		FROM t_flow_recharge_flow a
+		INNER JOIN t_flow_distributor b ON a.Distributor_code = b.DISTRBUTOR_CODE
+		INNER JOIN t_sys_user c ON a.USER_CODE = c.USER_CODE
+		INNER JOIN t_sys_user d ON b.USER_CODE = d.USER_CODE
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_flow_recharge_flow
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.flow.system.model.RechargeFlow">
+    insert into t_flow_recharge_flow (ID, Distributor_code, Balance_before_recharge, 
+      Recharge, Balance_after_recharge, Create_date, 
+      Type, USER_CODE)
+    values (#{id,jdbcType=INTEGER}, #{distributorCode,jdbcType=VARCHAR}, #{balanceBeforeRecharge,jdbcType=DOUBLE}, 
+      #{recharge,jdbcType=DOUBLE}, #{balanceAfterRecharge,jdbcType=DOUBLE}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{type,jdbcType=INTEGER}, #{userCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.flow.system.model.RechargeFlow">
+    insert into t_flow_recharge_flow
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="distributorCode != null">
+        Distributor_code,
+      </if>
+      <if test="balanceBeforeRecharge != null">
+        Balance_before_recharge,
+      </if>
+      <if test="recharge != null">
+        Recharge,
+      </if>
+      <if test="balanceAfterRecharge != null">
+        Balance_after_recharge,
+      </if>
+      <if test="createDate != null">
+        Create_date,
+      </if>
+      <if test="type != null">
+        Type,
+      </if>
+      <if test="userCode != null">
+        USER_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="distributorCode != null">
+        #{distributorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="balanceBeforeRecharge != null">
+        #{balanceBeforeRecharge,jdbcType=DOUBLE},
+      </if>
+      <if test="recharge != null">
+        #{recharge,jdbcType=DOUBLE},
+      </if>
+      <if test="balanceAfterRecharge != null">
+        #{balanceAfterRecharge,jdbcType=DOUBLE},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="userCode != null">
+        #{userCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.flow.system.model.RechargeFlow">
+    update t_flow_recharge_flow
+    <set>
+      <if test="distributorCode != null">
+        Distributor_code = #{distributorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="balanceBeforeRecharge != null">
+        Balance_before_recharge = #{balanceBeforeRecharge,jdbcType=DOUBLE},
+      </if>
+      <if test="recharge != null">
+        Recharge = #{recharge,jdbcType=DOUBLE},
+      </if>
+      <if test="balanceAfterRecharge != null">
+        Balance_after_recharge = #{balanceAfterRecharge,jdbcType=DOUBLE},
+      </if>
+      <if test="createDate != null">
+        Create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null">
+        Type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="userCode != null">
+        USER_CODE = #{userCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.flow.system.model.RechargeFlow">
+    update t_flow_recharge_flow
+    set Distributor_code = #{distributorCode,jdbcType=VARCHAR},
+      Balance_before_recharge = #{balanceBeforeRecharge,jdbcType=DOUBLE},
+      Recharge = #{recharge,jdbcType=DOUBLE},
+      Balance_after_recharge = #{balanceAfterRecharge,jdbcType=DOUBLE},
+      Create_date = #{createDate,jdbcType=TIMESTAMP},
+      Type = #{type,jdbcType=INTEGER},
+      USER_CODE = #{userCode,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

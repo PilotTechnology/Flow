@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flow.system.mapper.CostFlowMapper">
+	<resultMap id="BaseResultMap" type="com.flow.system.model.CostFlow">
+		<id column="ID" jdbcType="INTEGER" property="id" />
+		<result column="ORDER_CODE" jdbcType="VARCHAR" property="orderCode" />
+		<result column="DISTRIBUTOR_CODE" jdbcType="VARCHAR" property="distributorCode" />
+		<result column="COST" jdbcType="DOUBLE" property="cost" />
+		<result column="Current_balance" jdbcType="DOUBLE" property="currentBalance" />
+		<result column="type" jdbcType="INTEGER" property="type" />
+		<result column="Creat_date" jdbcType="TIMESTAMP" property="creatDate" />
+	</resultMap>
+	<sql id="query_body">
+		<where>
+			<if test="type !=null and type != -1"> AND type = #{type}</if>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		ID, ORDER_CODE, DISTRIBUTOR_CODE, COST, Current_balance, type, Creat_date
+	</sql>
+
+	<!-- 列表分页 -->
+	<select id="listPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_flow_cost_flow
+		<include refid="query_body" />
+		limit #{start} , #{pageSize}
+	</select>
+
+	<!-- 列表count -->
+	<select id="getCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		SELECT COUNT(1) FROM t_flow_cost_flow
+		<include refid="query_body" />
+	</select>
+
+	<!-- 创建资金流水 -->
+	<insert id="insert" parameterType="com.flow.system.model.CostFlow">
+		insert into t_flow_cost_flow (ORDER_CODE, DISTRIBUTOR_CODE,COST,
+		Current_balance, type,Creat_date)
+		values (#{orderCode,jdbcType=VARCHAR},
+		#{distributorCode,jdbcType=VARCHAR},#{cost,jdbcType=DOUBLE},
+		#{currentBalance,jdbcType=DOUBLE}, #{type,jdbcType=INTEGER},now())
+	</insert>
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_flow_cost_flow
+		where ID = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_flow_cost_flow
+		where ID = #{id,jdbcType=INTEGER}
+	</delete>
+
+	<insert id="insertSelective" parameterType="com.flow.system.model.CostFlow">
+		insert into t_flow_cost_flow
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="orderCode != null">
+				ORDER_CODE,
+			</if>
+			<if test="distributorCode != null">
+				DISTRIBUTOR_CODE,
+			</if>
+			<if test="cost != null">
+				COST,
+			</if>
+			<if test="currentBalance != null">
+				Current_balance,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="creatDate != null">
+				Creat_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="orderCode != null">
+				#{orderCode,jdbcType=VARCHAR},
+			</if>
+			<if test="distributorCode != null">
+				#{distributorCode,jdbcType=VARCHAR},
+			</if>
+			<if test="cost != null">
+				#{cost,jdbcType=DOUBLE},
+			</if>
+			<if test="currentBalance != null">
+				#{currentBalance,jdbcType=DOUBLE},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=INTEGER},
+			</if>
+			<if test="creatDate != null">
+				#{creatDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.flow.system.model.CostFlow">
+		update t_flow_cost_flow
+		<set>
+			<if test="orderCode != null">
+				ORDER_CODE = #{orderCode,jdbcType=VARCHAR},
+			</if>
+			<if test="distributorCode != null">
+				DISTRIBUTOR_CODE = #{distributorCode,jdbcType=VARCHAR},
+			</if>
+			<if test="cost != null">
+				COST = #{cost,jdbcType=DOUBLE},
+			</if>
+			<if test="currentBalance != null">
+				Current_balance = #{currentBalance,jdbcType=DOUBLE},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=INTEGER},
+			</if>
+			<if test="creatDate != null">
+				Creat_date = #{creatDate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.flow.system.model.CostFlow">
+		update t_flow_cost_flow
+		set ORDER_CODE = #{orderCode,jdbcType=VARCHAR},
+		DISTRIBUTOR_CODE = #{distributorCode,jdbcType=VARCHAR},
+		COST = #{cost,jdbcType=DOUBLE},
+		Current_balance = #{currentBalance,jdbcType=DOUBLE},
+		type = #{type,jdbcType=INTEGER},
+		Creat_date = #{creatDate,jdbcType=TIMESTAMP}
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

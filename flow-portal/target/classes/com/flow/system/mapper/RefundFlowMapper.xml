@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flow.system.mapper.RefundFlowMapper">
+  <resultMap id="BaseResultMap" type="com.flow.system.model.RefundFlow">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="DISTRIBUTOR_NAME" jdbcType="VARCHAR" property="distributorName" />
+    <result column="PROVIDER_NAME" jdbcType="VARCHAR" property="providerName" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="Order_CODE" jdbcType="VARCHAR" property="orderCode" />
+    <result column="PRODCUT_NAME" jdbcType="VARCHAR" property="prodcutName" />
+    <result column="PURCHASED" jdbcType="DOUBLE" property="purchased" />
+    <result column="Provider_is_refund" jdbcType="INTEGER" property="providerIsRefund" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+  </resultMap>
+  <sql id="query_body">
+  	<where>
+  		<if test="orderCode !=null and orderCode != ''"> AND Order_CODE = #{orderCode}</if>
+  		<if test="phone !=null and phone != ''"> AND PHONE = #{phone}</if>
+  		<if test="providerIsRefund !=null and providerIsRefund != -1"> AND Provider_is_refund = #{providerIsRefund}</if>
+  		<if test="beginTime !=null and beginTime != ''"> AND CREATE_DATE <![CDATA[  >  ]]> #{beginTime}</if>
+  		<if test="endTime !=null and endTime != ''"> AND CREATE_DATE <![CDATA[  <  ]]> #{endTime}</if>
+  	</where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, DISTRIBUTOR_NAME, PROVIDER_NAME, PHONE, Order_CODE, PRODCUT_NAME, PURCHASED, 
+    Provider_is_refund, CREATE_DATE
+  </sql>
+  <select id="listPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select <include refid="Base_Column_List" />
+		from t_flow_refund_flow 
+		<include refid="query_body"/>
+		limit #{start} , #{pageSize}
+  </select>
+  <select id="getCount" resultType="java.lang.Long" parameterType="java.util.Map">
+  	SELECT COUNT(1) FROM t_flow_refund_flow 
+  	<include refid="query_body"/>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_flow_refund_flow
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByOrderCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_flow_refund_flow
+    where Order_CODE = #{orderCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_flow_refund_flow
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.flow.system.model.RefundFlow">
+    insert into t_flow_refund_flow (ID, DISTRIBUTOR_NAME, PROVIDER_NAME, 
+      PHONE, Order_CODE, PRODCUT_NAME, 
+      PURCHASED, Provider_is_refund, CREATE_DATE
+      )
+    values (#{id,jdbcType=INTEGER}, #{distributorName,jdbcType=VARCHAR}, #{providerName,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{orderCode,jdbcType=VARCHAR}, #{prodcutName,jdbcType=VARCHAR}, 
+      #{purchased,jdbcType=DOUBLE}, #{providerIsRefund,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.flow.system.model.RefundFlow">
+    insert into t_flow_refund_flow
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="distributorName != null">
+        DISTRIBUTOR_NAME,
+      </if>
+      <if test="providerName != null">
+        PROVIDER_NAME,
+      </if>
+      <if test="phone != null">
+        PHONE,
+      </if>
+      <if test="orderCode != null">
+        Order_CODE,
+      </if>
+      <if test="prodcutName != null">
+        PRODCUT_NAME,
+      </if>
+      <if test="purchased != null">
+        PURCHASED,
+      </if>
+      <if test="providerIsRefund != null">
+        Provider_is_refund,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="distributorName != null">
+        #{distributorName,jdbcType=VARCHAR},
+      </if>
+      <if test="providerName != null">
+        #{providerName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCode != null">
+        #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="prodcutName != null">
+        #{prodcutName,jdbcType=VARCHAR},
+      </if>
+      <if test="purchased != null">
+        #{purchased,jdbcType=DOUBLE},
+      </if>
+      <if test="providerIsRefund != null">
+        #{providerIsRefund,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.flow.system.model.RefundFlow">
+    update t_flow_refund_flow
+    <set>
+      <if test="distributorName != null">
+        DISTRIBUTOR_NAME = #{distributorName,jdbcType=VARCHAR},
+      </if>
+      <if test="providerName != null">
+        PROVIDER_NAME = #{providerName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCode != null">
+        Order_CODE = #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="prodcutName != null">
+        PRODCUT_NAME = #{prodcutName,jdbcType=VARCHAR},
+      </if>
+      <if test="purchased != null">
+        PURCHASED = #{purchased,jdbcType=DOUBLE},
+      </if>
+      <if test="providerIsRefund != null">
+        Provider_is_refund = #{providerIsRefund,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.flow.system.model.RefundFlow">
+    update t_flow_refund_flow
+    set DISTRIBUTOR_NAME = #{distributorName,jdbcType=VARCHAR},
+      PROVIDER_NAME = #{providerName,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      Order_CODE = #{orderCode,jdbcType=VARCHAR},
+      PRODCUT_NAME = #{prodcutName,jdbcType=VARCHAR},
+      PURCHASED = #{purchased,jdbcType=DOUBLE},
+      Provider_is_refund = #{providerIsRefund,jdbcType=INTEGER},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

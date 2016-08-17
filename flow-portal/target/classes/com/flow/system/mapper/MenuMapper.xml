@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flow.system.mapper.MenuMapper">
+  <resultMap id="RoleMenu" type="com.flow.system.bean.RoleMenu">
+    <result column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="UP_MENU" jdbcType="VARCHAR" property="pId" />
+	<result column="MENU_CODE" jdbcType="VARCHAR" property="menuCode" />
+    <result column="MENU_NAME" jdbcType="VARCHAR" property="menuName" />
+    <result column="IS_GRANT" jdbcType="INTEGER"  property="isGrant"/>
+  </resultMap>
+  
+  <!-- 获取角色权限 -->
+  <select id="getRoleMenuByRoleCode" parameterType="java.lang.String" resultMap="RoleMenu">
+  		SELECT a.id , a.UP_MENU , a.menu_code , a.menu_name ,
+  			CASE WHEN c.role_code IS NULL THEN 0 ELSE 1 END AS IS_GRANT 
+		FROM t_sys_menu a
+		LEFT JOIN t_sys_role_menu b ON a.menu_code = b.menu_code and b.ROLE_CODE=#{roleCode}
+		LEFT JOIN t_sys_role c ON c.ROLE_CODE = b.ROLE_CODE AND c.ROLE_CODE = #{roleCode}
+		ORDER BY a.id
+  </select>  
+  
+  <resultMap id="BaseResultMap" type="com.flow.system.model.SysMenu">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="MENU_CODE" jdbcType="VARCHAR" property="menuCode" />
+    <result column="MENU_NAME" jdbcType="VARCHAR" property="menuName" />
+    <result column="UP_MENU" jdbcType="VARCHAR" property="upMenu" />
+    <result column="MENU_PATH" jdbcType="VARCHAR" property="menuPath" />
+    <result column="SORT_NO" jdbcType="INTEGER" property="sortNo" />
+    <result column="IS_ENABLE" jdbcType="VARCHAR" property="isEnable" />
+    <result column="CREATE_USER" jdbcType="VARCHAR" property="createUser" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <collection property="subList"  ofType="com.flow.system.model.SysMenu">
+    	<id column="subID" jdbcType="INTEGER" property="id" />
+	    <result column="subName" jdbcType="VARCHAR" property="menuName" />
+	    <result column="subPath" jdbcType="VARCHAR" property="menuPath" />
+    </collection>
+  </resultMap>
+  
+  <!-- 获取用户菜单权限 -->
+  <select id="getSysMenuByRoleCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select par.ID , par.MENU_CODE , par.MENU_NAME , 
+    	sub.ID as subID , sub.MENU_NAME as subName, sub.MENU_PATH as subPath
+	FROM t_sys_role_menu a 
+	INNER JOIN t_sys_menu sub on a.MENU_CODE = sub.MENU_CODE  
+	INNER JOIN t_sys_menu par on sub.UP_MENU = par.id
+  </select>
+  
+  <sql id="Base_Column_List">
+    ID, MENU_CODE, MENU_NAME, UP_MENU, MENU_PATH, SORT_NO, IS_ENABLE, CREATE_USER, CREATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_sys_menu
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_sys_menu
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.flow.system.model.SysMenu">
+    insert into t_sys_menu (ID, MENU_CODE, MENU_NAME, 
+      UP_MENU, MENU_PATH, SORT_NO, 
+      IS_ENABLE, CREATE_USER, CREATE_TIME
+      )
+    values (#{id,jdbcType=INTEGER}, #{menuCode,jdbcType=VARCHAR}, #{menuName,jdbcType=VARCHAR}, 
+      #{upMenu,jdbcType=VARCHAR}, #{menuPath,jdbcType=VARCHAR}, #{sortNo,jdbcType=INTEGER}, 
+      #{isEnable,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.flow.system.model.SysMenu">
+    insert into t_sys_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="menuCode != null">
+        MENU_CODE,
+      </if>
+      <if test="menuName != null">
+        MENU_NAME,
+      </if>
+      <if test="upMenu != null">
+        UP_MENU,
+      </if>
+      <if test="menuPath != null">
+        MENU_PATH,
+      </if>
+      <if test="sortNo != null">
+        SORT_NO,
+      </if>
+      <if test="isEnable != null">
+        IS_ENABLE,
+      </if>
+      <if test="createUser != null">
+        CREATE_USER,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="menuCode != null">
+        #{menuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="menuName != null">
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="upMenu != null">
+        #{upMenu,jdbcType=VARCHAR},
+      </if>
+      <if test="menuPath != null">
+        #{menuPath,jdbcType=VARCHAR},
+      </if>
+      <if test="sortNo != null">
+        #{sortNo,jdbcType=INTEGER},
+      </if>
+      <if test="isEnable != null">
+        #{isEnable,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.flow.system.model.SysMenu">
+    update t_sys_menu
+    <set>
+      <if test="menuCode != null">
+        MENU_CODE = #{menuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="menuName != null">
+        MENU_NAME = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="upMenu != null">
+        UP_MENU = #{upMenu,jdbcType=VARCHAR},
+      </if>
+      <if test="menuPath != null">
+        MENU_PATH = #{menuPath,jdbcType=VARCHAR},
+      </if>
+      <if test="sortNo != null">
+        SORT_NO = #{sortNo,jdbcType=INTEGER},
+      </if>
+      <if test="isEnable != null">
+        IS_ENABLE = #{isEnable,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.flow.system.model.SysMenu">
+    update t_sys_menu
+    set MENU_CODE = #{menuCode,jdbcType=VARCHAR},
+      MENU_NAME = #{menuName,jdbcType=VARCHAR},
+      UP_MENU = #{upMenu,jdbcType=VARCHAR},
+      MENU_PATH = #{menuPath,jdbcType=VARCHAR},
+      SORT_NO = #{sortNo,jdbcType=INTEGER},
+      IS_ENABLE = #{isEnable,jdbcType=VARCHAR},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
