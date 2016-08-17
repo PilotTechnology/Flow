@@ -1,5 +1,6 @@
 package com.flow.system.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +68,11 @@ public class ProductServiceImpl extends AbsPageService<Product> implements Produ
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public List<Product> findAllProduct() {
+		return productMapper.findAllProduct();
 	}
 
 }

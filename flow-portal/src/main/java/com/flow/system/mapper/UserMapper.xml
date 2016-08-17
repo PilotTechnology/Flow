@@ -38,6 +38,10 @@
 		STATE, CREATE_DATE,	ROLE_CODE 
 	</sql>
 	
+	<select id="findAllUser" resultMap="userInfoMap">
+		select <include refid="Base_Column_List" />	from t_sys_user
+	</select>
+	
 	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
 		select <include refid="Base_Column_List" />
 		from t_sys_user

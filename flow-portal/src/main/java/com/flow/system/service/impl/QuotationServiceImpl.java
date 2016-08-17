@@ -1,13 +1,20 @@
 package com.flow.system.service.impl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.flow.portal.service.AbsPageService;
 import com.flow.pub.util.PageUtil;
+import com.flow.pub.util.StringUtil;
 import com.flow.system.mapper.QuotationMapper;
+import com.flow.system.model.Product;
 import com.flow.system.model.Quotation;
 import com.flow.system.service.QuotationService;
 @Service
@@ -50,27 +57,39 @@ public class QuotationServiceImpl extends AbsPageService<Quotation> implements Q
 		return quotationMapper.selectByQuotationCode(quotationCode);
 	}
 
-	@Override
-	public void save(Quotation quotation) {
-		// TODO Auto-generated method stub
-		quotationMapper.insert(quotation);
+	/**
+	 * 生成报价单
+	 */
+	@Transactional
+	public void save(Quotation quotation ,String products) {
+		quotationMapper.insert(quotation);//添加报价单
+		//组装products
+		List<Product> list = new ArrayList<>();
+		if(!StringUtils.isEmpty(products)){
+			Product pro = new Product();
+		   for(String tmp : Arrays.asList(products.split(","))){
+			   String[] arr = tmp.split("_");
+			   pro.setProductCode(arr[0]);
+			   pro.setDiscount(Double.valueOf(arr[1]));
+			   pro.setState(1);//TODO 默认激活
+			   list.add(pro);
+		   }
+		   quotationMapper.insertServProd(quotation.getServiceCode() , list);
+		}
 	}
 
 	@Override
 	public void delete(Quotation quotation) {
-		// TODO Auto-generated method stub
 		quotationMapper.deleteByPrimaryKey(quotation.getId());
 	}
 
 	@Override
 	public void update(Quotation quotation) {
-		// TODO Auto-generated method stub
 		quotationMapper.updateByPrimaryKeySelective(quotation);
 	}
 
 	@Override
 	public boolean checkExists(Quotation quotation) {
-		// TODO Auto-generated method stub
 		Quotation oldQuotation = quotationMapper.selectByQuotationCode(quotation.getServiceCode());
 		if(quotation.getServiceCode()!=null){
 			return !(oldQuotation.getServiceCode().equals(quotation.getServiceCode()));

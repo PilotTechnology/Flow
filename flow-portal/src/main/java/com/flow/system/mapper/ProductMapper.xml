@@ -45,6 +45,15 @@
     ID, PRODUCT_CODE, PRODCUT_NAME, OPERATOR_CODE, PROVIDER_CODE, PRO_PRODUCT_CODE, PROVINCE_CODE, 
     ENABLE_AREA, ENABLE_TYPE, PRIORITY, SIZE, PRICE, DISCOUNT, PURCHASED, STATE, DESCRIPTION
   </sql>
+  
+  <select id="findAllProduct" resultMap="BaseResultMap">
+  	select a.*, b.OPERATOR_NAME, c.PROVINCE_NAME, d.NAME
+	from t_flow_product a
+	INNER JOIN t_base_operator b ON a.OPERATOR_CODE = b.ID
+	INNER JOIN t_base_province c ON a.PROVINCE_CODE = c.ID
+	INNER JOIN t_flow_provider d ON a.PROVIDER_CODE = d.PROVIDER_CODE
+  </select>
+  
   <select id="listPage" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select a.*, b.OPERATOR_NAME, c.PROVINCE_NAME, d.NAME
 		from t_flow_product a

@@ -43,6 +43,15 @@
 	<include refid="query_body"/>
 	limit #{start} , #{pageSize}
   </select>
+  
+  <!-- 添加报价单流量包 -->
+  <insert id="insertServProd">
+  	INSERT INTO t_flow_serv_prod(SERVICE_CODE,PRODUCT_CODE,DISCOUNT,STATE) VALUES
+  	  <foreach collection="list" index="index" item="item" separator="," >
+	   (#{serviceCode} , #{item.productCode},#{item.discount},#{item.state})
+	  </foreach>
+  </insert>
+  
   <select id="getSonCount" resultType="java.lang.Long" parameterType="java.lang.String">
   	SELECT COUNT(1) FROM t_flow_service a
   	INNER JOIN t_flow_distributor b ON a.DISTRIBUTOR_CODE = b.DISTRBUTOR_CODE

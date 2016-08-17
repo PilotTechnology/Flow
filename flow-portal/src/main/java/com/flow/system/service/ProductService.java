@@ -1,5 +1,6 @@
 package com.flow.system.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.flow.pub.util.PageUtil;
@@ -19,4 +20,6 @@ public interface ProductService {
 	void update(Product product);
 	
 	boolean checkExists(Product product);
+
+	List<Product> findAllProduct();
 }

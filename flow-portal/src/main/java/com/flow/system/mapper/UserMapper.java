@@ -51,4 +51,6 @@ public interface UserMapper {
 
 	List<SysUser> findPage();
 
+	List<UserInfo> findAllUser();
+
 }

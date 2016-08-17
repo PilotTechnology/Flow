@@ -1,5 +1,7 @@
 package com.flow.system.controller;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,6 +47,25 @@ public class ProductController extends BaseController {
 		model.addAttribute("page",page);
 		model.addAttribute("product", product);
 		return "/view/product/productList.jsp";
+	}
+	
+	/**
+	 * 流量包列表
+	 * @param request
+	 * @param pager
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "product!productList")
+	@ResponseBody
+	public Map<String,Object> productList(HttpServletRequest request, Product product, Model model) throws Exception {
+		List<Product> list = productService.findAllProduct();
+		Map<String,Object> info = new HashMap<>();
+		info.put("data", list);
+	    info.put("recordsTotal", String.valueOf(list.size()));
+	    info.put("recordsFiltered", String.valueOf(list.size()));
+	    info.put("draw", "1");
+		return info;
 	}
 	
 	/**

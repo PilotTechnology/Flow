@@ -18,7 +18,7 @@ public class Quotation {
     private Integer isDisplayProvince;
     
     private String distributionName;
-
+    
     public Integer getId() {
         return id;
     }

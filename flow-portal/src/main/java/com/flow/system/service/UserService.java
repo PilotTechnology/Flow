@@ -1,5 +1,6 @@
 package com.flow.system.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.flow.pub.util.PageUtil;
@@ -22,6 +23,11 @@ public interface UserService {
 	 */
 	UserInfo getUserInfoByUserCode(String userCode);
 	
+	/**
+	 * 用户列表新的分页方式
+	 * @return
+	 */
+	List<UserInfo> findAllUser();
 	/**
 	 * 用户列表分页
 	 * @param map 查询条件
@@ -56,5 +62,6 @@ public interface UserService {
 	 * @param user
 	 */
 	void save(SysUser user);
+
 	
 }

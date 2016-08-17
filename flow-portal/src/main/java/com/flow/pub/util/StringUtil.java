@@ -765,7 +765,7 @@ public class StringUtil
   @SuppressWarnings("rawtypes")
   public static boolean isNotNull(Object object) {
     if (object == null || "".equals(object))
-      return true;
+      return false;
     if (object instanceof String)
       return "".equals(((String) object).trim());
     if (object instanceof Collection)

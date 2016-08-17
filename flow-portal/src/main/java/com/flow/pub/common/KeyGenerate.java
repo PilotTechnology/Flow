@@ -15,4 +15,12 @@ public class KeyGenerate {
 		return "MY" + System.nanoTime();
 	}
 	
+	/**
+	 * 生成报价单的业务主键
+	 * @param distributorCode
+	 * @return
+	 */
+	public static String getServiceCode(String distributorCode){
+		return "SC_" + distributorCode + "_" + System.currentTimeMillis();
+	}
 }
