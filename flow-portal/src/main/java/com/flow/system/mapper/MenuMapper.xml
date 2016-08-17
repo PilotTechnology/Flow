@@ -43,6 +43,7 @@
 	FROM t_sys_role_menu a 
 	INNER JOIN t_sys_menu sub on a.MENU_CODE = sub.MENU_CODE  
 	INNER JOIN t_sys_menu par on sub.UP_MENU = par.id
+	WHERE a.ROLE_CODE = #{roleCode}
   </select>
   
   <sql id="Base_Column_List">
