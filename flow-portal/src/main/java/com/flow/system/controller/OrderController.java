@@ -34,6 +34,10 @@ public class OrderController extends BaseController{
 		//转换request参数为map
 		Map<String,Object> map = getParameterMap(request);
 		
+		if (map.get("searchType") != null && !map.get("searchType").equals("-1")) {
+			map.put("state", "0");
+		}
+		
 		PageUtil<Order> page = orderService.listPage(map);
 		
 		model.addAttribute("page",page);

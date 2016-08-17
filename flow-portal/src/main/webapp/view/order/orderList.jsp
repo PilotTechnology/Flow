@@ -80,20 +80,21 @@
                   			<div class="col-md-2"><input class="form-control" type="text" id="distributorOrderCode" name="distributorOrderCode" value="${order.distributorOrderCode}"></div>
                   		</div>
                   		<div class="form-group">
+                  			<input type="hidden" id="searchType" name="searchType">
                   			<div class="col-md-1">
-                  				<button class="btn btn-sm btn-warning" type="submit" id="search">搜索</button>
+                  				<button class="btn btn-sm btn-warning" type="submit" id="search" onclick="$('#searchType').val(-1);">搜索</button>
                   			</div>
                   			<div class="col-md-1">
-                  				<button class="btn btn-sm btn-warning" type="submit" id="search">12小时卡单</button>
+                  				<button class="btn btn-sm btn-warning" type="submit" id="search" onclick="$('#searchType').val(0);">12小时卡单</button>
                   			</div>
                   			<div class="col-md-1">
-                  				<button class="btn btn-sm btn-warning" type="submit" id="search">24小时卡单</button>
+                  				<button class="btn btn-sm btn-warning" type="submit" id="search" onclick="$('#searchType').val(1);">24小时卡单</button>
                   			</div>
                   			<div class="col-md-1">
-                  				<button class="btn btn-sm btn-warning" type="submit" id="search">36小时卡单</button>
+                  				<button class="btn btn-sm btn-warning" type="submit" id="search" onclick="$('#searchType').val(2);">36小时卡单</button>
                   			</div>
                   			<div class="col-md-1">
-                  				<button class="btn btn-sm btn-warning" type="submit" id="search">48小时卡单</button>
+                  				<button class="btn btn-sm btn-warning" type="submit" id="search" onclick="$('#searchType').val(3);">48小时卡单</button>
                   			</div>
                   		</div>
                   </form>
