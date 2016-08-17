@@ -45,16 +45,22 @@
                   		<div class="form-group">
                   			<label class="col-md-1 control-label">订单状态:</label>
                   			<div class="col-md-2">
-                  				<select name="select" id="state" class="form-control">
-                              		<option value="-1">全部</option>
-                              		<option value="0">处理中</option>
-                              		<option value="1">充值成功</option>
-                              		<option value="2">充值失败</option>
+                  				<select name="state" id="state" class="form-control">
+                              		<option value="-1" <c:if test='${order.state eq -1}'>selected</c:if>>全部</option>
+                              		<option value="0" <c:if test='${order.state eq 0}'>selected</c:if>>处理中</option>
+                              		<option value="1" <c:if test='${order.state eq 1}'>selected</c:if>>充值成功</option>
+                              		<option value="2" <c:if test='${order.state eq 2}'>selected</c:if>>充值失败</option>
 	                            </select>
                   			</div>
                   			<label class="col-md-1 control-label">供应商:</label>
                   			<div class="col-md-2">
                   				<select name="providerCode" id="providerCode" class="form-control">
+                              		<option value="-1">全部</option>
+	                            </select>
+                  			</div>
+                  			<label class="col-md-1 control-label">分销商:</label>
+                  			<div class="col-md-2">
+                  				<select name="distributorCode" id="distributorCode" class="form-control">
                               		<option value="-1">全部</option>
 	                            </select>
                   			</div>
@@ -64,20 +70,8 @@
                               		<option value="-1">全部</option>
 	                            </select>
                   			</div>
-                  			<label class="col-md-1 control-label">省份:</label>
-                  			<div class="col-md-2">
-                  				<select name="provinceCode" id="provinceCode" class="form-control">
-                              		<option value="-1">全部</option>
-	                            </select>
-                  			</div>
                   		</div>
 	                    <div class="form-group">
-                  			<label class="col-md-1 control-label">分销商:</label>
-                  			<div class="col-md-2">
-                  				<select name="distributorCode" id="distributorCode" class="form-control">
-                              		<option value="-1">全部</option>
-	                            </select>
-                  			</div>
                   			<label class="col-md-1 control-label">手机号:</label>
                   			<div class="col-md-2"><input class="form-control" type="text" id="phone" name="phone" value="${order.phone}"></div>
                   			<label class="col-md-1 control-label">平台订单:</label>
@@ -191,10 +185,10 @@
       </div>
     </div>
   </body>
-<%--   <script type="text/javascript" src="${ctx}/view/common/public.js"></script>
+  <script type="text/javascript" src="${ctx}/view/common/public.js"></script>
   <script type="text/javascript">
 	  initProvider('${order.providerCode}');
 	  initOperator('${order.operatorCode}');
-	  initProvince('${order.provinceCode}');
-  </script> --%>
+	  initDistributor('${order.distributorCode}');
+  </script>
 </html>
