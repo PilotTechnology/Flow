@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flow.system.mapper.MobileMapper">
+  <resultMap id="BaseResultMap" type="com.flow.system.model.Mobile">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="MOBILE_CODE" jdbcType="VARCHAR" property="mobileCode" />
+    <result column="CITY_CODE" jdbcType="INTEGER" property="cityCode" />
+    <result column="OPERATOR_CODE" jdbcType="INTEGER" property="operatorCode" />
+    <association property="city" javaType="com.flow.system.model.City">
+		<id column="CITY_CODE" jdbcType="INTEGER" property="id" />
+		<result column="CITY_NAME" jdbcType="VARCHAR" property="cityName" />
+		<result column="PROVINCE_CODE" jdbcType="VARCHAR" property="provinceCode" />
+		<association property="province" javaType="com.flow.system.model.Province">
+			<id column="PROVINCE_CODE" jdbcType="INTEGER" property="id" />
+			<result column="PROVINCE_NAME" jdbcType="VARCHAR" property="provinceName" />
+		</association>
+	</association>
+	<association property="mobileOperator" javaType="com.flow.system.model.MobileOperator">
+		<id column="OPERATOR_CODE" jdbcType="INTEGER" property="id" />
+		<result column="OPERATOR_NAME" jdbcType="VARCHAR" property="operatorName" />
+	</association>
+  </resultMap>
+  <sql id="query_body">
+  	<where>
+  		<if test="mobileCode !=null and mobileCode != ''"> AND MOBILE_CODE = #{mobileCode}</if>
+  	</where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, MOBILE_CODE, CITY_CODE, OPERATOR_CODE
+  </sql>
+  <select id="listPage" resultMap="BaseResultMap">
+		select a.ID, a.MOBILE_CODE, c.ID as PROVINCE_CODE, a.CITY_CODE, a.OPERATOR_CODE, c.PROVINCE_NAME, b.CITY_NAME, d.OPERATOR_NAME
+		FROM t_base_mobile a
+		INNER JOIN t_base_city b ON a.CITY_CODE = b.ID
+		INNER JOIN t_base_province c ON b.PROVINCE_CODE = c.ID
+		INNER JOIN t_base_operator d ON a.OPERATOR_CODE = d.id
+		<include refid="query_body"/>
+		limit #{start} , #{pageSize}
+  </select>
+  <select id="getCount" resultType="java.lang.Long">
+  	SELECT COUNT(1) FROM t_base_mobile 
+  	<include refid="query_body"/>
+  </select>
+  <select id="selectByMobileCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+     select a.ID, a.MOBILE_CODE, c.ID as PROVINCE_CODE, a.CITY_CODE, a.OPERATOR_CODE, c.PROVINCE_NAME, b.CITY_NAME, d.OPERATOR_NAME
+		FROM t_base_mobile a
+		INNER JOIN t_base_city b ON a.CITY_CODE = b.ID
+		INNER JOIN t_base_province c ON b.PROVINCE_CODE = c.ID
+		INNER JOIN t_base_operator d ON a.OPERATOR_CODE = d.id
+		where a.MOBILE_CODE = #{mobileCode,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getMobile" resultType="java.lang.String" parameterType="java.lang.String">
+  	SELECT CONCAT_WS('-' , f.PROVINCE_NAME ,e.CITY_NAME) AS addr
+		FROM  t_base_mobile d 
+		LEFT JOIN  t_base_city e ON d.CITY_CODE = e.ID
+		LEFT JOIN  t_base_province f ON e.PROVINCE_CODE = f.ID
+		WHERE d.mobile_CODE = #{mobileCode}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_base_mobile
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.flow.system.model.Mobile">
+    insert into t_base_mobile (ID, MOBILE_CODE, CITY_CODE, 
+      OPERATOR_CODE)
+    values (#{id,jdbcType=INTEGER}, #{mobileCode,jdbcType=VARCHAR}, #{cityCode,jdbcType=INTEGER}, 
+      #{operatorCode,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.flow.system.model.Mobile">
+    insert into t_base_mobile
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="mobileCode != null">
+        MOBILE_CODE,
+      </if>
+      <if test="cityCode != null">
+        CITY_CODE,
+      </if>
+      <if test="operatorCode != null">
+        OPERATOR_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="mobileCode != null">
+        #{mobileCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null">
+        #{cityCode,jdbcType=INTEGER},
+      </if>
+      <if test="operatorCode != null">
+        #{operatorCode,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.flow.system.model.Mobile">
+    update t_base_mobile
+    <set>
+      <if test="mobileCode != null">
+        MOBILE_CODE = #{mobileCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null">
+        CITY_CODE = #{cityCode,jdbcType=INTEGER},
+      </if>
+      <if test="operatorCode != null">
+        OPERATOR_CODE = #{operatorCode,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.flow.system.model.Mobile">
+    update t_base_mobile
+    set MOBILE_CODE = #{mobileCode,jdbcType=VARCHAR},
+      CITY_CODE = #{cityCode,jdbcType=INTEGER},
+      OPERATOR_CODE = #{operatorCode,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

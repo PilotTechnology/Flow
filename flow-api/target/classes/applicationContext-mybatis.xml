@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context-4.0.xsd
+      http://www.springframework.org/schema/tx
+      http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+      http://www.springframework.org/schema/aop
+      http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<property name="url" value="${jdbc_url}" />
+		<property name="username" value="${jdbc_username}" />
+		<property name="password" value="${jdbc_password}" />
+		<property name="filters" value="${jdbc_filters}" />
+		<property name="maxActive" value="${jdbc_maxActive}" />
+		<property name="initialSize" value="${jdbc_initialSize}" />
+		<property name="maxWait" value="${jdbc_maxWait}" />
+		<property name="minIdle" value="${jdbc_minIdle}" />
+		<property name="timeBetweenEvictionRunsMillis" value="${jdbc_timeBetweenEvictionRunsMillis}" />
+		<property name="minEvictableIdleTimeMillis" value="${jdbc_minEvictableIdleTimeMillis}" />
+		<property name="validationQuery" value="${jdbc_validationQuery}" />
+		<property name="testWhileIdle" value="${jdbc_testWhileIdle}" />
+		<property name="testOnBorrow" value="${jdbc_testOnBorrow}" />
+		<property name="testOnReturn" value="${jdbc_testOnReturn}" />
+		<property name="poolPreparedStatements" value="${jdbc_poolPreparedStatements}" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="${jdbc_maxPoolPreparedStatementPerConnectionSize}" />
+	</bean>
+
+	<!-- mybatis文件配置，扫描所有mapper文件 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" p:dataSource-ref="dataSource" 
+	  p:mapperLocations="classpath*:com/flow/mapper/*Mapper.xml"> 
+	  	  <!-- 配置分页插件 -->
+		  <property name="typeAliasesPackage" value="com.isea533.ssm.model"/>
+	 		 <property name="plugins">
+	    	   <array>
+	     	     <bean class="com.github.pagehelper.PageHelper">
+	      	       <property name="properties">
+			          <value>
+			            dialect=mysql
+			            reasonable=true
+			          </value>
+	        		</property>
+	      		 </bean>
+	    	   </array>
+	 	 </property>
+	  </bean>
+
+	<!-- spring与mybatis整合配置，扫描所有dao -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:sqlSessionFactoryBeanName="sqlSessionFactory" 
+		p:basePackage="com.flow.mapper.**" />
+
+	<!-- 对数据源进行事务管理 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" p:dataSource-ref="dataSource" />
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+</beans>

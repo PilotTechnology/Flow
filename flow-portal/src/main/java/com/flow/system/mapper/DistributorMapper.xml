@@ -79,7 +79,7 @@
 		from t_flow_distributor a
 		INNER JOIN t_sys_user b ON a.USER_CODE = b.USER_CODE
 		<include refid="query_body"/>
-		<if test="pageSize !=null and pageSize != ''"> limit #{start} , #{pageSize} </if>
+		limit #{start} , #{pageSize}
   </select>
   <select id="getCount" resultType="java.lang.Long" parameterType="java.util.Map">
   	SELECT COUNT(1) FROM t_flow_distributor a

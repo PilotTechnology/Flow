@@ -39,12 +39,10 @@
   
   <sql id="query_body">
   	<where>
-  		<if test="state !=null and state != '-1'"> AND a.STATE = #{state}</if>
   		<if test="phone !=null and phone != ''"> AND a.PHONE = #{phone}</if>
   		<if test="orderCode !=null and orderCode != ''"> AND a.ORDER_CODE = #{orderCode}</if>
   		<if test="distributorOrderCode !=null and distributorOrderCode != ''"> AND a.DISTRIBUTOR_ORDER_CODE = #{distributorOrderCode}</if>
   		<if test="providerCode !=null and providerCode != '-1'"> AND a.PROVIDER_CODE = #{providerCode}</if>
-  		<if test="distributorCode !=null and distributorCode != '-1'"> AND a.DISTRIBUTOR_CODE = #{distributorCode}</if>
   		<if test="operatorCode !=null and operatorCode != '-1'"> AND a.OPERATOR_CODE = #{operatorCode}</if>
   		<!-- <if test="provinceCode !=null and provinceCode != '-1'"> AND a.OPERATOR_CODE = #{operatorCode}</if> -->
   	</where>

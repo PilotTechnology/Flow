@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flow.system.mapper.ProvinceMapper">
+	<resultMap id="BaseResultMap" type="com.flow.system.model.Province">
+		<id column="ID" jdbcType="INTEGER" property="id" />
+		<result column="PROVINCE_NAME" jdbcType="VARCHAR" property="provinceName" />
+		<collection property="cityList" resultMap="cityResult" />
+	</resultMap>
+
+	<resultMap id="cityResult" type="com.flow.system.model.City">
+		<id column="cID" jdbcType="INTEGER" property="id" />
+		<result column="CITY_NAME" jdbcType="VARCHAR" property="cityName" />
+	</resultMap>
+	
+	<!-- 根据省份获取省份信息及城市信息 -->
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT a.ID , a.PROVINCE_NAME , b.ID as cID , b.CITY_NAME
+		FROM t_base_province a
+		INNER JOIN t_base_city b ON a.ID = b.PROVINCE_CODE
+		WHERE a.ID = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 加载省份列表 -->
+	<select id="findList" resultMap="BaseResultMap">
+		SELECT ID, PROVINCE_NAME FROM t_base_province
+	</select>
+	
+  <sql id="Base_Column_List">
+    ID, PROVINCE_NAME
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_base_province
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.flow.system.model.Province">
+    insert into t_base_province (ID, PROVINCE_NAME)
+    values (#{id,jdbcType=INTEGER}, #{provinceName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.flow.system.model.Province">
+    insert into t_base_province
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="provinceName != null">
+        PROVINCE_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="provinceName != null">
+        #{provinceName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.flow.system.model.Province">
+    update t_base_province
+    <set>
+      <if test="provinceName != null">
+        PROVINCE_NAME = #{provinceName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.flow.system.model.Province">
+    update t_base_province
+    set PROVINCE_NAME = #{provinceName,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

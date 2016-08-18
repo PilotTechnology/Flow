@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flow.system.mapper.OperatorMapper">
+  <resultMap id="BaseResultMap" type="com.flow.system.model.Operator">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="OPERATOR_NAME" jdbcType="VARCHAR" property="operatorName" />
+  </resultMap>
+ 
+  <select id="findList" resultMap="BaseResultMap">
+    SELECT id, OPERATOR_NAME FROM t_base_operator
+  </select>
+ 
+</mapper>
