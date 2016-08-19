@@ -56,3 +56,20 @@ function initProvince(defValue){
 		}
 	}) 
 }
+
+function initDistributor(defValue){
+	$.ajax({
+		type : "POST",
+		url  : '/pub/distributor!list.action',
+		async: false,
+		success:function(data){
+			$(data).each(function(v , distributor){
+				if(distributor.distrbutorCode == defValue){
+					$("#distributorCode").append('<option selected="selected" value=' + distributor.distrbutorCode + '>' + distributor.company + '</option>')
+				}else{
+					$("#distributorCode").append('<option value=' + distributor.distrbutorCode + '>' + distributor.company + '</option>')
+				}
+			});
+		}
+	}) 
+}

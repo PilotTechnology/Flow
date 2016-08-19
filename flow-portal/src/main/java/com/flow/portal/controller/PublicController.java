@@ -7,9 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.flow.system.mapper.DistributorMapper;
 import com.flow.system.mapper.OperatorMapper;
 import com.flow.system.mapper.ProviderMapper;
 import com.flow.system.mapper.ProvinceMapper;
+import com.flow.system.model.Distributor;
 import com.flow.system.model.Operator;
 import com.flow.system.model.Provider;
 import com.flow.system.model.Province;
@@ -26,6 +28,9 @@ public class PublicController {
 	
 	@Autowired
 	private ProvinceMapper provinceMapper;
+	
+	@Autowired
+	private DistributorMapper distributorMapper;
 	/**
 	 * 获取供应商列表
 	 * @return
@@ -56,4 +61,13 @@ public class PublicController {
 		return provinceMapper.findList();
 	}
 	
+	/**
+	 * 获取分销商列表
+	 * @return
+	 */
+	@RequestMapping(value = "distributor!list.action")
+	@ResponseBody
+	public List<Distributor> getDistributor(){
+		return distributorMapper.listPage(null);
+	}
 }

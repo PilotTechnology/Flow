@@ -24,7 +24,6 @@ import com.flow.system.model.Distributor;
 import com.flow.system.model.SysUser;
 import com.flow.system.service.DistributorService;
 import com.flow.system.service.UserService;
-import com.flow.pub.common.Constant;
 
 /**
  * 
