@@ -45,11 +45,11 @@
                   		<div class="form-group">
                   			<label class="col-md-1 control-label">订单状态:</label>
                   			<div class="col-md-2">
-                  				<select name="select" id="state" class="form-control">
-                              		<option value="-1">全部</option>
-                              		<option value="0">处理中</option>
-                              		<option value="1">充值成功</option>
-                              		<option value="2">充值失败</option>
+                  				<select name="state" id="state" class="form-control">
+                              		<option value="-1" <c:if test='${order.state eq -1}'>selected</c:if>>全部</option>
+                              		<option value="0" <c:if test='${order.state eq 0}'>selected</c:if>>处理中</option>
+                              		<option value="1" <c:if test='${order.state eq 1}'>selected</c:if>>充值成功</option>
+                              		<option value="2" <c:if test='${order.state eq 2}'>selected</c:if>>充值失败</option>
 	                            </select>
                   			</div>
                   			<label class="col-md-1 control-label">供应商:</label>
@@ -64,12 +64,12 @@
                               		<option value="-1">全部</option>
 	                            </select>
                   			</div>
-                  			<label class="col-md-1 control-label">省份:</label>
+                  			<!-- <label class="col-md-1 control-label">省份:</label>
                   			<div class="col-md-2">
                   				<select name="provinceCode" id="provinceCode" class="form-control">
                               		<option value="-1">全部</option>
 	                            </select>
-                  			</div>
+                  			</div -->
                   		</div>
 	                    <div class="form-group">
                   			<label class="col-md-1 control-label">分销商:</label>
@@ -86,20 +86,21 @@
                   			<div class="col-md-2"><input class="form-control" type="text" id="distributorOrderCode" name="distributorOrderCode" value="${order.distributorOrderCode}"></div>
                   		</div>
                   		<div class="form-group">
+                  			<input type="hidden" id="searchType" name="searchType">
                   			<div class="col-md-1">
-                  				<button class="btn btn-sm btn-warning" type="submit" id="search">搜索</button>
+                  				<button class="btn btn-sm btn-warning" type="submit" id="search" onclick="$('#searchType').val(-1);">搜索</button>
                   			</div>
                   			<div class="col-md-1">
-                  				<button class="btn btn-sm btn-warning" type="submit" id="search">12小时卡单</button>
+                  				<button class="btn btn-sm btn-warning" type="submit" id="search" onclick="$('#searchType').val(0);">12小时卡单</button>
                   			</div>
                   			<div class="col-md-1">
-                  				<button class="btn btn-sm btn-warning" type="submit" id="search">24小时卡单</button>
+                  				<button class="btn btn-sm btn-warning" type="submit" id="search" onclick="$('#searchType').val(1);">24小时卡单</button>
                   			</div>
                   			<div class="col-md-1">
-                  				<button class="btn btn-sm btn-warning" type="submit" id="search">36小时卡单</button>
+                  				<button class="btn btn-sm btn-warning" type="submit" id="search" onclick="$('#searchType').val(2);">36小时卡单</button>
                   			</div>
                   			<div class="col-md-1">
-                  				<button class="btn btn-sm btn-warning" type="submit" id="search">48小时卡单</button>
+                  				<button class="btn btn-sm btn-warning" type="submit" id="search" onclick="$('#searchType').val(3);">48小时卡单</button>
                   			</div>
                   		</div>
                   </form>
@@ -191,10 +192,15 @@
       </div>
     </div>
   </body>
-<%--   <script type="text/javascript" src="${ctx}/view/common/public.js"></script>
+  <script type="text/javascript" src="${ctx}/view/common/public.js"></script>
   <script type="text/javascript">
 	  initProvider('${order.providerCode}');
 	  initOperator('${order.operatorCode}');
-	  initProvince('${order.provinceCode}');
-  </script> --%>
+	  initDistributor('${order.distributorCode}');
+	  $(document).ready(function() {
+			$('#orderList').dataTable( {
+				"scrollX": true
+			} );
+		} );
+  </script>
 </html>
