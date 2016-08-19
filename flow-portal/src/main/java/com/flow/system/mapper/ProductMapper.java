@@ -3,7 +3,11 @@ package com.flow.system.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.flow.system.model.Order;
 import com.flow.system.model.Product;
+import com.flow.system.model.Quotation;
 
 public interface ProductMapper {
     int deleteByPrimaryKey(Integer id);
@@ -27,4 +31,12 @@ public interface ProductMapper {
 	Long getCount(Map<String, Object> map);
 
 	List<Product> findAllProduct();
+	
+	/**
+	 * 根据订单和报价单拿到最佳折扣流量包
+	 * @param quotation
+	 * @param order
+	 * @return
+	 */
+	Product findProductByService(@Param("quotation") Quotation quotation, @Param("order") Order order);
 }

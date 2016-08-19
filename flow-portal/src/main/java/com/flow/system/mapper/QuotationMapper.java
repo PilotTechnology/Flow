@@ -36,4 +36,10 @@ public interface QuotationMapper {
 	 * @param list
 	 */
 	void insertServProd(@Param("serviceCode") String serviceCode, @Param("list") List<Product> list);
+	/**
+	 * 根据分销商获取报价单
+	 * @param distributorCode
+	 * @return
+	 */
+	Quotation getQuotationByDistributorCode(String distributorCode);
 }

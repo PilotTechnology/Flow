@@ -248,4 +248,19 @@ public class Order {
 	public void setProviderName(String providerName) {
 		this.providerName = providerName == null ? null : providerName.trim();
 	}
+
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", orderCode=" + orderCode + ", providerOrderCode=" + providerOrderCode
+				+ ", distributorOrderCode=" + distributorOrderCode + ", operatorCode=" + operatorCode
+				+ ", providerCode=" + providerCode + ", distributorCode=" + distributorCode + ", phone=" + phone
+				+ ", phoneProvince=" + phoneProvince + ", phoneCity=" + phoneCity + ", size=" + size + ", price="
+				+ price + ", discount=" + discount + ", purchased=" + purchased + ", realPurchased=" + realPurchased
+				+ ", realDiscount=" + realDiscount + ", state=" + state + ", platformErrorCode=" + platformErrorCode
+				+ ", noticeState=" + noticeState + ", errorTime=" + errorTime + ", createDate=" + createDate
+				+ ", callbackDate=" + callbackDate + ", callbackCode=" + callbackCode + ", callbackCodeMess="
+				+ callbackCodeMess + ", operatorName=" + operatorName + ", distributorName=" + distributorName
+				+ ", providerName=" + providerName + "]";
+	}
+	
 }
