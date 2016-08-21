@@ -35,7 +35,7 @@
               <li class="divider">
               </li>
               <li>
-                <a href="login.html">
+                <a href="${ctx}/portal/system/login!logout.action">
                   <i class="icon-key">
                   </i>
                   退出

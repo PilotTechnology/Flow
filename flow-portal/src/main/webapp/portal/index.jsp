@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"
     />
     <title>流量平台</title>
-    <%@include file="../view/common/common.jsp" %>
+    <%@include file="../view/common/index.jsp" %>
+    <
   </head>
   
   <body>

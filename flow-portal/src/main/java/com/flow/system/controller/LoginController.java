@@ -45,6 +45,13 @@ public class LoginController {
 			return "/portal/index.jsp";
 		}
 	}
+	
+	// 用户退出
+	@RequestMapping("login!logout.action")
+	public String logout(HttpServletRequest request, Model model) {
+		request.getSession().invalidate();
+		return "redirect:/portal/login.jsp";
+	}
 
 	// 用户登录
 	@RequestMapping("login!login.action")

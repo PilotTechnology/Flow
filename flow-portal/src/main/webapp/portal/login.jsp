@@ -31,7 +31,7 @@
 			</div>
 		
 			<div class="login_form">
-				<form action="login!login.action" id="login_form" method="post">
+				<form action="${ctx}/portal/system/login!login.action" id="login_form" method="post">
 					<div class="form-group">
 						<label for="j_username" class="t">用户名：</label> 
 						<input id="userCode" value="" name="userCode" type="text" class="form-control x319 in" 
