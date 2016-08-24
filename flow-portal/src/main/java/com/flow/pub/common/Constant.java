@@ -1,8 +1,9 @@
 package com.flow.pub.common;
 
 public class Constant {
-	public static final String ADMIN_ROLE_CODE = "1";
-	public static final String DISTRIBUTOR_ROLE_CODE = "2";
+	public static final String ADMIN_ROLE_CODE = "admin";
+	public static final String DISTRIBUTOR_ROLE_CODE = "distributor";
+	public static final String SON_DISTRIBUTOR_ROLE_CODE = "son_distributor";
 	
 	// JSON二元返回信息中result的值
 	public static final String JSON_SUCCESS = "success";

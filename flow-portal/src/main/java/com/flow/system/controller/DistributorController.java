@@ -87,7 +87,12 @@ public class DistributorController extends BaseController {
 				return new BaseResponse(Constant.JSON_FAIL, "分销商已存在");
 			}
 			SysUser user = distributor.getUser();
-			user.setRoleCode(Constant.DISTRIBUTOR_ROLE_CODE);
+			UserInfo loginUserInfo = (UserInfo) request.getSession().getAttribute("userInfo");
+			if (loginUserInfo.getRoleCode().equals(Constant.ADMIN_ROLE_CODE)) {
+				user.setRoleCode(Constant.DISTRIBUTOR_ROLE_CODE);
+			} else if (loginUserInfo.getRoleCode().equals(Constant.DISTRIBUTOR_ROLE_CODE)) {
+				user.setRoleCode(Constant.SON_DISTRIBUTOR_ROLE_CODE);
+			}
 			user.setIsEnable("1");
 			user.setCreateDate(new Date());
 			user.setPassword(MD5Util.EncodeString(user.getPassword()));

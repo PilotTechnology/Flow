@@ -60,7 +60,6 @@ public class OrderController extends BaseController{
 				map.put("endTime", df.format(calendar.getTime()));
 			}
 		}
-		System.out.println(map);
 		PageUtil<Order> page = orderService.listPage(map);
 		
 		model.addAttribute("page",page);
