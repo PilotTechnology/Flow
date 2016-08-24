@@ -1,5 +1,6 @@
 package com.flow.system.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,4 +83,10 @@ public class DistributorServiceImpl extends AbsPageService<Distributor> implemen
 		// TODO Auto-generated method stub
 		return distributorMapper.selectByDistributorInfo(distributorInfo);
 	}
+
+	@Override
+	public List<Distributor> findAllDistributor() {
+		return distributorMapper.listPage(null);
+	}
+
 }

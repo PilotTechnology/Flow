@@ -1,5 +1,6 @@
 package com.flow.system.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.flow.pub.util.PageUtil;
@@ -23,4 +24,6 @@ public interface DistributorService {
 	void update(Distributor distributor);
 	
 	boolean checkExists(Distributor distributor);
+
+	List<Distributor> findAllDistributor();
 }
