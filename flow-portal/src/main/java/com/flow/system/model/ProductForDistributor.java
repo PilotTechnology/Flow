@@ -15,6 +15,8 @@ public class ProductForDistributor {
 
     private String operatorName;
 
+    private String providerCode;
+    
     private String providerName;
 
     private String proProductCode;
@@ -85,6 +87,14 @@ public class ProductForDistributor {
         this.operatorName = operatorName == null ? null : operatorName.trim();
     }
 
+    public String getProviderCode() {
+        return providerCode;
+    }
+
+    public void setProviderCode(String providerCode) {
+        this.providerCode = providerCode == null ? null : providerCode.trim();
+    }
+    
     public String getProviderName() {
         return providerName;
     }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.flow.portal.controller.BaseController;
 import com.flow.pub.common.BaseResponse;
+import com.flow.pub.common.CodeConstants;
 import com.flow.pub.common.Constant;
 import com.flow.pub.common.PubLog;
 import com.flow.pub.util.MD5Util;
@@ -93,7 +94,7 @@ public class DistributorController extends BaseController {
 			} else if (loginUserInfo.getRoleCode().equals(Constant.DISTRIBUTOR_ROLE_CODE)) {
 				user.setRoleCode(Constant.SON_DISTRIBUTOR_ROLE_CODE);
 			}
-			user.setIsEnable("1");
+			user.setIsEnable(CodeConstants.USER_STATE_ON);
 			user.setCreateDate(new Date());
 			user.setPassword(MD5Util.EncodeString(user.getPassword()));
 			userService.save(distributor.getUser());

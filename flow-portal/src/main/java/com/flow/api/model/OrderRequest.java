@@ -10,6 +10,7 @@ public class OrderRequest {
 	private String appkey;
 	private String phone;
 	private int product_id;	//流量包大小为流量大小以M为单位，1G为1024
+	private String scope; //适用范围
 	private String order_id;
 	private String time;
 	private String sign;  // sign=MD5(phone=xx&product_id=xx&&ordere_id=xx&time=xx&secret=xx)
@@ -36,6 +37,14 @@ public class OrderRequest {
 
 	public void setProduct_id(int product_id) {
 		this.product_id = product_id;
+	}
+	
+	public String getScope() {
+		return scope;
+	}
+
+	public void setScope(String scope) {
+		this.scope = scope;
 	}
 
 	public String getOrder_id() {

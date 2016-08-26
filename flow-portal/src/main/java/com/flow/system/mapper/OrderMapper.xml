@@ -12,6 +12,7 @@
     <result column="PHONE" jdbcType="VARCHAR" property="phone" />
     <result column="PHONE_PROVINCE" jdbcType="VARCHAR" property="phoneProvince" />
     <result column="PHONE_CITY" jdbcType="VARCHAR" property="phoneCity" />
+    <result column="PRODUCT_CODE" jdbcType="VARCHAR" property="productCode" />
     <result column="SIZE" jdbcType="INTEGER" property="size" />
     <result column="PRICE" jdbcType="DOUBLE" property="price" />
     <result column="DISCOUNT" jdbcType="DOUBLE" property="discount" />
@@ -32,7 +33,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     ID, ORDER_CODE, PROVIDER_ORDER_CODE, DISTRIBUTOR_ORDER_CODE, OPERATOR_CODE, PROVIDER_CODE, 
-    DISTRIBUTOR_CODE, PHONE, PHONE_PROVINCE, PHONE_CITY, SIZE, PRICE, DISCOUNT, PURCHASED, 
+    DISTRIBUTOR_CODE, PHONE, PHONE_PROVINCE, PHONE_CITY, PRODUCT_CODE, SIZE, PRICE, DISCOUNT, PURCHASED, 
     REAL_DISCOUNT, REAL_PURCHASED, STATE, PLATFORM_ERROR_CODE, NOTICE_STATE, ERROR_TIME, 
     CREATE_DATE, CALLBACK_DATE, CALLBACK_CODE, CALLBACK_CODE_MESS
   </sql>

@@ -1,6 +1,9 @@
 package com.flow.api.controller;
 
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -16,10 +19,18 @@ import com.flow.pub.common.CodeConstants;
 import com.flow.pub.common.KeyGenerate;
 import com.flow.pub.common.PubLog;
 import com.flow.pub.util.MD5Util;
+import com.flow.system.mapper.CostFlowMapper;
 import com.flow.system.mapper.DistributorMapper;
+import com.flow.system.mapper.MobileMapper;
 import com.flow.system.mapper.OrderMapper;
+import com.flow.system.mapper.ProductForDistributorMapper;
+import com.flow.system.mapper.QuotationMapper;
+import com.flow.system.model.CostFlow;
 import com.flow.system.model.Distributor;
+import com.flow.system.model.Mobile;
 import com.flow.system.model.Order;
+import com.flow.system.model.ProductForDistributor;
+import com.flow.system.model.Quotation;
 
 /**
  * 订单
@@ -35,6 +46,19 @@ public class OrderApiController {
 	
 	@Autowired
 	private DistributorMapper distributorMapper;
+	
+	@Autowired
+	private QuotationMapper quotationMapper;
+	
+	@Autowired
+	private ProductForDistributorMapper productForDistributorMapper;
+	
+	@Autowired
+	private MobileMapper mobileMapper;
+	
+	@Autowired
+	private CostFlowMapper costFlowMapper;
+	
 	/**
 	 * 接口1 ： 接收下游订购请求【未测】
 	 * @param req
@@ -51,22 +75,45 @@ public class OrderApiController {
 				return resp;
 			}
 			
-			//step2:校验签名
+			//step2:校验账户
 			Distributor dist = distributorMapper.selectByAppKey(req.getAppkey());
 			if(dist==null){
 				resp.setCode(CodeConstants.ACC_ERR);
-				resp.setMsg("订单请求异常：【未查找到有效的下游账户】 ");
+				resp.setMsg("订单请求异常：【未查找到有效的账户】 ");
 				PubLog.error(resp.getMsg() + ">> " + resp);
 				return resp;
 			}
 			
+			if(String.valueOf(dist.getState()).equals(CodeConstants.USER_STATE_OFF)){
+				resp.setCode(CodeConstants.ACC_ERR_IS_FORBIDDEN);
+				resp.setMsg("订单请求异常：【账户被禁用】 ");
+				PubLog.error(resp.getMsg() + ">> " + resp);
+				return resp;
+			}
+			
+			//step2:校验签名
 			String secret = dist.getSecretKey(); 
-			String md5Src = String.format("phone=%s&product_id=%s&order_id=%s&time=%s&secret=%s", 
-											req.getPhone() , req.getProduct_id(), 
+			String md5Src = String.format("phone=%s&product_id=%s&scope=%s&order_id=%s&time=%s&secret=%s", 
+											req.getPhone() , req.getProduct_id(), req.getScope(),
 											req.getOrder_id(), req.getTime(), secret);
 			if(!MD5Util.EncodeString(md5Src).equalsIgnoreCase(req.getSign())){//签名校验失败
 				resp.setCode(CodeConstants.ARG_ERR_SIGN);
 				resp.setMsg("订单请求异常：【签名校验失败】 ");
+				PubLog.error(resp.getMsg() + ">> " + resp);
+				return resp;
+			}
+			
+			if(req.getPhone() == null || req.getPhone().length() < 11){
+				resp.setCode(CodeConstants.ARG_ERR_PHONE_FORMAT);
+				resp.setMsg("订单请求异常：【手机号格式错误】 ");
+				PubLog.error(resp.getMsg() + ">> " + resp);
+				return resp;
+			}
+			
+			Mobile mobile = mobileMapper.selectByMobileCode(req.getPhone());
+			if(mobile == null){
+				resp.setCode(CodeConstants.ARG_ERR_PHONE_UNFOUND);
+				resp.setMsg("订单请求异常：【手机号号段不存在】 ");
 				PubLog.error(resp.getMsg() + ">> " + resp);
 				return resp;
 			}
@@ -79,16 +126,77 @@ public class OrderApiController {
 				PubLog.error(resp.getMsg() + ">> " + resp);
 				return resp;
 			}
+			
+			Quotation quotation = quotationMapper.getQuotationByDistributorCode(dist.getDistrbutorCode());
+			if(quotation == null){
+				resp.setCode(CodeConstants.ACC_ERR_NO_QUOTATION);
+				resp.setMsg("订单请求异常：【尚未配置报价单】 ");
+				PubLog.error(resp.getMsg() + ">> " + resp);
+				return resp;
+			}
+			
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("serviceCode", quotation.getServiceCode());
+			map.put("operatorCode", String.valueOf(mobile.getOperatorCode()));
+			map.put("enableArea", req.getScope());
+			map.put("provinceCode", mobile.getCity().getProvinceCode());
+
+			ProductForDistributor productForDistributor = productForDistributorMapper.getProductByOrder(map);
+			
+			if(productForDistributor == null) {
+				resp.setCode(CodeConstants.ACC_ERR_NO_PRODUCT);
+				resp.setMsg("订单请求异常：【流量包尚未配置】 ");
+				PubLog.error(resp.getMsg() + ">> " + resp);
+				return resp;
+			}
+			
+			// 如果不显示省包，查找给分销商查看的流量包信息
+			ProductForDistributor virtualProductForDistributor = null;
+			if(quotation.getIsDisplayProvince() == 0) {
+				virtualProductForDistributor = productForDistributorMapper.getVirtualProductByOrder(map);
+				if(virtualProductForDistributor.getPrice()*virtualProductForDistributor.getDiscount() < productForDistributor.getPrice()*productForDistributor.getDiscount()) {
+					virtualProductForDistributor = productForDistributor;
+				}
+			}else {
+				virtualProductForDistributor = productForDistributor;
+			}
+			
+			if(dist.getBalance() - dist.getFreezing() - virtualProductForDistributor.getPrice()*virtualProductForDistributor.getDiscount() < 0) {
+				resp.setCode(CodeConstants.ACC_ERR_NO_BALANCE);
+				resp.setMsg("订单请求异常：【余额不足】 ");
+				PubLog.error(resp.getMsg() + ">> " + resp);
+				return resp;
+			}
+			
 			//step4: 订单信息初始化入库
 			Order order = new Order();
 			order.setOrderCode(KeyGenerate.getOrderCode());
-			order.setPhone(req.getPhone());
-			order.setDistributorCode(dist.getDistrbutorCode());
-			order.setCreateDate(new Date());
 			order.setDistributorOrderCode(req.getOrder_id());
+			order.setOperatorCode(String.valueOf(mobile.getOperatorCode()));
+			order.setProviderCode(productForDistributor.getProviderCode());
+			order.setDistributorCode(dist.getDistrbutorCode());
+			order.setPhone(req.getPhone());
+			order.setPhoneProvince(mobile.getCity().getProvince().getProvinceName());
+			order.setPhoneCity(mobile.getCity().getCityName());
 			order.setSize(req.getProduct_id());//流量包大小为流量大小以M为单位，1G为1024
+			order.setPrice(new BigDecimal(productForDistributor.getPrice()));
+			order.setDiscount(new BigDecimal(virtualProductForDistributor.getDiscount()));
+			order.setPurchased(new BigDecimal(virtualProductForDistributor.getPrice()*virtualProductForDistributor.getDiscount()));
+			order.setRealDiscount(new BigDecimal(productForDistributor.getDiscount()));
+			order.setRealPurchased(new BigDecimal(productForDistributor.getPrice()*productForDistributor.getDiscount()));
 			order.setState(CodeConstants.ORDER_STATE_INIT); 
+			order.setCreateDate(new Date());
 			orderMapper.insert(order);
+			
+			distributorMapper.deductBalance(dist.getDistrbutorCode(), order.getPurchased().doubleValue());
+			
+			CostFlow costFlow = new CostFlow();
+			costFlow.setOrderCode(order.getOrderCode());
+			costFlow.setDistributorCode(order.getDistributorCode());
+			costFlow.setCost(order.getPurchased().doubleValue());
+			costFlow.setCurrentBalance(dist.getBalance());
+			costFlow.setType(CodeConstants.COST_FLOW_TYPE_KK);
+			costFlowMapper.insert(costFlow);
 			
 			return OrderResponse.SUCCESS;
 		} catch (Exception e) {
@@ -167,6 +275,9 @@ public class OrderApiController {
 		}else if(StringUtils.isEmpty(req.getPhone())){
 			msg = "phone参数缺失,请检查请求！" ;
 			code = CodeConstants.ARG_ERR_PHONE;
+		}else if(StringUtils.isEmpty(req.getScope())){
+			msg = "scope参数缺失,请检查请求！" ;
+			code = CodeConstants.ARG_ERR_SCOPE;
 		}else if(StringUtils.isEmpty(req.getProduct_id()+"")){
 			msg = "product_id参数缺失,请检查请求！" ;
 			code = CodeConstants.ARG_ERR_PRODUCT;
@@ -177,10 +288,6 @@ public class OrderApiController {
 			msg = "Sign参数缺失,请检查请求！" ;
 			code = CodeConstants.ARG_ERR_SIGN;
 		}
-		
 		return new OrderResponse(code, msg);
-		
 	}
-	
-
 }

@@ -35,6 +35,8 @@ public interface DistributorMapper {
     
     void addBalance(@Param("distributorCode")String distributorCode, @Param("balance")Double balance);
 
+    void deductBalance(@Param("distributorCode")String distributorCode, @Param("amount")Double amount);
+    
     int updateByPrimaryKeySelective(Distributor record);
 
     int updateByPrimaryKey(Distributor record);

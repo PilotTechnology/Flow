@@ -1,6 +1,7 @@
 package com.flow.system.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -22,4 +23,8 @@ public interface ProductForDistributorMapper {
     List<ProductForDistributor> listPage(@Param("start") Integer start , @Param("pageSize") Integer pageSize, @Param("quotationCode") String quotationCode);
 
 	Long getCountWithQuotationCode(String quotationCode);
+	
+	ProductForDistributor getProductByOrder(Map<String, String> map);
+	
+	ProductForDistributor getVirtualProductByOrder(Map<String, String> map);
 }

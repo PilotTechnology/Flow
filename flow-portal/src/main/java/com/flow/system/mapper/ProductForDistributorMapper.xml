@@ -10,6 +10,7 @@
     <result column="PRODUCT_NAME" jdbcType="VARCHAR" property="prodcutName" />
     <result column="OPERATOR_NAME" jdbcType="VARCHAR" property="operatorName" />
     <result column="PROVIDER_NAME" jdbcType="VARCHAR" property="providerName" />
+    <result column="PROVIDER_CODE" jdbcType="VARCHAR" property="providerCode" />
     <result column="PRO_PRODUCT_CODE" jdbcType="VARCHAR" property="proProductCode" />
     <result column="PROVINCE_NAME" jdbcType="VARCHAR" property="provinceName" />
     <result column="ENABLE_AREA" jdbcType="INTEGER" property="enableArea" />
@@ -23,7 +24,7 @@
   <select id="listPage" resultMap="BaseResultMap">
   	select a.ID as ID, a.SERVICE_CODE as SERVICE_CODE, a.PRODUCT_CODE as PRODUCT_CODE, a.DISCOUNT as DISCOUNT, a.STATE as STATE,
 		c.PRODCUT_NAME as PRODUCT_NAME, d.OPERATOR_NAME as OPERATOR_NAME, e.NAME as PROVIDER_NAME, c.PRO_PRODUCT_CODE as PRO_PRODUCT_CODE,
-		f.PROVINCE_NAME as PROVINCE_NAME, c.ENABLE_AREA as ENABLE_AREA, c.PRIORITY as PRIORITY, c.SIZE as SIZE, c.PRICE asPRICE
+		f.PROVINCE_NAME as PROVINCE_NAME, c.ENABLE_AREA as ENABLE_AREA, c.PRIORITY as PRIORITY, c.SIZE as SIZE, c.PRICE as PRICE
 	from t_flow_serv_prod a
 	INNER JOIN t_flow_service b ON a.SERVICE_CODE = b.SERVICE_CODE
 	INNER JOIN t_flow_product c ON c.PRODUCT_CODE = a.PRODUCT_CODE
@@ -36,6 +37,30 @@
   <select id="getCountWithQuotationCode" resultType="java.lang.Long">
   	SELECT COUNT(1) FROM t_flow_serv_prod 
   	where SERVICE_CODE = #{quotationCode}
+  </select>
+  <select id="getProductByOrder" resultMap="BaseResultMap">
+  	select a.ID as ID, a.SERVICE_CODE as SERVICE_CODE, a.PRODUCT_CODE as PRODUCT_CODE, a.DISCOUNT as DISCOUNT, 
+		c.PROVIDER_CODE as PROVIDER_CODE, 
+		c.PRO_PRODUCT_CODE as PRO_PRODUCT_CODE, c.PRIORITY as PRIORITY, c.SIZE as SIZE, c.PRICE as PRICE
+	from t_flow_serv_prod a
+	inner join t_flow_service b
+	inner join t_flow_product c
+	where a.SERVICE_CODE = b.SERVICE_CODE and a.PRODUCT_CODE = c.PRODUCT_CODE
+		and b.SERVICE_CODE = #{serviceCode} and a.state = 1 and c.STATE = 1 and c.OPERATOR_CODE = #{operatorCode} and c.SIZE = #{size}
+		and c.ENABLE_AREA = #{enableArea} and (c.PROVINCE_CODE = #{provinceCode} or c.PROVINCE_CODE = "32") 
+	ORDER BY c.PRIORITY DESC, c.PRICE * a.DISCOUNT ASC LIMIT 1
+  </select>
+  <select id="getVirtualProductByOrder" resultMap="BaseResultMap">
+  	select a.ID as ID, a.SERVICE_CODE as SERVICE_CODE, a.PRODUCT_CODE as PRODUCT_CODE, a.DISCOUNT as DISCOUNT, 
+		c.PROVIDER_CODE as PROVIDER_CODE, 
+		c.PRO_PRODUCT_CODE as PRO_PRODUCT_CODE, c.PRIORITY as PRIORITY, c.SIZE as SIZE, c.PRICE as PRICE
+	from t_flow_serv_prod a
+	inner join t_flow_service b
+	inner join t_flow_product c
+	where a.SERVICE_CODE = b.SERVICE_CODE and a.PRODUCT_CODE = c.PRODUCT_CODE
+		and b.SERVICE_CODE = #{serviceCode} and a.state = 1 and c.STATE = 1 and c.OPERATOR_CODE = #{operatorCode} and c.SIZE = #{size}
+		and c.ENABLE_AREA = #{enableArea} and c.PROVINCE_CODE = "32" 
+	ORDER BY c.PRIORITY DESC, c.PRICE * a.DISCOUNT ASC LIMIT 1
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select a.ID as ID, a.SERVICE_CODE as SERVICE_CODE, a.PRODUCT_CODE as PRODUCT_CODE, a.DISCOUNT as DISCOUNT, a.STATE as STATE,

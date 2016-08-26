@@ -21,10 +21,4 @@ public interface MobileMapper {
     List<Mobile> listPage(Map<String, Object> map);
 
 	Long getCount(Map<String, Object> map);
-	
-	/**
-	 * 获取电话归属地
-	 * @return
-	 */
-	String getMobile(String mobileCode);
 }

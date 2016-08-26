@@ -115,12 +115,17 @@
     from t_flow_distributor
     where DISTRBUTOR_CODE = #{distributorCode,jdbcType=VARCHAR}
   </select>
-  <select id="addBalance" resultType="java.lang.Double">
+  <select id="addBalance">
     update t_flow_distributor
     set BALANCE = BALANCE + #{balance,jdbcType=DOUBLE}
     where DISTRBUTOR_CODE = #{distributorCode,jdbcType=VARCHAR}
   </select>
   
+  <select id="deductBalance">
+    update t_flow_distributor
+    set BALANCE = BALANCE - #{amount,jdbcType=DOUBLE}
+    where DISTRBUTOR_CODE = #{distributorCode,jdbcType=VARCHAR}
+  </select>
   
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 

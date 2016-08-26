@@ -14,6 +14,7 @@ public class Order {
 	private String phone;					//接口1写值>> 平台订单编号
 	private String phoneProvince;
 	private String phoneCity;
+	private String productCode;
 	private Integer size;					
 	private BigDecimal price;
 	private BigDecimal discount;
@@ -111,6 +112,14 @@ public class Order {
 
 	public void setPhoneCity(String phoneCity) {
 		this.phoneCity = phoneCity == null ? null : phoneCity.trim();
+	}
+	
+	public String getProductCode() {
+		return productCode;
+	}
+
+	public void setProductCode(String productCode) {
+		this.productCode = productCode == null ? null : productCode.trim();
 	}
 
 	public Integer getSize() {
