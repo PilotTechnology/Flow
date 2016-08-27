@@ -108,7 +108,7 @@ public class OrderTask extends AbstractTimerTask{
 						PubLog.warn("下游：" + distributor.getCompany() + ": 余额已不足！！");
 						distributorMap.remove(distributor);  
 						continue;
-					}else if(distributor.getBalance() > 100 && //余额低于100时 (只发一次邮件)
+					}else if(distributor.getBalance() >= 100 && //余额低于100时 (只发一次邮件)
 							(distributor.getBalance() - order.getRealPurchased().doubleValue()) < 100){
 						//邮件告警
 						sendMail(distributor);

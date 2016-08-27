@@ -1,9 +1,12 @@
 package com.flow.api.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -19,6 +22,8 @@ import com.flow.pub.common.CodeConstants;
 import com.flow.pub.common.KeyGenerate;
 import com.flow.pub.common.PubLog;
 import com.flow.pub.util.MD5Util;
+import com.flow.pub.util.MailUtils;
+import com.flow.pub.util.PropertisUtil;
 import com.flow.system.mapper.CostFlowMapper;
 import com.flow.system.mapper.DistributorMapper;
 import com.flow.system.mapper.MobileMapper;
@@ -66,7 +71,7 @@ public class OrderApiController {
 	 */
 	@RequestMapping(value = "/order.do", method = RequestMethod.GET)
 	@ResponseBody
-	public OrderResponse get(OrderRequest req){
+	public OrderResponse get(OrderRequest req, HttpServletRequest request){
 		try {
 			OrderResponse resp = checkParam(req);
 			//step1 :参数非空校验
@@ -87,6 +92,13 @@ public class OrderApiController {
 			if(String.valueOf(dist.getState()).equals(CodeConstants.USER_STATE_OFF)){
 				resp.setCode(CodeConstants.ACC_ERR_IS_FORBIDDEN);
 				resp.setMsg("订单请求异常：【账户被禁用】 ");
+				PubLog.error(resp.getMsg() + ">> " + resp);
+				return resp;
+			}
+			
+			if(!dist.getConfiningIp().contains(request.getRemoteAddr())){
+				resp.setCode(CodeConstants.ACC_ERR_IP);
+				resp.setMsg("订单请求异常：【ip不在白名单】 ");
 				PubLog.error(resp.getMsg() + ">> " + resp);
 				return resp;
 			}
@@ -154,7 +166,11 @@ public class OrderApiController {
 			ProductForDistributor virtualProductForDistributor = null;
 			if(quotation.getIsDisplayProvince() == 0) {
 				virtualProductForDistributor = productForDistributorMapper.getVirtualProductByOrder(map);
-				if(virtualProductForDistributor.getPrice()*virtualProductForDistributor.getDiscount() < productForDistributor.getPrice()*productForDistributor.getDiscount()) {
+				if(virtualProductForDistributor == null) {
+					virtualProductForDistributor = productForDistributor;
+				}else if(virtualProductForDistributor.getPrice()*virtualProductForDistributor.getDiscount() < productForDistributor.getPrice()*productForDistributor.getDiscount()) {
+					virtualProductForDistributor = productForDistributor;
+				}else {
 					virtualProductForDistributor = productForDistributor;
 				}
 			}else {
@@ -197,6 +213,12 @@ public class OrderApiController {
 			costFlow.setCurrentBalance(dist.getBalance());
 			costFlow.setType(CodeConstants.COST_FLOW_TYPE_KK);
 			costFlowMapper.insert(costFlow);
+			
+			if(dist.getBalance() >= 100 && //余额低于100时 (只发一次邮件)
+					(dist.getBalance() - order.getPurchased().doubleValue()) < 100){
+				//邮件告警
+				sendMail(dist);
+			}
 			
 			return OrderResponse.SUCCESS;
 		} catch (Exception e) {
@@ -289,5 +311,31 @@ public class OrderApiController {
 			code = CodeConstants.ARG_ERR_SIGN;
 		}
 		return new OrderResponse(code, msg);
+	}
+	
+	/**
+	 * 发送告警邮件
+	 * @param distributor
+	 */
+	private void sendMail(Distributor distributor) {
+		String smtpServer=PropertisUtil.getValue("smtpServer").trim();
+		String userName=PropertisUtil.getValue("userName").trim();
+		String passWord=PropertisUtil.getValue("passWord").trim();
+		String fromMail=PropertisUtil.getValue("fromMail").trim();
+		String mailTo= distributor.getUser().getEmail();
+		String mailSubject="【**】流量平台余额告警";
+		StringBuilder mailContent=new StringBuilder(distributor.getUser().getNickname()+"， 您好！：");
+		mailContent.append("\n");
+		mailContent.append("\t\t 您当前的平台账户余额为：" + distributor.getBalance() + "元， 请注意及时充值！");
+
+		try {
+			boolean flag=MailUtils.sendMails(smtpServer, userName, passWord, fromMail, mailTo, mailSubject, mailContent.toString(), null);
+			if(flag){
+				PubLog.info("邮件发送成功!");
+			}
+		} catch (UnsupportedEncodingException e1) {
+			PubLog.error("邮件发送失败!");
+			e1.printStackTrace();
+		}
 	}
 }

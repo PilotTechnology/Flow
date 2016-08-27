@@ -25,7 +25,7 @@ public class CodeConstants {
 	public static final String ACC_ERR_IS_FORBIDDEN = "1005";	//账户被禁用
 	public static final String ACC_ERR_NO_BALANCE = "1006"; 	//账户余额不足
 	public static final String ACC_ERR_NO_PRODUCT = "1007"; 	//流量包未配置
-	
+	public static final String ACC_ERR_IP = "1008"; 			//ip不在白名单
 	
 	//订单状态
 	public static final int ORDER_STATE_INIT = 0;				//处理中

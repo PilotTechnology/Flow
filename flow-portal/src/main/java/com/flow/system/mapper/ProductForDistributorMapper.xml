@@ -47,7 +47,7 @@
 	inner join t_flow_product c
 	where a.SERVICE_CODE = b.SERVICE_CODE and a.PRODUCT_CODE = c.PRODUCT_CODE
 		and b.SERVICE_CODE = #{serviceCode} and a.state = 1 and c.STATE = 1 and c.OPERATOR_CODE = #{operatorCode} and c.SIZE = #{size}
-		and c.ENABLE_AREA = #{enableArea} and (c.PROVINCE_CODE = #{provinceCode} or c.PROVINCE_CODE = "32") 
+		and c.ENABLE_AREA = #{enableArea} and (c.PROVINCE_CODE = #{provinceCode} or c.PROVINCE_CODE = '32') 
 	ORDER BY c.PRIORITY DESC, c.PRICE * a.DISCOUNT ASC LIMIT 1
   </select>
   <select id="getVirtualProductByOrder" resultMap="BaseResultMap">
@@ -59,7 +59,7 @@
 	inner join t_flow_product c
 	where a.SERVICE_CODE = b.SERVICE_CODE and a.PRODUCT_CODE = c.PRODUCT_CODE
 		and b.SERVICE_CODE = #{serviceCode} and a.state = 1 and c.STATE = 1 and c.OPERATOR_CODE = #{operatorCode} and c.SIZE = #{size}
-		and c.ENABLE_AREA = #{enableArea} and c.PROVINCE_CODE = "32" 
+		and c.ENABLE_AREA = #{enableArea} and c.PROVINCE_CODE = '32' 
 	ORDER BY c.PRIORITY DESC, c.PRICE * a.DISCOUNT ASC LIMIT 1
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
