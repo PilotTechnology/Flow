@@ -109,5 +109,5 @@
     </script>
     <script type="text/javascript" src="../../assets/js/demo/charts/chart_filled_blue.js">
     </script>
-    <script type="text/javascript" src="../../assets/js/demo/charts/chart_simple.js">
-    </script>
+    <script type="text/javascript" src="../../assets/js/demo/charts/chart_pie.js"></script>
+    <script type="text/javascript" src="../../plugins/flot/jquery.flot.pie.min.js"></script>

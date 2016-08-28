@@ -388,6 +388,31 @@
               </div>
             </div>
           </div>
+          
+          <!-- 饼状图 start-->
+          <div class="row">
+          	 <div class="col-md-12">
+          	 	<div class="widget box">
+          	 		<div class="widget-header">
+                  		<h4><i class="icon-reorder"></i>订单饼图</h4>
+                  		<div class="toolbar no-padding">
+		                	<div class="btn-group">
+		                      <span class="btn btn-xs widget-collapse">
+		                        <i class="icon-angle-down"></i>
+		                      </span>
+		                    </div>
+		                </div>
+                	</div>
+                	
+                	<div class="widget-content">
+	                  <div id="chart_pie" class="chart">
+	                  </div>
+	                </div>
+          	 	</div>
+          	 </div>
+          </div>
+          <!-- 饼状图 end-->
+          
           <div class="row">
             <div class="col-md-12">
               <div class="widget box">
