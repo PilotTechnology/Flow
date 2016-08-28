@@ -17,10 +17,10 @@ public class TimerTaskMain {
 
 	
 	/**
-	 * 每日4点执行定时任务
+	 * 每5分钟执行一次
 	 * @throws Exception
 	 */
-	@Scheduled(cron = "0 0 4 * * ?")
+	@Scheduled(cron = "* /5 * * * *")
 	public void orderTask() throws Exception {
 		Date fdate = new Date();
 		
@@ -38,10 +38,10 @@ public class TimerTaskMain {
 	
 	
 	/**
-	 * 每日4点执行定时任务
+	 * 每5分钟执行一次
 	 * @throws Exception
 	 */
-	@Scheduled(cron = "0 0 4 * * ?")
+	@Scheduled(cron = "* /5 * * * *")
 	public void callBackTask() throws Exception {
 		Date fdate = new Date();
 		
