@@ -30,14 +30,18 @@ public interface OrderMapper {
 	public int getOrderByAppKey(@Param("app_key") String appkey, @Param("order_id") String order_id);
 	
 	/**
-	 * 订单初始信息入库
-	 * @param order
-	 * @return
-	 */
-	public int insert(Order order);
-	/**
 	 * 根据上游回调更新订单信息
 	 * @param order
 	 */
-	void updateOrder(Order order);
+//	void updateOrder(Order order);
+	
+	void updateOrderState();
+
+    int insert(Order record);
+
+    int insertSelective(Order record);
+
+    int updateByOrderCodeSelective(Order record);
+
+    int updateByPrimaryKey(Order record);
 }

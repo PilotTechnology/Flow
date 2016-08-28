@@ -31,12 +31,4 @@ public interface ProductMapper {
 	Long getCount(Map<String, Object> map);
 
 	List<Product> findAllProduct();
-	
-	/**
-	 * 根据订单和报价单拿到最佳折扣流量包
-	 * @param quotation
-	 * @param order
-	 * @return
-	 */
-	Product findProductByService(@Param("quotation") Quotation quotation, @Param("order") Order order);
 }

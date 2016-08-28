@@ -1,13 +1,6 @@
-package com.flow.api.model;
+package com.flow.api.provider.test;
 
-/**
- * 平台回调请求参数
- * 
- * @author MK
- *
- */
-public class CallBackRequest {
-
+public class TestCallbackRequest {
 	private String order_id;
 	private String p_order_id;
 	private String code;
@@ -44,5 +37,4 @@ public class CallBackRequest {
 	public void setMsg(String msg) {
 		this.msg = msg;
 	}
-
 }

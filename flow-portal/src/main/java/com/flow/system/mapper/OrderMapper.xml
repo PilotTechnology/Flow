@@ -33,9 +33,9 @@
   </resultMap>
   <sql id="Base_Column_List">
     ID, ORDER_CODE, PROVIDER_ORDER_CODE, DISTRIBUTOR_ORDER_CODE, OPERATOR_CODE, PROVIDER_CODE, 
-    DISTRIBUTOR_CODE, PHONE, PHONE_PROVINCE, PHONE_CITY, PRODUCT_CODE, SIZE, PRICE, DISCOUNT, PURCHASED, 
-    REAL_DISCOUNT, REAL_PURCHASED, STATE, PLATFORM_ERROR_CODE, NOTICE_STATE, ERROR_TIME, 
-    CREATE_DATE, CALLBACK_DATE, CALLBACK_CODE, CALLBACK_CODE_MESS
+    DISTRIBUTOR_CODE, PHONE, PHONE_PROVINCE, PHONE_CITY, PRODUCT_CODE, SIZE, PRICE, DISCOUNT, 
+    PURCHASED, REAL_DISCOUNT, REAL_PURCHASED, STATE, PLATFORM_ERROR_CODE, NOTICE_STATE, 
+    ERROR_TIME, CREATE_DATE, CALLBACK_DATE, CALLBACK_CODE, CALLBACK_CODE_MESS
   </sql>
   
   <sql id="query_body">
@@ -79,34 +79,297 @@
 	INNER JOIN t_base_operator c ON a.OPERATOR_CODE = c.ID
 	where a.ORDER_CODE = #{orderCode,jdbcType=VARCHAR}
   </select>
-	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
-		resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from t_flow_order
-		where ID = #{id,jdbcType=INTEGER}
-	</select>
-	
-	<select id="getOrderByAppKey" resultType="int">
+  <select id="getOrderByAppKey" resultType="int">
 		SELECT COUNT(1) FROM t_flow_order a
 		INNER JOIN t_flow_distributor b ON a.DISTRIBUTOR_CODE = b.DISTRBUTOR_CODE
 		WHERE b.APP_KEY = #{app_key} AND a.DISTRIBUTOR_ORDER_CODE = #{order_id}
-	</select>
+  </select>
 	
-	<insert id="insert" parameterType="com.flow.system.model.Order">
-		insert into t_flow_order (ORDER_CODE , DISTRIBUTOR_ORDER_CODE,DISTRIBUTOR_CODE, 
-								PHONE, SIZE,STATE, CREATE_DATE)
-		values(#{orderCode,jdbcType=VARCHAR},#{distributorOrderCode,jdbcType=VARCHAR},
-			   #{distributorCode,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
-			   #{size,jdbcType=INTEGER},#{state,jdbcType=INTEGER},#{createDate,jdbcType=TIMESTAMP})
-	</insert>
-	
-	<!-- 更新订单 -->
-	<update id="updateOrder" parameterType="com.flow.system.model.Order">
+  <!-- 更新订单 -->
+  <!-- <update id="updateOrder" parameterType="com.flow.system.model.Order">
 		 UPDATE t_flow_order 
 		 SET STATE = #{state,jdbcType=INTEGER} , CALLBACK_DATE = #{callbackDate,jdbcType=TIMESTAMP},
 			 CALLBACK_CODE = #{callbackCode,jdbcType=VARCHAR} , PROVIDER_ORDER_CODE = #{providerOrderCode},
 			 CALLBACK_CODE_MESS = #{callbackCodeMess,jdbcType=VARCHAR},
 		 WHERE ORDER_CODE = #{orderCode}
-	</update>
+  </update> -->
+  <insert id="insert" parameterType="com.flow.system.model.Order">
+    insert into t_flow_order (ID, ORDER_CODE, PROVIDER_ORDER_CODE, 
+      DISTRIBUTOR_ORDER_CODE, OPERATOR_CODE, PROVIDER_CODE, 
+      DISTRIBUTOR_CODE, PHONE, PHONE_PROVINCE, 
+      PHONE_CITY, PRODUCT_CODE, SIZE, 
+      PRICE, DISCOUNT, PURCHASED, 
+      REAL_DISCOUNT, REAL_PURCHASED, STATE, 
+      PLATFORM_ERROR_CODE, NOTICE_STATE, ERROR_TIME, 
+      CREATE_DATE, CALLBACK_DATE, CALLBACK_CODE, 
+      CALLBACK_CODE_MESS)
+    values (#{id,jdbcType=INTEGER}, #{orderCode,jdbcType=VARCHAR}, #{providerOrderCode,jdbcType=VARCHAR}, 
+      #{distributorOrderCode,jdbcType=VARCHAR}, #{operatorCode,jdbcType=VARCHAR}, #{providerCode,jdbcType=VARCHAR}, 
+      #{distributorCode,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{phoneProvince,jdbcType=VARCHAR}, 
+      #{phoneCity,jdbcType=VARCHAR}, #{productCode,jdbcType=VARCHAR}, #{size,jdbcType=INTEGER}, 
+      #{price,jdbcType=DOUBLE}, #{discount,jdbcType=DOUBLE}, #{purchased,jdbcType=DOUBLE}, 
+      #{realDiscount,jdbcType=DOUBLE}, #{realPurchased,jdbcType=DOUBLE}, #{state,jdbcType=INTEGER}, 
+      #{platformErrorCode,jdbcType=VARCHAR}, #{noticeState,jdbcType=INTEGER}, #{errorTime,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{callbackDate,jdbcType=TIMESTAMP}, #{callbackCode,jdbcType=VARCHAR}, 
+      #{callbackCodeMess,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.flow.system.model.Order">
+    insert into t_flow_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="orderCode != null">
+        ORDER_CODE,
+      </if>
+      <if test="providerOrderCode != null">
+        PROVIDER_ORDER_CODE,
+      </if>
+      <if test="distributorOrderCode != null">
+        DISTRIBUTOR_ORDER_CODE,
+      </if>
+      <if test="operatorCode != null">
+        OPERATOR_CODE,
+      </if>
+      <if test="providerCode != null">
+        PROVIDER_CODE,
+      </if>
+      <if test="distributorCode != null">
+        DISTRIBUTOR_CODE,
+      </if>
+      <if test="phone != null">
+        PHONE,
+      </if>
+      <if test="phoneProvince != null">
+        PHONE_PROVINCE,
+      </if>
+      <if test="phoneCity != null">
+        PHONE_CITY,
+      </if>
+      <if test="productCode != null">
+        PRODUCT_CODE,
+      </if>
+      <if test="size != null">
+        SIZE,
+      </if>
+      <if test="price != null">
+        PRICE,
+      </if>
+      <if test="discount != null">
+        DISCOUNT,
+      </if>
+      <if test="purchased != null">
+        PURCHASED,
+      </if>
+      <if test="realDiscount != null">
+        REAL_DISCOUNT,
+      </if>
+      <if test="realPurchased != null">
+        REAL_PURCHASED,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="platformErrorCode != null">
+        PLATFORM_ERROR_CODE,
+      </if>
+      <if test="noticeState != null">
+        NOTICE_STATE,
+      </if>
+      <if test="errorTime != null">
+        ERROR_TIME,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="callbackDate != null">
+        CALLBACK_DATE,
+      </if>
+      <if test="callbackCode != null">
+        CALLBACK_CODE,
+      </if>
+      <if test="callbackCodeMess != null">
+        CALLBACK_CODE_MESS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderCode != null">
+        #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="providerOrderCode != null">
+        #{providerOrderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="distributorOrderCode != null">
+        #{distributorOrderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorCode != null">
+        #{operatorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="providerCode != null">
+        #{providerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="distributorCode != null">
+        #{distributorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneProvince != null">
+        #{phoneProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneCity != null">
+        #{phoneCity,jdbcType=VARCHAR},
+      </if>
+      <if test="productCode != null">
+        #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="discount != null">
+        #{discount,jdbcType=DOUBLE},
+      </if>
+      <if test="purchased != null">
+        #{purchased,jdbcType=DOUBLE},
+      </if>
+      <if test="realDiscount != null">
+        #{realDiscount,jdbcType=DOUBLE},
+      </if>
+      <if test="realPurchased != null">
+        #{realPurchased,jdbcType=DOUBLE},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="platformErrorCode != null">
+        #{platformErrorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeState != null">
+        #{noticeState,jdbcType=INTEGER},
+      </if>
+      <if test="errorTime != null">
+        #{errorTime,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callbackDate != null">
+        #{callbackDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callbackCode != null">
+        #{callbackCode,jdbcType=VARCHAR},
+      </if>
+      <if test="callbackCodeMess != null">
+        #{callbackCodeMess,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByOrderCodeSelective" parameterType="com.flow.system.model.Order">
+    update t_flow_order
+    <set>
+      <if test="providerOrderCode != null">
+        PROVIDER_ORDER_CODE = #{providerOrderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="distributorOrderCode != null">
+        DISTRIBUTOR_ORDER_CODE = #{distributorOrderCode,jdbcType=VARCHAR},
+      </if>
+      <!-- <if test="operatorCode != null">
+        OPERATOR_CODE = #{operatorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="providerCode != null">
+        PROVIDER_CODE = #{providerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="distributorCode != null">
+        DISTRIBUTOR_CODE = #{distributorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneProvince != null">
+        PHONE_PROVINCE = #{phoneProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneCity != null">
+        PHONE_CITY = #{phoneCity,jdbcType=VARCHAR},
+      </if>
+      <if test="productCode != null">
+        PRODUCT_CODE = #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        SIZE = #{size,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        PRICE = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="discount != null">
+        DISCOUNT = #{discount,jdbcType=DOUBLE},
+      </if>
+      <if test="purchased != null">
+        PURCHASED = #{purchased,jdbcType=DOUBLE},
+      </if>
+      <if test="realDiscount != null">
+        REAL_DISCOUNT = #{realDiscount,jdbcType=DOUBLE},
+      </if>
+      <if test="realPurchased != null">
+        REAL_PURCHASED = #{realPurchased,jdbcType=DOUBLE},
+      </if> -->
+      <if test="state != null">
+        STATE = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="platformErrorCode != null">
+        PLATFORM_ERROR_CODE = #{platformErrorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeState != null">
+        NOTICE_STATE = #{noticeState,jdbcType=INTEGER},
+      </if>
+      <if test="errorTime != null">
+        ERROR_TIME = #{errorTime,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callbackDate != null">
+        CALLBACK_DATE = #{callbackDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callbackCode != null">
+        CALLBACK_CODE = #{callbackCode,jdbcType=VARCHAR},
+      </if>
+      <if test="callbackCodeMess != null">
+        CALLBACK_CODE_MESS = #{callbackCodeMess,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ORDER_CODE = #{orderCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.flow.system.model.Order">
+    update t_flow_order
+    set PROVIDER_ORDER_CODE = #{providerOrderCode,jdbcType=VARCHAR},
+      DISTRIBUTOR_ORDER_CODE = #{distributorOrderCode,jdbcType=VARCHAR},
+      <!-- OPERATOR_CODE = #{operatorCode,jdbcType=VARCHAR},
+      PROVIDER_CODE = #{providerCode,jdbcType=VARCHAR},
+      DISTRIBUTOR_CODE = #{distributorCode,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      PHONE_PROVINCE = #{phoneProvince,jdbcType=VARCHAR},
+      PHONE_CITY = #{phoneCity,jdbcType=VARCHAR},
+      PRODUCT_CODE = #{productCode,jdbcType=VARCHAR},
+      SIZE = #{size,jdbcType=INTEGER},
+      PRICE = #{price,jdbcType=DOUBLE},
+      DISCOUNT = #{discount,jdbcType=DOUBLE},
+      PURCHASED = #{purchased,jdbcType=DOUBLE},
+      REAL_DISCOUNT = #{realDiscount,jdbcType=DOUBLE},
+      REAL_PURCHASED = #{realPurchased,jdbcType=DOUBLE}, -->
+      STATE = #{state,jdbcType=INTEGER},
+      PLATFORM_ERROR_CODE = #{platformErrorCode,jdbcType=VARCHAR},
+      NOTICE_STATE = #{noticeState,jdbcType=INTEGER},
+      ERROR_TIME = #{errorTime,jdbcType=INTEGER},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      CALLBACK_DATE = #{callbackDate,jdbcType=TIMESTAMP},
+      CALLBACK_CODE = #{callbackCode,jdbcType=VARCHAR},
+      CALLBACK_CODE_MESS = #{callbackCodeMess,jdbcType=VARCHAR}
+    where ORDER_CODE = #{orderCode,jdbcType=VARCHAR}
+  </update>
 </mapper>

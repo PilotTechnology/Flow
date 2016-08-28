@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.flow.api.model.CallBackRequest;
 import com.flow.api.model.OrderRequest;
 import com.flow.api.model.OrderResponse;
 import com.flow.pub.common.CodeConstants;
@@ -109,8 +108,8 @@ public class OrderApiController {
 											req.getPhone() , req.getProduct_id(), req.getScope(),
 											req.getOrder_id(), req.getTime(), secret);
 			if(!MD5Util.EncodeString(md5Src).equalsIgnoreCase(req.getSign())){//签名校验失败
-				resp.setCode(CodeConstants.ARG_ERR_SIGN);
-				resp.setMsg("订单请求异常：【签名校验失败】 ");
+				resp.setCode(CodeConstants.ARG_ERR_SIGN_MISMATCH);
+				resp.setMsg("订单请求异常：【签名校验不匹配】 ");
 				PubLog.error(resp.getMsg() + ">> " + resp);
 				return resp;
 			}
@@ -202,6 +201,8 @@ public class OrderApiController {
 			order.setRealPurchased(new BigDecimal(productForDistributor.getPrice()*productForDistributor.getDiscount()));
 			order.setState(CodeConstants.ORDER_STATE_INIT); 
 			order.setCreateDate(new Date());
+			order.setNoticeState(1);
+			order.setErrorTime(0);
 			orderMapper.insert(order);
 			
 			distributorMapper.deductBalance(dist.getDistrbutorCode(), order.getPurchased().doubleValue());
@@ -227,57 +228,6 @@ public class OrderApiController {
 			return OrderResponse.SYS_ERR;
 		}
 		
-	}
-	
-	/**
-	 * 平台回调地址，上游通知平台订单结果
-	 * @param req
-	 * @return
-	 */
-	@RequestMapping(value = "/callback.do", method = RequestMethod.GET)
-	@ResponseBody
-	public OrderResponse callback(CallBackRequest req){
-		OrderResponse resp = checkCallBackParam(req);
-		//step1 :参数非空校验
-		if(!StringUtils.isEmpty(resp.getMsg())){//非空校验
-			PubLog.error("订单请求异常：【参数缺失】 >>" + resp);
-			return resp;
-		}
-		
-		//更新订单
-		Order order = new Order();
-		order.setOrderCode(req.getOrder_id());
-		order.setProviderOrderCode(req.getP_order_id());
-		order.setCallbackCode(req.getCode());
-		order.setCallbackCodeMess(req.getMsg());
-		order.setCallbackDate(new Date());
-		if(CodeConstants.SUCCESS.equals(req.getCode())){
-			order.setState(CodeConstants.ORDER_STATE_SUCC);
-		}else{
-			order.setState(CodeConstants.ORDER_STATE_ERR);
-		}
-		orderMapper.updateOrder(order);
-		return OrderResponse.SUCCESS;
-	}
-	
-	private OrderResponse checkCallBackParam(CallBackRequest req) {
-		String msg = "";
-		String code = "";
-		if(StringUtils.isEmpty(req.getOrder_id())){
-			msg = "平台订单号参数缺失,请检查请求！" ;
-			code = CodeConstants.ARG_ERR_ORDER;
-		}else if(StringUtils.isEmpty(req.getP_order_id())){
-			msg = "上游订单号参数缺失,请检查请求！" ;
-			code = CodeConstants.ARG_ERR_ORDER;
-		}else if(StringUtils.isEmpty(req.getMsg())){
-			msg = "返回描述参数缺失,请检查请求！" ;
-			code = CodeConstants.ARG_ERR_ORDER;
-		}else if(StringUtils.isEmpty(req.getCode())){
-			msg = "响应码参数缺失,请检查请求！" ;
-			code = CodeConstants.ARG_ERR_ORDER;
-		}
-		
-		return new OrderResponse(code, msg);
 	}
 
 	/**

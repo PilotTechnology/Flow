@@ -6,7 +6,7 @@ import com.flow.system.model.Order;
 
 public interface OrderApiMapper {
 	/**
-	 * 查询需要通知的订单列表
+	 * 查询需要订购的订单列表
 	 * @return
 	 */
 	List<Order> getOrderList();
@@ -23,4 +23,8 @@ public interface OrderApiMapper {
 	 * @return
 	 */
 	Order getOrderByDistributorOrderId(String distributorOrderId);
+	
+    void increaseNoticeErrorTime(String orderCode);
+    
+    void distributorCallbackSucc(String orderCode);
 }

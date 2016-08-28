@@ -76,16 +76,6 @@
 		where a.PRODUCT_CODE = #{productCode,jdbcType=VARCHAR}
   </select>
   
-  <!-- 根据订单与报价单拿到最佳折扣 -->
-  <select id="findProductByService" resultMap="BaseResultMap">
-  	select a.* 
-	FROM t_flow_product a
-	INNER JOIN t_flow_serv_prod b on a.PRODUCT_CODE = b.PRODUCT_CODE
-	WHERE b.SERVICE_CODE = #{quotation.serviceCode} AND a.OPERATOR_CODE = #{order.operatorCode} AND a.SIZE = #{order.size}
-	<if test="quotation.isDisplayProvince == 1"> AND a.PROVINCE_CODE = #{order.PHONE_PROVINCE}</if>
-	ORDER BY a.PRICE * a.DISCOUNT ASC LIMIT 1
-  </select>
-  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select a.*, b.OPERATOR_NAME, c.PROVINCE_NAME, d.NAME
 		from t_flow_product a
