@@ -221,6 +221,9 @@ public class OrderApiController {
 				sendMail(dist);
 			}
 			
+			OrderResponse successRes = OrderResponse.SUCCESS;
+			successRes.setOrder_id(req.getOrder_id());
+			successRes.setP_order_id(order.getOrderCode());
 			return OrderResponse.SUCCESS;
 		} catch (Exception e) {
 			e.printStackTrace();

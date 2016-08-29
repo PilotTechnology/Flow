@@ -14,10 +14,28 @@ public class OrderResponse {
 	public static final OrderResponse SYS_ERR = new OrderResponse(CodeConstants.SUCCESS,"系统错误！");
 	
 	private String code;
+	private String order_id;
+	private String p_order_id;
 	private String msg;
 	
 	public String getCode() {
 		return code;
+	}
+
+	public void setOrder_id(String order_id) {
+		this.order_id = order_id;
+	}
+	
+	public String getOrder_id() {
+		return order_id;
+	}
+	
+	public void setP_order_id(String p_order_id) {
+		this.p_order_id = p_order_id;
+	}
+	
+	public String getP_order_id() {
+		return p_order_id;
 	}
 
 	public void setCode(String code) {

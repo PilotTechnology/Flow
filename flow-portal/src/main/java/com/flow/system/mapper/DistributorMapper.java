@@ -31,6 +31,8 @@ public interface DistributorMapper {
     
     Distributor selectByDistributorInfo(String distributorInfo);
     
+    Distributor selectByUserCode(String userCode);
+    
     Double selectBanlanceByDistributorCode(String distributorCode);
     
     void addBalance(@Param("distributorCode")String distributorCode, @Param("balance")Double balance);

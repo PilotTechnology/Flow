@@ -110,6 +110,18 @@
 		INNER JOIN t_sys_user b ON a.USER_CODE = b.USER_CODE
 		where a.DISTRBUTOR_CODE like "%"#{distributorInfo}"%" or b.NICK_NAME like "%"#{distributorInfo}"%" or a.COMPANY like "%"#{distributorInfo}"%"
   </select>
+  <select id="selectByUserCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+     select a.ID as ID, a.DISTRBUTOR_CODE as DISTRBUTOR_CODE, a.USER_CODE as USER_CODE, a.OPERATOR_CODE as OPERATOR_CODE,
+			a.CHANNEL_TYPE as CHANNEL_TYPE, a.COOP_MODEL as COOP_MODEL, a.COMPANY as COMPANY, a.BALANCE as BALANCE, a.FREEZING as FREEZING,
+			a.TOTAL as TOTAL, a.SMS_CONTENT as SMS_CONTENT, a.SMS_CONTENT as SMS_CONTENT, a.STATE as STATE, a.LEVEL as LEVEL,
+			a.CALLBACK_URL as CALLBACK_URL, a.CONFINING_IP as CONFINING_IP, a.APP_KEY as APP_KEY, a.SECRET_KEY as SECRET_KEY,
+			a.FATHER_DISTRIBUTOR_CODE as FATHER_DISTRIBUTOR_CODE,
+			b.ID as U_ID, b.USER_CODE as U_CODE, b.PASSWORD as PASSWORD, b.NICK_NAME as NICK_NAME, b.LINK_MAN as LINK_MAN, b.PHONE as PHONE,
+			b.EMAIL as EMAIL, b.STATE as STATE, b.CREATE_DATE as CREATE_DATE, b.ROLE_CODE as ROLE_CODE
+		from t_flow_distributor a
+		INNER JOIN t_sys_user b ON a.USER_CODE = b.USER_CODE
+		where a.USER_CODE = #{userCode,jdbcType=VARCHAR}
+  </select>  
   <select id="selectBanlanceByDistributorCode" parameterType="java.lang.Integer" resultType="java.lang.Double">
     select BALANCE
     from t_flow_distributor
@@ -159,6 +171,15 @@
   <insert id="insertSelective" parameterType="com.flow.system.model.Distributor">
     insert into t_flow_distributor
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="distrbutorCode != null">
+        DISTRBUTOR_CODE,
+      </if>
+      <if test="userCode != null">
+        USER_CODE,
+      </if>
       <if test="operatorCode != null">
         OPERATOR_CODE,
       </if>
@@ -206,6 +227,15 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="distrbutorCode != null">
+        #{distrbutorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userCode != null">
+        #{userCode,jdbcType=VARCHAR},
+      </if>
       <if test="operatorCode != null">
         #{operatorCode,jdbcType=VARCHAR},
       </if>

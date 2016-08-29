@@ -91,8 +91,11 @@ public class DistributorController extends BaseController {
 			UserInfo loginUserInfo = (UserInfo) request.getSession().getAttribute("userInfo");
 			if (loginUserInfo.getRoleCode().equals(Constant.ADMIN_ROLE_CODE)) {
 				user.setRoleCode(Constant.DISTRIBUTOR_ROLE_CODE);
+				distributor.setFatherDistributorCode("0");
 			} else if (loginUserInfo.getRoleCode().equals(Constant.DISTRIBUTOR_ROLE_CODE)) {
 				user.setRoleCode(Constant.SON_DISTRIBUTOR_ROLE_CODE);
+				Distributor fatherDistributor = distributorService.getDistributorByUserCode(loginUserInfo.getUserCode());
+				distributor.setFatherDistributorCode(fatherDistributor.getDistrbutorCode());
 			}
 			user.setIsEnable(CodeConstants.USER_STATE_ON);
 			user.setCreateDate(new Date());

@@ -13,6 +13,8 @@ public interface DistributorService {
 	
 	Distributor getDistributorByInfo(String distributorInfo);
 	
+	Distributor getDistributorByUserCode(String userCode);
+	
 	Double getBalance(String distributorCode);
 	
 	void addBalance(String distributorCode, Double balance);

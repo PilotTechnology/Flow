@@ -5,6 +5,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.flow.pub.common.CodeConstants;
+import com.flow.system.mapper.DistributorMapper;
 import com.flow.system.mapper.OrderMapper;
 import com.flow.system.mapper.ProductMapper;
 import com.flow.system.mapper.RefundFlowMapper;
@@ -22,6 +23,9 @@ public class OrderUtil {
 	
 	@Autowired
 	ProductMapper productMapper;
+	
+	@Autowired
+	DistributorMapper distributorMapper;
 	
 	public void updateOrder(int state, String orderCode, String providerOrderCode, String code, String msg) {
 		Order order = new Order();
@@ -49,5 +53,7 @@ public class OrderUtil {
 		refund.setCreateDate(new Date());
 		
 		refundFlowMapper.insert(refund);
+		
+		distributorMapper.addBalance(order.getDistributorCode(), order.getPurchased().doubleValue());
 	}
 }
