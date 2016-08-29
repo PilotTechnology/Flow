@@ -48,7 +48,6 @@ public class RoleController extends BaseController{
 		PageUtil<SysRole> page = roleService.listPage(map);
 
 		model.addAttribute("page",page);
-		System.out.println(page);
 		return "/view/role/roleList.jsp";
 	}
 	

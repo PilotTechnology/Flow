@@ -33,5 +33,13 @@ public class OrderStatisticsServiceImpl extends AbsPageService<OrderStatistics> 
 		return orderStatisticsMapper.orderStatisticsByProvince(map);
 	}
 
+	@Override
+	public Long getCount(Map<String,Object> map){
+		return orderStatisticsMapper.getCount(map);
+	}
 	
+	@Override
+	public List<OrderStatistics> orderStatisticsByDay(Map<String,Object> map){
+		return orderStatisticsMapper.orderStatisticsByDay(map);
+	}
 }

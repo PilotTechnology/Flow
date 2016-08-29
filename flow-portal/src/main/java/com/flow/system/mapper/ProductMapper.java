@@ -3,11 +3,7 @@ package com.flow.system.mapper;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
-
-import com.flow.system.model.Order;
 import com.flow.system.model.Product;
-import com.flow.system.model.Quotation;
 
 public interface ProductMapper {
     int deleteByPrimaryKey(Integer id);

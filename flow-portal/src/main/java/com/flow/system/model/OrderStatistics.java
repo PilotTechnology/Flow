@@ -15,6 +15,8 @@ public class OrderStatistics {
     private Integer failNum;
     
     private Double moneyOfSuccess;
+    
+    private Double percent;
 
     public String getDistributorCode() {
         return distributorCode;
@@ -70,5 +72,13 @@ public class OrderStatistics {
 
     public void setMoneyOfSuccess(Double moneyOfSuccess) {
         this.moneyOfSuccess = moneyOfSuccess;
+    }
+    
+    public Double getPercent() {
+        return percent;
+    }
+
+    public void setPercent(Double percent) {
+        this.percent = percent;
     }
 }

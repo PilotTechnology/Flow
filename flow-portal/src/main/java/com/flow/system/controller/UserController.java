@@ -53,7 +53,6 @@ public class UserController extends BaseController{
 		PageUtil<UserInfo> page = userService.listPage(map);
 
 		model.addAttribute("page",page);
-		System.out.println(page);
 		return "/view/user/userList.jsp";
 	}
 	

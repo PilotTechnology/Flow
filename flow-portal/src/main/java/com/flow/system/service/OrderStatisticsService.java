@@ -9,4 +9,6 @@ public interface OrderStatisticsService {
 	List<OrderStatistics> orderStatisticsByDistributor(Map<String, Object> map);
 	List<OrderStatistics> orderStatisticsBySize(Map<String,Object> map);
 	List<OrderStatistics> orderStatisticsByProvince(Map<String,Object> map);
+	Long getCount(Map<String,Object> map);
+	List<OrderStatistics> orderStatisticsByDay(Map<String,Object> map);
 }
