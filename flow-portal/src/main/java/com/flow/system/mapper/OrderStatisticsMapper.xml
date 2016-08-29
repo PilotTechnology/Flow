@@ -8,6 +8,7 @@
     <result column="SUCCESS_NUM" jdbcType="INTEGER" property="successNum" />
     <result column="FAIL_NUM" jdbcType="INTEGER" property="failNum" />
     <result column="MONEY_OF_SUCCESS" jdbcType="DOUBLE" property="moneyOfSuccess" />
+    <result column="DAY" jdbcType="VARCHAR" property="day" />
   </resultMap>
   
   <sql id="query_body">
@@ -56,11 +57,11 @@
   	SELECT COUNT(1) FROM t_flow_order <include refid="query_body_1"/>
   </select>
   <select id="orderStatisticsByDay" resultMap="BaseResultMap" parameterType="java.util.Map">
-  	SELECT LEFT(CREATE_DATE, 10) AS DATE, COUNT(*)
+  	SELECT LEFT(CREATE_DATE, 10) AS DAY, COUNT(*)
 	FROM t_flow_order
 	<include refid="query_body_1"/>
-	GROUP BY DATE
-	ORDER BY DATE
+	GROUP BY DAY
+	ORDER BY DAY
 	LIMIT 20
   </select>
   

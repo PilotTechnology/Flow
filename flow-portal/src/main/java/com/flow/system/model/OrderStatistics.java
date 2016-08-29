@@ -17,6 +17,8 @@ public class OrderStatistics {
     private Double moneyOfSuccess;
     
     private Double percent;
+    
+    private String day;
 
     public String getDistributorCode() {
         return distributorCode;
@@ -80,5 +82,13 @@ public class OrderStatistics {
 
     public void setPercent(Double percent) {
         this.percent = percent;
+    }
+    
+    public String getDay() {
+        return day;
+    }
+    
+    public void setDay(String day) {
+        this.day = day == null ? null : day.trim();
     }
 }
