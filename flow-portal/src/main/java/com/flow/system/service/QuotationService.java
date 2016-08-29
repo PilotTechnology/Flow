@@ -1,5 +1,6 @@
 package com.flow.system.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.flow.pub.util.PageUtil;
@@ -19,4 +20,6 @@ public interface QuotationService {
 	void update(Quotation quotation);
 	
 	boolean checkExists(Quotation quotation);
+
+	List<Map<String, Object>> findProductsByServiceCode(String id);
 }

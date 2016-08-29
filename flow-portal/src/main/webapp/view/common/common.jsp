@@ -8,6 +8,8 @@
      href="http://cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.css"/>
 <link href="../../assets/css/main.css" rel="stylesheet" type="text/css" />
 
+<!-- 页面图标样式 -->
+<link rel="stylesheet" href="../../assets/css/fontawesome/font-awesome.min.css">
 <script src="http://cdn.gbtags.com/datatables/1.10.5/js/jquery.js"></script>
 <script src="http://cdn.gbtags.com/datatables/1.10.5/js/jquery.dataTables.min.js"></script>
 <script src="http://cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.js"></script>

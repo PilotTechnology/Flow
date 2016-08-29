@@ -72,7 +72,7 @@ public class QuotationServiceImpl extends AbsPageService<Quotation> implements Q
 			   pro.setProductCode(arr[0]);
 			   pro.setDiscount(Double.valueOf(arr[1]));
 			   pro.setState(1);//TODO 默认激活
-			   list.add(pro);
+  			   list.add(pro);
 		   }
 		   quotationMapper.insertServProd(quotation.getServiceCode() , list);
 		}
@@ -96,6 +96,11 @@ public class QuotationServiceImpl extends AbsPageService<Quotation> implements Q
 		}else{
 			return oldQuotation != null;
 		}
+	}
+
+	@Override
+	public List<Map<String, Object>> findProductsByServiceCode(String id) {
+		return quotationMapper.findProductsByServiceCode(id);
 	}
 
 }

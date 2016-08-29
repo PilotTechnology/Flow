@@ -42,4 +42,11 @@ public interface QuotationMapper {
 	 * @return
 	 */
 	Quotation getQuotationByDistributorCode(String distributorCode);
+	
+	/**
+	 * 获取分销商流量包
+	 * @param id
+	 * @return
+	 */
+	List<Map<String, Object>> findProductsByServiceCode(String id);
 }

@@ -4,6 +4,30 @@ $("#addButton").click(function () {
    $('#myModal_add').modal();
 });
 
+//修改报价单
+var b ;
+function to_Edit(id){
+	b = 0;
+	$.post("/portal/quotation!get.action",{"id":id},function(data){
+	    $('#myModal_edit').modal();
+	    
+	    $("#distributorName_edit").html(data.quotation.distributionName);
+	    $("#distributorDesc_edit").html("用户号:" + data.quotation.distributorCode + ", 登录名: " + data.quotation.distributorCode);
+	    $("#display_province_edit").val(data.quotation.isDisplayProvince);
+	    $("#state_edit").val(data.quotation.state);
+	    b = data.products.length;
+	    $("#product_edit").children("tbody").children("tr").remove();
+	    for(var i=0;i<b;i++){
+	    	$("#product_edit").append('<tr><td data-class="expand"> '+ i + '</td>'
+				 +'<td data-class="expand"> '+ data.products[i].productCode + '</td>'
+		 		 +'<td data-class="expand"> '+ data.products[i].productName + '</td>'
+		 		 +'<td data-class="expand"> '+ data.products[i].price       + ' </td>'
+		 		 +'<td data-class="expand"> <input style="width:35px;height:20px;" name="proDiscount" type="text" value="'+ data.products[i].discount + '"/>%</td>'
+		 		 +'<td data-class="expand"> <a href="#" onclick="javascript:$(this).parent().parent().remove();">删除</a></td></tr>');
+	    }
+    },"json");
+}
+
 //add-modal关闭时清空页面元素
 $('#myModal_add').on('hidden.bs.modal', function () {
 	$("#distributorName_add").val("");
@@ -66,9 +90,16 @@ $("#btn_sel").click(function(){
 });
 
 
-//选择cp用户弹框
-$("#product_add").click(function () {
+//选择流量包弹框
+function productAdd(divId){
 	$('#product_sel').modal();
+	if(divId == 'product_edit_add'){
+		$("#product_btn").hide();
+		$("#product_edit_btn").show();
+	}else{
+		$("#product_btn").show();
+		$("#product_edit_btn").hide();
+	}
 	$('#product_sel').on('shown.bs.modal', function () {
 		
 		if ($('#product_table').hasClass('dataTable')) {
@@ -118,7 +149,7 @@ $("#product_add").click(function () {
 		    });
 	})
 
-});
+}
 var a = 0 ;
 $("#product_btn").click(function(){
 	 $("input[name='product_sel2']").each(function(){
@@ -137,7 +168,9 @@ $("#product_btn").click(function(){
 $("#product_remove").click(function(){
 	$("#product_selected").children("tbody").children("tr").remove();
 });
-
+$("#product_edit_remove").click(function(){
+	$("#product_edit").children("tbody").children("tr").remove();
+});
 //保存报价单
 $("#btn_submit").click(function(){
 	var map ={"_method":"post"};

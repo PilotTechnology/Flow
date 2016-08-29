@@ -1,6 +1,8 @@
 package com.flow.system.controller;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +32,7 @@ import com.flow.system.service.QuotationService;
 public class QuotationController extends BaseController {
 	@Autowired
 	private QuotationService quotationService;
-	
+
 	/**
 	 * 报价单分页列表
 	 * @param request
@@ -78,6 +80,19 @@ public class QuotationController extends BaseController {
 			return new BaseResponse(Constant.JSON_FAIL, e.getMessage());
 		}
 		return Constant.successMsg;
+	}
+	
+	@RequestMapping(value = "quotation!get.action")
+	@ResponseBody
+	public Map<String,Object> getQuotation(HttpServletRequest request){
+		String id = request.getParameter("id");
+		Quotation quotation = quotationService.getQuotationByCode(id);
+		
+		List<Map<String,Object>> proList = quotationService.findProductsByServiceCode(id);
+		Map<String,Object> result = new HashMap<>();
+		result.put("quotation", quotation);
+		result.put("products", proList);
+		return result;
 	}
 	
 	/**
