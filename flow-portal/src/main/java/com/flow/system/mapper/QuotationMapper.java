@@ -49,4 +49,9 @@ public interface QuotationMapper {
 	 * @return
 	 */
 	List<Map<String, Object>> findProductsByServiceCode(String id);
+	/**
+	 * 删除流量包
+	 * @param serviceCode
+	 */
+	void deleteServProd(String serviceCode);
 }

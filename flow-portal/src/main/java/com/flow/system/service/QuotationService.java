@@ -17,7 +17,7 @@ public interface QuotationService {
 
 	void delete(Quotation quotation);
 
-	void update(Quotation quotation);
+	void update(String products , Quotation quotation);
 	
 	boolean checkExists(Quotation quotation);
 
