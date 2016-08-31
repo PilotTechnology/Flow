@@ -38,6 +38,15 @@ public class OrderStatisticsController extends BaseController{
 		//转换request参数为map
 		Map<String,Object> map = getParameterMap(request);
 		
+		UserInfo loginUserInfo = (UserInfo) request.getSession().getAttribute("userInfo");
+		Distributor distributor = distributorService.getDistributorByUserCode(loginUserInfo.getUserCode());
+		if (loginUserInfo.getRoleCode().equals(Constant.DISTRIBUTOR_ROLE_CODE)) {
+			distributor = distributorService.getDistributorByUserCode(loginUserInfo.getUserCode());
+			map.put("distributorCodeScope", distributor.getDistrbutorCode());
+		} else if (loginUserInfo.getRoleCode().equals(Constant.SON_DISTRIBUTOR_ROLE_CODE)) {
+			map.put("distributorCode", distributor.getDistrbutorCode());
+		}
+		
 		List<OrderStatistics> list = orderStatisticsService.orderStatisticsByDistributor(map);
 		
 		model.addAttribute("list",list);
