@@ -12,7 +12,6 @@ import org.springframework.util.StringUtils;
 
 import com.flow.portal.service.AbsPageService;
 import com.flow.pub.util.PageUtil;
-import com.flow.pub.util.StringUtil;
 import com.flow.system.mapper.QuotationMapper;
 import com.flow.system.model.Product;
 import com.flow.system.model.Quotation;

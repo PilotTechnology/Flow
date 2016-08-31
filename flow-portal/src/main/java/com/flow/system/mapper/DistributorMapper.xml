@@ -37,6 +37,7 @@
   	<where>
   		<if test="fatherDistributorCode !=null and fatherDistributorCode != ''"> AND a.FATHER_DISTRIBUTOR_CODE = #{fatherDistributorCode}</if>
   		<if test="distrbutorCode !=null and distrbutorCode != ''"> AND a.DISTRBUTOR_CODE like "%"#{distrbutorCode}"%" or b.NICK_NAME like "%"#{distrbutorCode}"%" or a.COMPANY like "%"#{distrbutorCode}"%"</if>
+  		<if test="certainDistributor !=null and certainDistributor != ''"> AND a.DISTRBUTOR_CODE = #{certainDistributor}</if>
   		<if test="phone !=null and phone != ''"> AND b.PHONE = #{phone}</if>
   		<if test="state !=null and state != '' and state != '-1'"> AND a.STATE = #{state}</if>
   	</where>

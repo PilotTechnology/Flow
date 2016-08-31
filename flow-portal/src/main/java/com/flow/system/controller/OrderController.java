@@ -22,9 +22,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.flow.api.model.OrderResponse;
 import com.flow.portal.controller.BaseController;
 import com.flow.pub.common.CodeConstants;
+import com.flow.pub.common.Constant;
 import com.flow.pub.common.KeyGenerate;
 import com.flow.pub.common.PubLog;
 import com.flow.pub.util.PageUtil;
+import com.flow.system.bean.UserInfo;
 import com.flow.system.mapper.CostFlowMapper;
 import com.flow.system.mapper.DistributorMapper;
 import com.flow.system.mapper.MobileMapper;
@@ -107,6 +109,16 @@ public class OrderController extends BaseController{
 				map.put("endTime", df.format(calendar.getTime()));
 			}
 		}
+		
+		UserInfo loginUserInfo = (UserInfo) request.getSession().getAttribute("userInfo");
+		Distributor distributor = distributorService.getDistributorByUserCode(loginUserInfo.getUserCode());
+		if (loginUserInfo.getRoleCode().equals(Constant.DISTRIBUTOR_ROLE_CODE)) {
+			distributor = distributorService.getDistributorByUserCode(loginUserInfo.getUserCode());
+			map.put("distributorCodeScope", distributor.getDistrbutorCode());
+		} else if (loginUserInfo.getRoleCode().equals(Constant.SON_DISTRIBUTOR_ROLE_CODE)) {
+			map.put("distributorCode", distributor.getDistrbutorCode());
+		}
+		
 		PageUtil<Order> page = orderService.listPage(map);
 		
 		model.addAttribute("page",page);

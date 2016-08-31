@@ -49,6 +49,7 @@
   		<if test="distributorCode !=null and distributorCode != '-1'"> AND a.DISTRIBUTOR_CODE = #{distributorCode}</if>
   		<if test="beginTime !=null and beginTime != ''"> AND CREATE_DATE <![CDATA[  >  ]]> #{beginTime}</if>
   		<if test="endTime !=null and endTime != ''"> AND CREATE_DATE <![CDATA[  <  ]]> #{endTime}</if>
+  		<if test="distributorCodeScope !=null and distributorCodeScope != ''"> AND a.DISTRIBUTOR_CODE IN (SELECT DISTRBUTOR_CODE FROM t_flow_distributor WHERE FATHER_DISTRIBUTOR_CODE = #{distributorCodeScope} OR DISTRBUTOR_CODE = #{distributorCodeScope})</if>
   		<!-- <if test="provinceCode !=null and provinceCode != '-1'"> AND a.OPERATOR_CODE = #{operatorCode}</if> -->
   	</where>
   </sql>
