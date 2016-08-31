@@ -109,7 +109,7 @@
                         <td>${quotation.serviceCode}</td>
                         <td>${quotation.distributionName}</td>
                         <td>${quotation.isDisplayProvince eq 1 ? "显示" : "不显示"}</td>
-                        <td>${quotation.state}</td>
+                        <td>${quotation.state eq 1 ? "激活" : "禁用"}</td>
                         <td><fmt:formatDate value="${quotation.createDate}"/></td>
                         <td>
                           <div class="btn-group">
@@ -198,6 +198,66 @@
       </div>
     </div>
     </div>
+    <!-- 编辑 弹框 -->
+	<div class="modal fade" id="myModal_edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h4 class="modal-title" id="myModalLabel_add">修改</h4>
+        </div>
+        <div class="modal-body">
+ 
+          <div class="form-group">
+            <label for="area_edit">接口区域：	</label>
+            <select name="area_edit" id="area_edit" class="form-control"><option>批量通用</option><option>专用</option></select>
+          </div>
+          <div class="form-group">
+            <label for="distributorName_edit">cp名称：</label>
+            <label for="distributorName_edit" id="distributorName_edit"></label>
+          </div>
+          <div class="form-group">
+            <label for="distributorDesc_add">cp详情：</label>
+            <label for="distributorDesc_edit" id="distributorDesc_edit">用户号：    登录名：</label>
+          </div>
+          <div class="form-group">
+            <label for="distributorDesc_add">业务操作：</label> 
+            <button type="button" id="product_edit_add" onclick="productAdd('product_edit_add');" class="btn-xs btn-info"	><i class="icon-plus-sign"></i> 添加</button>
+            <button type="button" id="product_edit_remove" class="btn-xs btn-warning"><i class="icon-remove-sign"></i> 清除</button>
+            <div class="widget-content">
+            	 <table id="product_edit" class="table table-striped table-bordered table-hover table-checkable table-responsive datatable">
+                    <thead>
+                      <tr>
+                        <th data-class="expand">序号</th>
+                        <th>业务编码</th>
+						<th>业务名称</th>
+						<th>业务价格</th>
+						<th>折扣</th>
+						<th>操作</th>
+                      </tr>
+                    </thead>
+                  </table>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="display_province_edit">是否显示省包：	</label>
+            <select name="display_province_edit" id="display_province_edit" class="form-control"><option value="1">显示</option><option value="0">不显示</option></select>
+          </div>
+          <div class="form-group">
+            <label for="state_edit">状态：	</label>
+            <select name="state_edit" id="state_edit" class="form-control"><option value="1">激活</option><option value="0">禁用</option></select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <input type="hidden" id="editId" /><input type="hidden" id="serviceCode" />
+          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="icon-undo"></i> 关闭</button>
+          <button type="button" id="btn_edit" class="btn btn-primary" data-dismiss="modal"><i class="icon-save"></i> 修改</button>
+        </div>
+      </div>
+    </div>
+    </div>
+    <!-- 弹框结束 -->
     <!-- 业务选择弹框 -->
     <div class="modal fade" id="product_sel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" style="width:880px;">
@@ -269,66 +329,6 @@
       </div>
     </div>
     </div>
-    
-    <!-- 编辑 弹框 -->
-	<div class="modal fade" id="myModal_edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <h4 class="modal-title" id="myModalLabel_add">修改</h4>
-        </div>
-        <div class="modal-body">
- 
-          <div class="form-group">
-            <label for="area_edit">接口区域：	</label>
-            <select name="area_edit" id="area_edit" class="form-control"><option>批量通用</option><option>专用</option></select>
-          </div>
-          <div class="form-group">
-            <label for="distributorName_edit">cp名称：</label>
-            <label for="distributorName_edit" id="distributorName_edit"></label>
-          </div>
-          <div class="form-group">
-            <label for="distributorDesc_add">cp详情：</label>
-            <label for="distributorDesc_edit" id="distributorDesc_edit">用户号：    登录名：</label>
-          </div>
-          <div class="form-group">
-            <label for="distributorDesc_add">业务操作：</label> 
-            <button type="button" id="product_edit_add" onclick="productAdd('product_edit_add');" class="btn-xs btn-info"	><i class="icon-plus-sign"></i> 添加</button>
-            <button type="button" id="product_edit_remove" class="btn-xs btn-warning"><i class="icon-remove-sign"></i> 清除</button>
-            <div class="widget-content">
-            	 <table id="product_edit" class="table table-striped table-bordered table-hover table-checkable table-responsive datatable">
-                    <thead>
-                      <tr>
-                        <th data-class="expand">序号</th>
-                        <th>业务编码</th>
-						<th>业务名称</th>
-						<th>业务价格</th>
-						<th>折扣</th>
-						<th>操作</th>
-                      </tr>
-                    </thead>
-                  </table>
-            </div>
-          </div>
-          
-          <div class="form-group">
-            <label for="display_province_edit">是否显示省包：	</label>
-            <select name="display_province_edit" id="display_province_edit" class="form-control"><option value="1">显示</option><option value="0">不显示</option></select>
-          </div>
-          <div class="form-group">
-            <label for="state_edit">状态：	</label>
-            <select name="state_edit" id="state_edit" class="form-control"><option value="1">激活</option><option value="0">禁用</option></select>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="icon-undo"></i> 关闭</button>
-          <button type="button" id="btn_edit" class="btn btn-primary" data-dismiss="modal"><i class="icon-save"></i> 修改</button>
-        </div>
-      </div>
-    </div>
-    </div>
-    <!-- 弹框结束 -->
   
   </body>
   <script type="text/javascript" src="${ctx}/view/quotation/quotation.js"></script>

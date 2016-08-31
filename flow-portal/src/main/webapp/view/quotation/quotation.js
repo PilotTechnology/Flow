@@ -12,6 +12,8 @@ function to_Edit(id){
 	    $('#myModal_edit').modal();
 	    
 	    $("#distributorName_edit").html(data.quotation.distributionName);
+	    $("#editId").val(data.quotation.id);
+	    $("#serviceCode").val(data.quotation.serviceCode);
 	    $("#distributorDesc_edit").html("用户号:" + data.quotation.distributorCode + ", 登录名: " + data.quotation.distributorCode);
 	    $("#display_province_edit").val(data.quotation.isDisplayProvince);
 	    $("#state_edit").val(data.quotation.state);
@@ -22,7 +24,7 @@ function to_Edit(id){
 				 +'<td data-class="expand"> '+ data.products[i].productCode + '</td>'
 		 		 +'<td data-class="expand"> '+ data.products[i].productName + '</td>'
 		 		 +'<td data-class="expand"> '+ data.products[i].price       + ' </td>'
-		 		 +'<td data-class="expand"> <input style="width:35px;height:20px;" name="proDiscount" type="text" value="'+ data.products[i].discount + '"/>%</td>'
+		 		 +'<td data-class="expand"> <input style="width:35px;height:20px;" name="proDiscount_e" type="text" value="'+ data.products[i].discount + '"/>%</td>'
 		 		 +'<td data-class="expand"> <a href="#" onclick="javascript:$(this).parent().parent().remove();">删除</a></td></tr>');
 	    }
     },"json");
@@ -164,7 +166,19 @@ $("#product_btn").click(function(){
 		 }
 	 })
 });
-
+$("#product_edit_btn").click(function(){
+	 $("input[name='product_sel2']").each(function(){
+		 if(this.checked == true){
+			 b = b + 1;
+			 $("#product_edit").append('<tr><td data-class="expand"> '+ b + '</td>'
+					 +'<td data-class="expand"> '+ $(this).parent().next().next().text() + '</td>'
+			 		 +'<td data-class="expand"> '+ $(this).parent().next().next().next().text() + '</td>'
+			 		 +'<td data-class="expand"> '+ $(this).parent().next().next().next().next().next().next().next().next().text() + ' </td>'
+			 		 +'<td data-class="expand"> <input style="width:35px;height:20px;" name="proDiscount_e" type="text" value="'+ $(this).parent().next().next().next().next().next().next().next().next().next().text() + '"/>%</td>'
+			 		 +'<td data-class="expand"> <a href="#" onclick="javascript:$(this).parent().parent().remove();">删除</a></td></tr>');
+		 }
+	 })
+});
 $("#product_remove").click(function(){
 	$("#product_selected").children("tbody").children("tr").remove();
 });
@@ -201,6 +215,44 @@ $("#btn_submit").click(function(){
 		success : function(data) {
 			if(data.result == "success"){
 				alert("保存成功！");
+				location.href="/portal/quotation!selectPage.action";
+			}else{
+				alert(data.errMsg);
+				return false;
+			}
+		}
+	});
+});
+
+//修改报价单
+$("#btn_edit").click(function(){
+	var map ={"_method":"post"};
+	var areaEdit = $("#area_edit").val();
+	var products = "";
+	$("input[name='proDiscount_e']").each(function(){
+		products = products + $(this).parent().prev().prev().prev().text() + "_" + $(this).val() + ",";
+	})
+	if(products != ""){
+		products = products.substring(0,products.length-1);
+	}
+	var display_province_edit = $("#display_province_edit").val();
+	var state_edit = $("#state_edit").val();
+	var id = $("#editId").val();
+	var serviceCode = $("#serviceCode").val();
+	map.areaEdit = areaEdit;
+	map.products = products;
+	map.display_province = display_province_edit;
+	map.state_edit = state_edit;
+	map.serviceCode = serviceCode;
+	map.id = id; 
+	$.ajax({
+		type : "POST",
+		url : '/portal/quotation!editQuotation.action',
+		data: map,
+		async : false,
+		success : function(data) {
+			if(data.result == "success"){
+				alert("修改成功！");
 				location.href="/portal/quotation!selectPage.action";
 			}else{
 				alert(data.errMsg);

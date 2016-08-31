@@ -65,6 +65,7 @@ public class QuotationController extends BaseController {
 		Quotation quotation = new Quotation();
 		Map<String,String> map = getParameterMap(request);
 		quotation.setCreateDate(new Date());
+		quotation.setState(1);//默认激活
 		quotation.setDistributorCode(map.get("distributorCode"));
 		quotation.setFatherCode("");
 		quotation.setIsDisplayProvince(Integer.parseInt(map.get("display_province")));
@@ -101,16 +102,24 @@ public class QuotationController extends BaseController {
 	 * @param Quotation
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "quotation!editQuotation.action")
 	@ResponseBody
-	public Object editProvider(HttpServletRequest request, Quotation quotation){
+	public Object editProvider(HttpServletRequest request){
+		Map<String,String> map = getParameterMap(request);
 		try {
+			Quotation quotation = new Quotation();
+			quotation.setServiceCode(map.get("serviceCode"));
+			quotation.setId(Integer.parseInt(map.get("id")));
+			quotation.setIsDisplayProvince(Integer.parseInt(map.get("display_province")));
+			quotation.setState(Integer.parseInt(map.get("state_edit")));
+			String products = map.get("products");
 			if(quotationService.checkExists(quotation)){
 				return new BaseResponse(Constant.JSON_FAIL, "报价单已存在");
 			}
-			quotationService.update(quotation);
+			quotationService.update(products,quotation);
 		} catch (Exception e) {
-			PubLog.error("修改报价单失败 : >> "+quotation, e);
+			PubLog.error("修改报价单失败 : >> "+map, e);
 			return new BaseResponse(Constant.JSON_FAIL, e.getMessage());
 		}
 		return Constant.successMsg;

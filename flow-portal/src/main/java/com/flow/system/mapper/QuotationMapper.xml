@@ -44,6 +44,10 @@
 	limit #{start} , #{pageSize}
   </select>
   
+  <!-- 删除报价单流量包 -->
+  <delete id="deleteServProd" parameterType="java.lang.String">
+  	DELETE FROM t_flow_serv_prod where SERVICE_CODE = #{serviceCode}
+  </delete>
   <!-- 添加报价单流量包 -->
   <insert id="insertServProd">
   	INSERT INTO t_flow_serv_prod(SERVICE_CODE,PRODUCT_CODE,DISCOUNT,STATE) VALUES

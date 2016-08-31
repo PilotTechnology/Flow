@@ -17,6 +17,7 @@ import com.flow.system.model.Product;
 import com.flow.system.model.Quotation;
 import com.flow.system.service.QuotationService;
 @Service
+@Transactional
 public class QuotationServiceImpl extends AbsPageService<Quotation> implements QuotationService {
 
 	@Autowired
@@ -59,14 +60,14 @@ public class QuotationServiceImpl extends AbsPageService<Quotation> implements Q
 	/**
 	 * 生成报价单
 	 */
-	@Transactional
 	public void save(Quotation quotation ,String products) {
 		quotationMapper.insert(quotation);//添加报价单
 		//组装products
 		List<Product> list = new ArrayList<>();
 		if(!StringUtils.isEmpty(products)){
-			Product pro = new Product();
+			Product pro = null;
 		   for(String tmp : Arrays.asList(products.split(","))){
+			   pro = new Product();
 			   String[] arr = tmp.split("_");
 			   pro.setProductCode(arr[0]);
 			   pro.setDiscount(Double.valueOf(arr[1]));
@@ -82,9 +83,24 @@ public class QuotationServiceImpl extends AbsPageService<Quotation> implements Q
 		quotationMapper.deleteByPrimaryKey(quotation.getId());
 	}
 
-	@Override
-	public void update(Quotation quotation) {
+	public void update(String products , Quotation quotation) {
 		quotationMapper.updateByPrimaryKeySelective(quotation);
+		
+		//组装products
+		List<Product> list = new ArrayList<>();
+		if(!StringUtils.isEmpty(products)){
+			Product pro = null;
+		   for(String tmp : Arrays.asList(products.split(","))){
+			   pro = new Product();
+			   String[] arr = tmp.split("_");
+			   pro.setProductCode(arr[0]);
+			   pro.setDiscount(Double.valueOf(arr[1]));
+			   pro.setState(1);//TODO 默认激活
+  			   list.add(pro);
+		   }
+		   quotationMapper.deleteServProd(quotation.getServiceCode());
+		   quotationMapper.insertServProd(quotation.getServiceCode() , list);
+		}
 	}
 
 	@Override
