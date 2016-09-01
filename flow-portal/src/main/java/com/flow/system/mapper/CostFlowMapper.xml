@@ -13,6 +13,8 @@
 	<sql id="query_body">
 		<where>
 			<if test="type !=null and type != -1"> AND type = #{type}</if>
+			<if test="distributorCode !=null and distributorCode != ''"> AND DISTRIBUTOR_CODE = #{distributorCode}</if>
+			<if test="distributorCodeScope !=null and distributorCodeScope != ''"> AND DISTRIBUTOR_CODE IN (SELECT DISTRBUTOR_CODE FROM t_flow_distributor WHERE FATHER_DISTRIBUTOR_CODE = #{distributorCodeScope} OR DISTRBUTOR_CODE = #{distributorCodeScope})</if>
 		</where>
 	</sql>
 	<sql id="Base_Column_List">
