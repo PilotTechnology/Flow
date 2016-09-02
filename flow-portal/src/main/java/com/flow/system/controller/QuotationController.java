@@ -19,6 +19,7 @@ import com.flow.pub.common.Constant;
 import com.flow.pub.common.KeyGenerate;
 import com.flow.pub.common.PubLog;
 import com.flow.pub.util.PageUtil;
+import com.flow.system.bean.UserInfo;
 import com.flow.system.model.Quotation;
 import com.flow.system.service.QuotationService;
 
@@ -45,7 +46,14 @@ public class QuotationController extends BaseController {
 	public String selectPage(HttpServletRequest request, Quotation quotation, Model model) throws Exception {
 		//转换request参数为map
 		Map<String,Object> map = getParameterMap(request);
-		PageUtil<Quotation> page = quotationService.listPage(map);
+		PageUtil<Quotation> page = null;
+		UserInfo user = (UserInfo) request.getSession().getAttribute("userInfo");
+		if(user!=null && Constant.ADMIN_ROLE_CODE.equals(user.getRoleCode())){//管理员可以查看所有的报价单
+			page = quotationService.listPage(map);
+		}else if(Constant.DISTRIBUTOR_ROLE_CODE.equals(user.getRoleCode())){//经销商可以查看二级分销商的报价单
+			map.put("fatherCode",user.getUserCode());
+			page = quotationService.sonListPage(map);
+		}
 		model.addAttribute("page",page);
 		model.addAttribute("quotation",quotation);
 		return "/view/quotation/quotationList.jsp";

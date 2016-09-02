@@ -27,4 +27,6 @@ public interface ProductMapper {
 	Long getCount(Map<String, Object> map);
 
 	List<Product> findAllProduct();
+	
+	List<Product> findProductByUserCode(String userCode);
 }

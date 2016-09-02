@@ -1,6 +1,8 @@
 package com.flow.pub.common;
 
 public class Constant {
+	
+	//特有角色：系统管理员/经销商管理员/二级经销商管理员
 	public static final String ADMIN_ROLE_CODE = "admin";
 	public static final String DISTRIBUTOR_ROLE_CODE = "distributor";
 	public static final String SON_DISTRIBUTOR_ROLE_CODE = "son_distributor";

@@ -75,4 +75,9 @@ public class ProductServiceImpl extends AbsPageService<Product> implements Produ
 		return productMapper.findAllProduct();
 	}
 
+	@Override
+	public List<Product> findProductByUserCode(String userCode) {
+		return productMapper.findProductByUserCode(userCode);
+	}
+
 }

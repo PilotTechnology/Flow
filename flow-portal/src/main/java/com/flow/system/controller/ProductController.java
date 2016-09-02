@@ -17,6 +17,7 @@ import com.flow.pub.common.BaseResponse;
 import com.flow.pub.common.Constant;
 import com.flow.pub.common.PubLog;
 import com.flow.pub.util.PageUtil;
+import com.flow.system.bean.UserInfo;
 import com.flow.system.model.Product;
 import com.flow.system.service.ProductService;
 
@@ -59,7 +60,13 @@ public class ProductController extends BaseController {
 	@RequestMapping(value = "product!productList")
 	@ResponseBody
 	public Map<String,Object> productList(HttpServletRequest request, Product product, Model model) throws Exception {
-		List<Product> list = productService.findAllProduct();
+		UserInfo user = (UserInfo) request.getSession().getAttribute("userInfo");
+		List<Product> list = null;
+		if(Constant.ADMIN_ROLE_CODE.equals(user.getRoleCode())){
+			list = productService.findAllProduct();
+		}else if(Constant.DISTRIBUTOR_ROLE_CODE.equals(user.getRoleCode())){
+			list = productService.findProductByUserCode(user.getUserCode());
+		}
 		Map<String,Object> info = new HashMap<>();
 		info.put("data", list);
 	    info.put("recordsTotal", String.valueOf(list.size()));

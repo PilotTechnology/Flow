@@ -22,4 +22,10 @@ public interface ProductService {
 	boolean checkExists(Product product);
 
 	List<Product> findAllProduct();
+	/**
+	 * 获取为经销商配置的产品及产品折扣
+	 * @param userCode
+	 * @return
+	 */
+	List<Product> findProductByUserCode(String userCode);
 }

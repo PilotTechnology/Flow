@@ -15,7 +15,7 @@
   	<where>
   		<if test="distributionName !=null and distributionName != ''"> AND c.NICK_NAME like "%"#{distributionName}"%"</if>
   		<if test="state !=null and state != -1"> AND a.STATE = #{state}</if>
-  		<if test="fatherCode !=null and fatherCode != ''"> AND a..FATHER_CODE = #{fatherCode}</if>
+  		<if test="fatherCode !=null and fatherCode != ''"> AND a.FATHER_CODE = #{fatherCode}</if>
   	</where>
   </sql>
   <sql id="Base_Column_List">

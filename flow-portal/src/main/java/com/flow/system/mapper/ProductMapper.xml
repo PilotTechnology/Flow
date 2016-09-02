@@ -54,6 +54,24 @@
 	INNER JOIN t_flow_provider d ON a.PROVIDER_CODE = d.PROVIDER_CODE
   </select>
   
+  <!-- 获取经销商的流量包列表 -->
+  <select id="findProductByUserCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select a.ID, a.PRODUCT_CODE, a.PRODCUT_NAME, a.OPERATOR_CODE, a.PROVIDER_CODE, a.PRO_PRODUCT_CODE, a.PROVINCE_CODE, 
+    	a.ENABLE_AREA, a.ENABLE_TYPE, a.PRIORITY, a.SIZE, a.PRICE, a.PURCHASED, a.STATE, a.DESCRIPTION, e.DISCOUNT ,
+    	b.OPERATOR_NAME, c.PROVINCE_NAME, d.NAME
+	from t_flow_product a
+	INNER JOIN t_base_operator b ON a.OPERATOR_CODE = b.ID
+	INNER JOIN t_base_province c ON a.PROVINCE_CODE = c.ID
+	INNER JOIN t_flow_provider d ON a.PROVIDER_CODE = d.PROVIDER_CODE
+	INNER JOIN (
+		SELECT a.PRODUCT_CODE , a.DISCOUNT 
+		FROM t_flow_serv_prod a 
+		INNER JOIN t_flow_service b ON a.SERVICE_CODE = b.SERVICE_CODE AND b.STATE = 1
+		INNER JOIN t_flow_distributor c ON b.distributor_code = c.distrbutor_code 
+		WHERE c.USER_CODE = #{userCode}
+	)e ON a.PRODUCT_CODE = e.PRODUCT_CODE
+  </select>
+  
   <select id="listPage" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select a.*, b.OPERATOR_NAME, c.PROVINCE_NAME, d.NAME
 		from t_flow_product a
