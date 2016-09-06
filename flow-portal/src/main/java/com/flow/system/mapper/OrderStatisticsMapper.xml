@@ -54,6 +54,11 @@
 	LIMIT 6
   </select>
   
+  
+  <select id="getCountOfToday" resultType="java.lang.Long" parameterType="java.util.Map">
+  	SELECT COUNT(1) FROM t_flow_order <include refid="query_body_1"/>
+  </select>
+  
   <select id="getCount" resultType="java.lang.Long" parameterType="java.util.Map">
   	SELECT COUNT(1) FROM t_flow_order <include refid="query_body_1"/>
   </select>

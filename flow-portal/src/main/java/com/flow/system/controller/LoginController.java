@@ -1,5 +1,7 @@
 package com.flow.system.controller;
 
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,11 +13,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.flow.pub.common.Constant;
 import com.flow.pub.common.PubLog;
 import com.flow.system.bean.UserInfo;
+import com.flow.system.model.Distributor;
 import com.flow.system.model.SysMenu;
 import com.flow.system.model.SysUser;
+import com.flow.system.service.DistributorService;
 import com.flow.system.service.LoginService;
+import com.flow.system.service.OrderStatisticsService;
 import com.flow.system.service.RoleService;
 import com.flow.system.service.UserService;
 
@@ -31,6 +37,12 @@ public class LoginController {
 	
 	@Autowired
 	private RoleService roleService;
+	
+	@Autowired
+	private DistributorService distributorService;
+	
+	@Autowired
+	private OrderStatisticsService orderStatisticsService;
 	
 	// 跳转到登录页面
 	@RequestMapping("login!selectPage.action")
@@ -89,6 +101,35 @@ public class LoginController {
 			//获取菜单权限
 			List<SysMenu> menuList = roleService.getMenuListByRoleCode(userInfo.getRoleCode());
 			session.setAttribute("menuList", menuList);
+			
+			String distributorCode = "";
+			if (userInfo.getRoleCode().equals(Constant.DISTRIBUTOR_ROLE_CODE) || userInfo.getRoleCode().equals(Constant.SON_DISTRIBUTOR_ROLE_CODE)) {
+				Distributor distributor = distributorService.getDistributorByUserCode(userInfo.getUserCode());
+				distributorCode = distributor.getDistrbutorCode();
+				Double balance = distributorService.getBalance(distributorCode);
+				model.addAttribute("balance", balance);
+			} else {
+				model.addAttribute("balance", 0);
+			}
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			Calendar todayStart = Calendar.getInstance();  
+	        todayStart.set(Calendar.HOUR_OF_DAY, 0);  
+	        todayStart.set(Calendar.MINUTE, 0);  
+	        todayStart.set(Calendar.SECOND, 0);
+	        map.put("beginTime", todayStart.getTime());
+	        
+	        Calendar todayEnd = Calendar.getInstance();  
+	        todayEnd.set(Calendar.HOUR_OF_DAY, 23);  
+	        todayEnd.set(Calendar.MINUTE, 59);  
+	        todayEnd.set(Calendar.SECOND, 59);
+	        map.put("endTime", todayEnd.getTime());
+			
+	        map.put("distributorCode", distributorCode);
+	        
+			Long orderCount = orderStatisticsService.getCountOfToday(map);
+			model.addAttribute("orderCount", orderCount);
+			
 			return "/portal/index.jsp";
 		} catch (Exception e) {
 			PubLog.error("登录过程出现异常！", e);

@@ -34,6 +34,11 @@ public class OrderStatisticsServiceImpl extends AbsPageService<OrderStatistics> 
 	}
 
 	@Override
+	public Long getCountOfToday(Map<String,Object> map){
+		return orderStatisticsMapper.getCountOfToday(map);
+	}
+	
+	@Override
 	public Long getCount(Map<String,Object> map){
 		return orderStatisticsMapper.getCount(map);
 	}

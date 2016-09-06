@@ -12,6 +12,8 @@ public interface OrderStatisticsMapper {
 	
 	List<OrderStatistics> orderStatisticsByProvince(Map<String,Object> map);
 	
+	Long getCountOfToday(Map<String,Object> map);
+	
 	Long getCount(Map<String,Object> map);
 	
 	List<OrderStatistics> orderStatisticsByDay(Map<String,Object> map);

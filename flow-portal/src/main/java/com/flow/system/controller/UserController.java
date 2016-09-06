@@ -18,8 +18,6 @@ import com.flow.pub.common.Constant;
 import com.flow.pub.common.PubLog;
 import com.flow.pub.util.PageUtil;
 import com.flow.system.bean.UserInfo;
-import com.flow.system.model.SysRole;
-import com.flow.system.service.RoleService;
 import com.flow.system.service.UserService;
 
 /**
@@ -33,9 +31,6 @@ public class UserController extends BaseController{
 
 	@Autowired
 	private UserService userService;
-	
-	@Autowired
-	private RoleService roleService;
 	
 	/**
 	 * 查询用户分页列表

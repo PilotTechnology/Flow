@@ -7,7 +7,6 @@
     />
     <title>流量平台</title>
     <%@include file="../view/common/index.jsp" %>
-    <
   </head>
   
   <body>
@@ -275,10 +274,10 @@
               <li>
                 <div class="summary">
                   <span>
-                    新订单
+                    今日订单
                   </span>
                   <h3>
-                    17,561
+                    ${orderCount }
                   </h3>
                 </div>
                 <div id="sparkline-bar" class="graph sparkline hidden-xs">
@@ -291,7 +290,7 @@
                     我的余额
                   </span>
                   <h3>
-                    $21,561.21
+                  ￥${balance}
                   </h3>
                 </div>
                 <div id="sparkline-bar2" class="graph sparkline hidden-xs">
@@ -300,7 +299,12 @@
               </li>
             </ul>
           </div>
+          
           <div class="row row-bg">
+            
+          </div>
+          
+          <!-- <div class="row row-bg">
             <div class="col-sm-6 col-md-3">
               <div class="statbox widget box box-shadow">
                 <div class="widget-content">
@@ -387,7 +391,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           
           <!-- 饼状图 start-->
           <div class="row">
