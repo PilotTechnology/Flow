@@ -63,7 +63,7 @@
   	SELECT COUNT(1) FROM t_flow_order <include refid="query_body_1"/>
   </select>
   <select id="orderStatisticsByDay" resultMap="BaseResultMap" parameterType="java.util.Map">
-  	SELECT LEFT(CREATE_DATE, 10) AS DAY, COUNT(*)
+  	SELECT LEFT(CREATE_DATE, 10) AS DAY, IFNULL(COUNT(*),0) AS SUCCESS_NUM
 	FROM t_flow_order
 	<include refid="query_body_1"/>
 	GROUP BY DAY

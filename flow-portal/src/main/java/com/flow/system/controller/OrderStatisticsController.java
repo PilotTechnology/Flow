@@ -2,8 +2,10 @@ package com.flow.system.controller;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,9 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.flow.portal.controller.BaseController;
 import com.flow.pub.common.Constant;
+import com.flow.pub.util.DateUtil;
 import com.flow.system.bean.UserInfo;
 import com.flow.system.model.Distributor;
 import com.flow.system.model.OrderStatistics;
@@ -132,5 +136,48 @@ public class OrderStatisticsController extends BaseController{
 		List<OrderStatistics> list = orderStatisticsService.orderStatisticsByDay(map);
 		model.addAttribute("list",list);
 		return "/view/order/orderStatistics.jsp";
+	}
+	
+	/**
+	 * 页面饼图统计数据
+	 * @param request
+	 * @return
+	 * @throws ParseException 
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "order!statisticsJson.action")
+	@ResponseBody
+	public Object statisticsByJson(HttpServletRequest request) throws ParseException{
+		Map<String,Object> result = new HashMap<String,Object>();
+		Map<String,Object> map = getParameterMap(request);
+		UserInfo loginUserInfo = (UserInfo) request.getSession().getAttribute("userInfo");
+		if (loginUserInfo.getRoleCode().equals(Constant.DISTRIBUTOR_ROLE_CODE)) {
+			Distributor distributor = distributorService.getDistributorByUserCode(loginUserInfo.getUserCode());
+			map.put("distributorCode", distributor.getDistrbutorCode());
+		}
+		//天数统计订单数
+		List<OrderStatistics> dayList = orderStatisticsService.orderStatisticsByDay(map);
+		result.put("dayList", dayList);
+		//按省统计
+		map.put("beginTime", DateUtil.msInterDateString(DateUtil.getCurrentDate(),-30));
+		map.put("endTime", DateUtil.getCurrentDate());
+		List<OrderStatistics> proList = orderStatisticsService.orderStatisticsByProvince(map);
+		Long count = orderStatisticsService.getCount(map);
+		for (OrderStatistics statistisc : proList) {
+			Double percent = statistisc.getSuccessNum()/count.doubleValue();
+			BigDecimal bigDecimal = new BigDecimal(percent).setScale(2, RoundingMode.UP);
+			statistisc.setPercent(bigDecimal.doubleValue());
+		}
+		result.put("proList", proList);
+		//按流量大小统计
+		List<OrderStatistics> sizeList = orderStatisticsService.orderStatisticsBySize(map);
+		Long sizeCount = orderStatisticsService.getCount(map);
+		for (OrderStatistics statistisc : sizeList) {
+			Double percent = statistisc.getSuccessNum()/sizeCount.doubleValue();
+			BigDecimal bigDecimal = new BigDecimal(percent).setScale(2, RoundingMode.UP);
+			statistisc.setPercent(bigDecimal.doubleValue());
+		}
+		result.put("sizeList", sizeList);
+		return result;
 	}
 }

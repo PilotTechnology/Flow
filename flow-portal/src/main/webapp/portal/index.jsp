@@ -395,10 +395,10 @@
           
           <!-- 饼状图 start-->
           <div class="row">
-          	 <div class="col-md-12">
+          	 <div class="col-md-6">
           	 	<div class="widget box">
           	 		<div class="widget-header">
-                  		<h4><i class="icon-reorder"></i>订单饼图</h4>
+                  		<h4><i class="icon-reorder"></i>订单流量大小统计</h4>
                   		<div class="toolbar no-padding">
 		                	<div class="btn-group">
 		                      <span class="btn btn-xs widget-collapse">
@@ -410,6 +410,25 @@
                 	
                 	<div class="widget-content">
 	                  <div id="chart_pie" class="chart">
+	                  </div>
+	                </div>
+          	 	</div>
+          	 </div>
+          	 <div class="col-md-6">
+          	 	<div class="widget box">
+          	 		<div class="widget-header">
+                  		<h4><i class="icon-reorder"></i>订单按天统计</h4>
+                  		<div class="toolbar no-padding">
+		                	<div class="btn-group">
+		                      <span class="btn btn-xs widget-collapse">
+		                        <i class="icon-angle-down"></i>
+		                      </span>
+		                    </div>
+		                </div>
+                	</div>
+                	
+                	<div class="widget-content">
+	                  <div id="chart_day" class="chart">
 	                  </div>
 	                </div>
           	 	</div>
@@ -440,42 +459,6 @@
                   </div>
                 </div>
                 <div class="divider">
-                </div>
-                <div class="widget-content">
-                  <ul class="stats">
-                    <li>
-                      <strong>
-                        4,853
-                      </strong>
-                      <small>
-                        Total Views
-                      </small>
-                    </li>
-                    <li class="light hidden-xs">
-                      <strong>
-                        271
-                      </strong>
-                      <small>
-                        Last 24 Hours
-                      </small>
-                    </li>
-                    <li>
-                      <strong>
-                        1,025
-                      </strong>
-                      <small>
-                        Unique Users
-                      </small>
-                    </li>
-                    <li class="light hidden-xs">
-                      <strong>
-                        105
-                      </strong>
-                      <small>
-                        Last 24 Hours
-                      </small>
-                    </li>
-                  </ul>
                 </div>
               </div>
             </div>
