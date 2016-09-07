@@ -20,7 +20,12 @@ import com.flow.pub.common.KeyGenerate;
 import com.flow.pub.common.PubLog;
 import com.flow.pub.util.PageUtil;
 import com.flow.system.bean.UserInfo;
+import com.flow.system.mapper.QuotationMapper;
+import com.flow.system.model.Distributor;
+import com.flow.system.model.ProductForDistributor;
 import com.flow.system.model.Quotation;
+import com.flow.system.service.DistributorService;
+import com.flow.system.service.ProductForDistributorService;
 import com.flow.system.service.QuotationService;
 
 /**
@@ -33,6 +38,15 @@ import com.flow.system.service.QuotationService;
 public class QuotationController extends BaseController {
 	@Autowired
 	private QuotationService quotationService;
+	
+	@Autowired
+	private ProductForDistributorService productForDistributorService;
+	
+	@Autowired
+	private DistributorService distributorService;
+	
+	@Autowired
+	private QuotationMapper quotationMapper;
 
 	/**
 	 * 报价单分页列表
@@ -57,6 +71,36 @@ public class QuotationController extends BaseController {
 		model.addAttribute("page",page);
 		model.addAttribute("quotation",quotation);
 		return "/view/quotation/quotationList.jsp";
+	}
+	
+	/**
+	 * 我的报价单，流量包列表
+	 * @param request
+	 * @param pager
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "quotation!productForDistributor.action")
+	public String productForDistributor(HttpServletRequest request, Model model) throws Exception {
+		//转换request参数为map
+		Map<String,Object> map = getParameterMap(request);
+		PageUtil<ProductForDistributor> page = null;
+		UserInfo user = (UserInfo) request.getSession().getAttribute("userInfo");
+		if(Constant.DISTRIBUTOR_ROLE_CODE.equals(user.getRoleCode()) || Constant.SON_DISTRIBUTOR_ROLE_CODE.equals(user.getRoleCode())){//经销商可以查看二级分销商的报价单
+			Distributor distributor = distributorService.getDistributorByUserCode(user.getUserCode());
+			Quotation quotation = quotationMapper.getQuotationByDistributorCode(distributor.getDistrbutorCode());
+			if (quotation != null) {
+				map.put("quotationCode", quotation.getServiceCode());
+				page = productForDistributorService.listPage(map);
+				model.addAttribute("page",page);
+			}
+			return "/view/quotation/productsForDistributor.jsp";
+		} else {
+			return "/portal/index.jsp";
+		}
+		
+		
 	}
 	
 	/**

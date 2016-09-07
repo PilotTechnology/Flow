@@ -59,7 +59,7 @@
   <!-- 根据分销商获取报价单 -->
   <select id="getQuotationByDistributorCode" resultMap="BaseResultMap" parameterType="java.lang.String">
   	SELECT  ID, SERVICE_CODE, DISTRIBUTOR_CODE, FATHER_CODE, STATE, CREATE_DATE, IS_DISPLAY_PROVINCE
-  	FROM t_flow_service WHERE DISTRIBUTOR_CODE = #{value}
+  	FROM t_flow_service WHERE DISTRIBUTOR_CODE = #{value} and STATE = 1
   </select>
   
   <!-- 获取分销商的流量包 -->
