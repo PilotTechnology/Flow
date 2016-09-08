@@ -17,6 +17,7 @@ public class CodeConstants {
 	public static final String ARG_ERR_PHONE_FORMAT = "0008";	//手机号码长度错误，应为11位
 	public static final String ARG_ERR_PHONE_UNFOUND = "0009";	//手机号码无效
 	public static final String ARG_ERR_SIGN_MISMATCH = "0010";	//签名不匹配
+	public static final String ARG_ERR_OPERATOR = "0011";		//运营商参数缺失
 	
 	//账号错误
 	public static final String ACC_ERR = "1001";				//账户异常
