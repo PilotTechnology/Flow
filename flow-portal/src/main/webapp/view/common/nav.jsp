@@ -17,9 +17,25 @@
 		  </a>
 		  <ul class="sub-menu">
 		    <c:forEach var="subMenu" items="${menu.subList}">
-		    	<li><a href="${ctx}${subMenu.menuPath}"> <i class="icon-angle-right">
-					</i> ${subMenu.menuName}</a>
-				</li>
+		    	<c:choose>
+			    	<c:when test="${subMenu.menuCode eq 'FLOW_DISTRIBUTOR' and sessionScope.userInfo.roleCode eq 'distributor'}">
+			    		<!-- 分销商 -->
+						<li><a href="${ctx}/portal/distributor!selectPage.action?fatherDistributorCode='${sessionScope.userInfo.distributorCode}'"> <i class="icon-angle-right">
+							</i> ${subMenu.menuName}</a>
+						</li>
+			    	</c:when>
+			    	<c:when test="${subMenu.menuCode eq 'FLOW_DISTRIBUTOR' and sessionScope.userInfo.roleCode eq 'son_distributor'}">
+			    		<!-- 二级分销商 -->
+						<li><a href="#"> <i class="icon-angle-right">
+							</i> ${subMenu.menuName}</a>
+						</li>
+			    	</c:when>
+			    	<c:otherwise>
+			    		<li><a href="${ctx}${subMenu.menuPath}"> <i class="icon-angle-right">
+							</i> ${subMenu.menuName}</a>
+						</li>
+			    	</c:otherwise>
+		    	</c:choose>
 		    </c:forEach>
 		  </ul>
 		 </li>

@@ -63,5 +63,7 @@ public interface UserService {
 	 */
 	void save(SysUser user);
 
+	List<UserInfo> findUserByUserCode(String userCode);
+
 	
 }

@@ -10,6 +10,8 @@ public class UserInfo {
     private Integer id;
 
     private String userCode;
+    
+    private String distributorCode;
 
     private String password;
 
@@ -41,7 +43,15 @@ public class UserInfo {
         return id;
     }
 
-    public void setId(Integer id) {
+    public String getDistributorCode() {
+		return distributorCode;
+	}
+
+	public void setDistributorCode(String distributorCode) {
+		this.distributorCode = distributorCode;
+	}
+
+	public void setId(Integer id) {
         this.id = id;
     }
 

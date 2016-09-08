@@ -417,7 +417,7 @@
           	 <div class="col-md-6">
           	 	<div class="widget box">
           	 		<div class="widget-header">
-                  		<h4><i class="icon-reorder"></i>订单按天统计</h4>
+                  		<h4><i class="icon-reorder"></i>订单按省份统计</h4>
                   		<div class="toolbar no-padding">
 		                	<div class="btn-group">
 		                      <span class="btn btn-xs widget-collapse">
@@ -443,7 +443,7 @@
                   <h4>
                     <i class="icon-reorder">
                     </i>
-                    订单走势图
+                    订单按天统计走势图
                   </h4>
                   <div class="toolbar no-padding">
                     <div class="btn-group">

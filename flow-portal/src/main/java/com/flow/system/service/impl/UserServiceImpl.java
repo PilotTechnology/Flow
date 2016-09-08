@@ -17,7 +17,9 @@ import com.flow.pub.common.PubLog;
 import com.flow.pub.util.Encipher;
 import com.flow.pub.util.PageUtil;
 import com.flow.system.bean.UserInfo;
+import com.flow.system.mapper.DistributorMapper;
 import com.flow.system.mapper.UserMapper;
+import com.flow.system.model.Distributor;
 import com.flow.system.model.SysUser;
 import com.flow.system.service.UserService;
 @Service
@@ -26,6 +28,8 @@ public class UserServiceImpl extends AbsPageService<UserInfo> implements UserSer
 	@Autowired
 	private UserMapper userMapper;
 	
+	@Autowired
+	private DistributorMapper distributorMapper;
 	public SysUser getUserByUserCode(String userCode) {
 		return userMapper.getUserByUserCode(userCode);
 	}
@@ -34,6 +38,10 @@ public class UserServiceImpl extends AbsPageService<UserInfo> implements UserSer
 		SysUser user = getUserByUserCode(userCode);
 		UserInfo userInfo = new UserInfo();
 		BeanUtils.copyProperties(user, userInfo);
+		Distributor distributor = distributorMapper.selectByUserCode(userInfo.getUserCode());
+		if(distributor!=null){
+			userInfo.setDistributorCode(distributor.getDistrbutorCode());
+		}
 		return userInfo;
 	}
 
@@ -102,6 +110,11 @@ public class UserServiceImpl extends AbsPageService<UserInfo> implements UserSer
 	@Override
 	public List<UserInfo> findAllUser() {
 		return userMapper.findAllUser();
+	}
+
+	@Override
+	public List<UserInfo> findUserByUserCode(String userCode) {
+		return userMapper.findSubUser(userCode);
 	}
 
 }

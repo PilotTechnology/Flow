@@ -42,6 +42,12 @@
 		select <include refid="Base_Column_List" />	from t_sys_user
 	</select>
 	
+	<select id="findSubUser" resultMap="userInfoMap" parameterType="java.lang.String">
+		select a.ID, a.USER_CODE, a.PASSWORD, a.NICK_NAME, a.LINK_MAN, a.PHONE, a.EMAIL,
+		a.STATE, a.CREATE_DATE,	a.ROLE_CODE FROM t_sys_user a
+		INNER JOIN t_flow_distributor b ON a.user_code = b.user_code and b.FATHER_DISTRIBUTOR_CODE = #{value}
+	</select>
+	
 	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
 		select <include refid="Base_Column_List" />
 		from t_sys_user

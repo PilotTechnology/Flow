@@ -119,7 +119,13 @@ public class QuotationController extends BaseController {
 		quotation.setCreateDate(new Date());
 		quotation.setState(1);//默认激活
 		quotation.setDistributorCode(map.get("distributorCode"));
-		quotation.setFatherCode("");
+		UserInfo user = (UserInfo) request.getSession().getAttribute("userInfo");
+		if(user!=null && Constant.ADMIN_ROLE_CODE.equals(user.getRoleCode())){//管理员创建的报价单
+			quotation.setFatherCode("0");
+		}else if(Constant.DISTRIBUTOR_ROLE_CODE.equals(user.getRoleCode())){//经销商创建的报价单
+			quotation.setFatherCode(user.getDistributorCode());
+		}
+		
 		quotation.setIsDisplayProvince(Integer.parseInt(map.get("display_province")));
 		quotation.setServiceCode(KeyGenerate.getServiceCode(quotation.getDistributorCode()));
 		String products = map.get("products"); //eg:proCode1_disCount1,proCode2_disCount2,

@@ -53,4 +53,6 @@ public interface UserMapper {
 
 	List<UserInfo> findAllUser();
 
+	List<UserInfo> findSubUser(String userCode);
+
 }

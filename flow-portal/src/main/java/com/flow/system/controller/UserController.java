@@ -58,8 +58,12 @@ public class UserController extends BaseController{
 	 */
 	@RequestMapping(value = "user!userList.action")
 	@ResponseBody
-	public Map<String,Object> userList()throws Exception {
+	public Map<String,Object> userList(HttpServletRequest request)throws Exception {
 		List<UserInfo> userList = userService.findAllUser();
+		UserInfo user = (UserInfo) request.getSession().getAttribute("userInfo");
+		if(Constant.DISTRIBUTOR_ROLE_CODE.equals(user.getRoleCode())){//经销商可以查看二级分销商的报价单
+			userList = userService.findUserByUserCode(user.getDistributorCode());
+		}
 		Map<String,Object> info = new HashMap<>();
 		info.put("data", userList);
 	    info.put("recordsTotal", String.valueOf(userList.size()));
