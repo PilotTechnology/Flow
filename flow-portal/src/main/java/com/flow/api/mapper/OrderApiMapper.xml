@@ -41,7 +41,7 @@
 		where (STATE = 1 or STATE = 2 or STATE = 4) and NOTICE_STATE = 1 and ERROR_TIME <![CDATA[  <  ]]> 10 
 		order by id limit 300
 	</select>
-	<select id="getOrderByOrderId"  parameterType="java.lang.String" resultMap="BaseResultMap">
+	<select id="getOrderByDistributorOrderId"  parameterType="java.lang.String" resultMap="BaseResultMap">
 		SELECT ORDER_CODE , DISTRIBUTOR_ORDER_CODE , PLATFORM_ERROR_CODE
 		FROM t_flow_order 
 		where DISTRIBUTOR_ORDER_CODE = #{distributorOrderId,jdbcType=VARCHAR}

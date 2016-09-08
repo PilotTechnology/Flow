@@ -30,7 +30,7 @@
 	INNER JOIN t_flow_product c ON c.PRODUCT_CODE = a.PRODUCT_CODE
 	INNER JOIN t_base_operator d ON c.OPERATOR_CODE = d.OPERATOR_NAME
 	INNER JOIN t_flow_provider e ON c.PROVIDER_CODE = e.PROVIDER_CODE
-	INNER JOIN t_base_province f ON c.PROVINCE_CODE = f.PROVINCE_NAME
+	INNER JOIN t_base_province f ON c.PROVINCE_CODE = f.ID
 	WHERE a.SERVICE_CODE = #{quotationCode}
 	limit #{start} , #{pageSize}
   </select>
