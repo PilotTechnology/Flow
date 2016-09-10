@@ -1,7 +1,9 @@
 package com.flow.api.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -222,7 +224,11 @@ public class QueryApiController {
 				PubLog.error(resp.getMsg() + ">> " + resp);
 				return resp;
 			}
-			List<ProductForDistributor> list = productForDistributorMapper.listPage(0, 1000, quotation.getServiceCode());
+			
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("quotationCode", quotation.getServiceCode());
+			map.put("operatorCode", req.getOperator());
+			List<ProductForDistributor> list = productForDistributorMapper.getProducts(map);
 			List<ProductForApi> productList = new ArrayList<ProductForApi>();
 			for (ProductForDistributor productForDistributor : list) {
 				ProductForApi product = new ProductForApi();
@@ -265,7 +271,7 @@ public class QueryApiController {
 			msg = "time参数缺失,请检查请求！" ;
 			code = CodeConstants.ARG_ERR_TIME;
 		}else if(StringUtils.isEmpty(req.getSign())){
-			msg = "Sign参数缺失,请检查请求！" ;
+			msg = "sign参数缺失,请检查请求！" ;
 			code = CodeConstants.ARG_ERR_SIGN;
 		}
 		

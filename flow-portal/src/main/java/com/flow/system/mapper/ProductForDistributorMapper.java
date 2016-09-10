@@ -22,7 +22,9 @@ public interface ProductForDistributorMapper {
     
     List<ProductForDistributor> listPage(@Param("start") Integer start , @Param("pageSize") Integer pageSize, @Param("quotationCode") String quotationCode);
 
-	Long getCountWithQuotationCode(String quotationCode);
+    List<ProductForDistributor> getProducts(Map<String, String> map);
+    
+    Long getCountWithQuotationCode(String quotationCode);
 	
 	ProductForDistributor getProductByOrder(Map<String, Object> map);
 	
