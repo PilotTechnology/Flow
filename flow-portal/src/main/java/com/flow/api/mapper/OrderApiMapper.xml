@@ -30,7 +30,7 @@
 	
 	<!-- 查询需要通知的订单，取前300个 -->
 	<select id="getOrderList" resultMap="BaseResultMap">
-		SELECT ORDER_CODE , PHONE , SIZE , SERV_PROD_ID ,
+		SELECT ORDER_CODE , PHONE , SIZE ,
 			  PROVIDER_CODE , OPERATOR_CODE 
 		FROM t_flow_order where STATE = 0 order by id limit 300
 	</select>

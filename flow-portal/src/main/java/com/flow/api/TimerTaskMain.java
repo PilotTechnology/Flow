@@ -20,17 +20,17 @@ public class TimerTaskMain {
 	 * 每5分钟执行一次
 	 * @throws Exception
 	 */
-	@Scheduled(cron = "* /5 * * * *")
+	@Scheduled(cron = "0/15 * * * * ?")
 	public void orderTask() throws Exception {
 		Date fdate = new Date();
-		
-		AbstractTimerTask orderTask = (AbstractTimerTask) SpringBeanUtil.getBean("orderTask");
-			try {
-
+		System.out.println("=================test============");
+		try {
+				AbstractTimerTask orderTask = (AbstractTimerTask) SpringBeanUtil.getBean("orderTask");
+				System.out.println("111");
 				orderTask.call(fdate);
-
+				System.out.println("222");
 			} catch (Exception e) {
-
+				System.out.println("出错了。" + e.getMessage());
 				PubLog.info(e.getMessage());
 
 			}
@@ -41,7 +41,7 @@ public class TimerTaskMain {
 	 * 每5分钟执行一次
 	 * @throws Exception
 	 */
-	@Scheduled(cron = "* /5 * * * *")
+	@Scheduled(cron = "0/45 * * * * ?")
 	public void callBackTask() throws Exception {
 		Date fdate = new Date();
 		

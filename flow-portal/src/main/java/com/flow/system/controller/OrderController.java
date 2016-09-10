@@ -193,10 +193,10 @@ public class OrderController extends BaseController{
 			
 			List<String> phoneList = Arrays.asList(phone.split(","));
 			if(phoneList!=null && phoneList.size()>0){
-				Map<String, String> paramMap = null;
+				Map<String, Object> paramMap = null;
 				for(String phoneTmp : phoneList){
-					paramMap = new HashMap<String, String>();
-					Mobile mobile = mobileMapper.selectByMobileCode(phoneTmp);
+					paramMap = new HashMap<String, Object>();
+					Mobile mobile = mobileMapper.selectByMobileCode(phoneTmp.substring(0,7));
 					if(mobile == null){
 						resp.setCode(CodeConstants.ARG_ERR_PHONE_UNFOUND);
 						resp.setMsg("批量充值请求异常：【手机号"+phoneTmp+"号段不存在】 ");
@@ -208,7 +208,7 @@ public class OrderController extends BaseController{
 					paramMap.put("operatorCode", String.valueOf(mobile.getOperatorCode()));
 					paramMap.put("enableArea", String.valueOf(quotation.getIsDisplayProvince()));
 					paramMap.put("provinceCode", mobile.getCity().getProvinceCode());
-
+					paramMap.put("size", product.getSize());
 					ProductForDistributor productForDistributor = productForDistributorMapper.getProductByOrder(paramMap);
 					
 					if(productForDistributor == null) {

@@ -47,7 +47,7 @@
 		INNER JOIN t_base_city b ON a.CITY_CODE = b.ID
 		INNER JOIN t_base_province c ON b.PROVINCE_CODE = c.ID
 		INNER JOIN t_base_operator d ON a.OPERATOR_CODE = d.id
-		where a.MOBILE_CODE like #{mobileCode,jdbcType=VARCHAR}"%"
+		where a.MOBILE_CODE like  "%"#{mobileCode}"%"
   </select>
   
 <!--   <select id="getMobile" resultType="java.lang.String" parameterType="java.lang.String">

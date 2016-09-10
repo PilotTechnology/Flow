@@ -24,7 +24,7 @@ public interface ProductForDistributorMapper {
 
 	Long getCountWithQuotationCode(String quotationCode);
 	
-	ProductForDistributor getProductByOrder(Map<String, String> map);
+	ProductForDistributor getProductByOrder(Map<String, Object> map);
 	
-	ProductForDistributor getVirtualProductByOrder(Map<String, String> map);
+	ProductForDistributor getVirtualProductByOrder(Map<String, Object> map);
 }

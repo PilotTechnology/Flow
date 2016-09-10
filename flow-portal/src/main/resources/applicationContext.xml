@@ -15,7 +15,7 @@
 	<import resource="applicationContext-beans.xml" />
 	<import resource="applicationContext-mybatis.xml" />
 	<import resource="applicationContext-servlet.xml" />
-
+	 <import resource="applicationContext-quartz.xml" />
 	<!-- aop注解支持 -->
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 	<!-- 注解支持 -->

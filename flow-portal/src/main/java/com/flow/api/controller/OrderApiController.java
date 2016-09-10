@@ -146,7 +146,7 @@ public class OrderApiController {
 				return resp;
 			}
 			
-			Map<String, String> map = new HashMap<String, String>();
+			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("serviceCode", quotation.getServiceCode());
 			map.put("operatorCode", String.valueOf(mobile.getOperatorCode()));
 			map.put("enableArea", req.getScope());
