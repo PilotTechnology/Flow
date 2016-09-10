@@ -34,6 +34,19 @@
 	WHERE a.SERVICE_CODE = #{quotationCode}
 	limit #{start} , #{pageSize}
   </select>
+  <select id="getProducts" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	select a.ID as ID, a.SERVICE_CODE as SERVICE_CODE, a.PRODUCT_CODE as PRODUCT_CODE, a.DISCOUNT as DISCOUNT, a.STATE as STATE,
+		c.PRODCUT_NAME as PRODUCT_NAME, d.OPERATOR_NAME as OPERATOR_NAME, e.NAME as PROVIDER_NAME, c.PRO_PRODUCT_CODE as PRO_PRODUCT_CODE,
+		f.PROVINCE_NAME as PROVINCE_NAME, c.ENABLE_AREA as ENABLE_AREA, c.PRIORITY as PRIORITY, c.SIZE as SIZE, c.PRICE as PRICE
+	from t_flow_serv_prod a
+	INNER JOIN t_flow_service b ON a.SERVICE_CODE = b.SERVICE_CODE
+	INNER JOIN t_flow_product c ON c.PRODUCT_CODE = a.PRODUCT_CODE
+	INNER JOIN t_base_operator d ON c.OPERATOR_CODE = d.ID
+	INNER JOIN t_flow_provider e ON c.PROVIDER_CODE = e.PROVIDER_CODE
+	INNER JOIN t_base_province f ON c.PROVINCE_CODE = f.ID
+	WHERE a.SERVICE_CODE = #{quotationCode}
+	<if test="operatorCode !=null and operatorCode != 0"> and d.ID = #{operatorCode}</if>
+  </select>
   <select id="getCountWithQuotationCode" resultType="java.lang.Long">
   	SELECT COUNT(1) FROM t_flow_serv_prod 
   	where SERVICE_CODE = #{quotationCode}
