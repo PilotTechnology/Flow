@@ -121,7 +121,7 @@ public class QuotationController extends BaseController {
 		quotation.setDistributorCode(map.get("distributorCode"));
 		UserInfo user = (UserInfo) request.getSession().getAttribute("userInfo");
 		if(user!=null && Constant.ADMIN_ROLE_CODE.equals(user.getRoleCode())){//管理员创建的报价单
-			quotation.setFatherCode("0");
+			quotation.setFatherCode("");
 		}else if(Constant.DISTRIBUTOR_ROLE_CODE.equals(user.getRoleCode())){//经销商创建的报价单
 			quotation.setFatherCode(user.getDistributorCode());
 		}
