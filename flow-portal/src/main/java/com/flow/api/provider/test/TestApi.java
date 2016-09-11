@@ -43,10 +43,11 @@ public class TestApi {
 		pairs.add(new BasicNameValuePair("appkey",TEST_API_APPKEY));
 		pairs.add(new BasicNameValuePair("phone",order.getPhone()));
 		pairs.add(new BasicNameValuePair("order_id",order.getOrderCode()));
+		pairs.add(new BasicNameValuePair("scope",String.valueOf(order.getEnableArea())));
 		pairs.add(new BasicNameValuePair("product_id",String.valueOf(order.getSize())));
 		pairs.add(new BasicNameValuePair("time",time));
-		String sign = MD5Util.EncodeString(String.format("phone=%s&product_id=%s&order_id=%s&time=%d&secret=%s",
-				order.getPhone(), String.valueOf(order.getSize()), order.getOrderCode(), time, TEST_API_SECRET));
+		String sign = MD5Util.EncodeString(String.format("phone=%s&product_id=%s&scope=%s&order_id=%s&time=%d&secret=%s",
+				order.getPhone(), String.valueOf(order.getSize()), String.valueOf(order.getEnableArea()), order.getOrderCode(), time, TEST_API_SECRET));
 		pairs.add(new BasicNameValuePair("sign",sign));
 		httpPost.setEntity(new UrlEncodedFormEntity(pairs, "UTF-8"));
 		

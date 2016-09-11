@@ -33,6 +33,7 @@ public class Order {
 	private String operatorName;
 	private String distributorName;
 	private String providerName;
+	private Integer enableArea;
 
 	public Integer getId() {
 		return id;
@@ -256,6 +257,14 @@ public class Order {
 
 	public void setProviderName(String providerName) {
 		this.providerName = providerName == null ? null : providerName.trim();
+	}
+	
+	public Integer getEnableArea() {
+		return enableArea;
+	}
+
+	public void setEnableArea(Integer enableArea) {
+		this.enableArea = enableArea;
 	}
 
 	@Override
