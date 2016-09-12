@@ -19,7 +19,7 @@ public class TestApi {
 	public static final String TEST_API_ORDER_URL = "http://192.168.1.10:8080/api/order.do";
 	public static final String TEST_API_APPKEY = "f73795397db04e0da2e500ca86d3cb14";
 	public static final String TEST_API_SECRET = "123afa048c58456d9b4d561fc624b38d";
-	
+
 	@Autowired
 	private OrderUtil orderUtil;
 	/**

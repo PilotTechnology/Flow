@@ -26,13 +26,16 @@
 		<result column="CALLBACK_DATE" 			jdbcType="TIMESTAMP" property="callbackDate" />
 		<result column="CALLBACK_CODE" 			jdbcType="VARCHAR" 	property="callbackCode" />
 		<result column="CALLBACK_CODE_MESS" 	jdbcType="VARCHAR"	property="callbackCodeMess" />
+		<result column="ENABLE_AREA" 			jdbcType="INTEGER"	property="enableArea" />
 	</resultMap>
 	
 	<!-- 查询需要通知的订单，取前300个 -->
 	<select id="getOrderList" resultMap="BaseResultMap">
-		SELECT ORDER_CODE , PHONE , SIZE ,
-			  PROVIDER_CODE , OPERATOR_CODE 
-		FROM t_flow_order where STATE = 0 order by id limit 300
+		SELECT a.ORDER_CODE , a.PHONE , a.SIZE ,
+			  a.PROVIDER_CODE , a.OPERATOR_CODE, b.ENABLE_AREA 
+		FROM t_flow_order a
+		inner join t_flow_product b on a.PRODUCT_CODE = b.PRODUCT_CODE
+		where a.STATE = 0 order by a.id limit 300
 	</select>
 	
 	<select id="getCallBackList" resultMap="BaseResultMap">
