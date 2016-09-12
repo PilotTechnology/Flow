@@ -121,7 +121,7 @@ public class OrderApiController {
 				return resp;
 			}
 			
-			Mobile mobile = mobileMapper.selectByMobileCode(req.getPhone());
+			Mobile mobile = mobileMapper.selectByMobileCode(req.getPhone().substring(0,7));
 			if(mobile == null){
 				resp.setCode(CodeConstants.ARG_ERR_PHONE_UNFOUND);
 				resp.setMsg("订单请求异常：【手机号号段不存在】 ");
@@ -176,7 +176,7 @@ public class OrderApiController {
 				virtualProductForDistributor = productForDistributor;
 			}
 			
-			if(dist.getBalance() - dist.getFreezing() - virtualProductForDistributor.getPrice()*virtualProductForDistributor.getDiscount() < 0) {
+			if(dist.getBalance() - dist.getFreezing() - virtualProductForDistributor.getPrice()*virtualProductForDistributor.getDiscount()/100 < 0) {
 				resp.setCode(CodeConstants.ACC_ERR_NO_BALANCE);
 				resp.setMsg("订单请求异常：【余额不足】 ");
 				PubLog.error(resp.getMsg() + ">> " + resp);
@@ -197,9 +197,9 @@ public class OrderApiController {
 			order.setSize(req.getProduct_id());//流量包大小为流量大小以M为单位，1G为1024
 			order.setPrice(new BigDecimal(productForDistributor.getPrice()));
 			order.setDiscount(new BigDecimal(virtualProductForDistributor.getDiscount()));
-			order.setPurchased(new BigDecimal(virtualProductForDistributor.getPrice()*virtualProductForDistributor.getDiscount()));
+			order.setPurchased(new BigDecimal(virtualProductForDistributor.getPrice()*virtualProductForDistributor.getDiscount()/100));
 			order.setRealDiscount(new BigDecimal(productForDistributor.getDiscount()));
-			order.setRealPurchased(new BigDecimal(productForDistributor.getPrice()*productForDistributor.getDiscount()));
+			order.setRealPurchased(new BigDecimal(productForDistributor.getPrice()*productForDistributor.getDiscount()/100));
 			order.setState(CodeConstants.ORDER_STATE_INIT); 
 			order.setCreateDate(new Date());
 			order.setNoticeState(1);

@@ -203,7 +203,7 @@ public class OrderController extends BaseController{
 						PubLog.error(resp.getMsg() + ">> " + resp);
 						return resp;
 					}
-					
+					 
 					paramMap.put("serviceCode", quotation.getServiceCode());
 					paramMap.put("operatorCode", String.valueOf(mobile.getOperatorCode()));
 					paramMap.put("enableArea", String.valueOf(quotation.getIsDisplayProvince()));
@@ -232,7 +232,8 @@ public class OrderController extends BaseController{
 					}else {
 						virtualProductForDistributor = productForDistributor;
 					}
-					if(distributor.getBalance() - distributor.getFreezing() - virtualProductForDistributor.getPrice()*virtualProductForDistributor.getDiscount() < 0) {
+					
+					if(distributor.getBalance() - distributor.getFreezing() - virtualProductForDistributor.getPrice()*virtualProductForDistributor.getDiscount()/100 < 0) {
 						resp.setCode(CodeConstants.ACC_ERR_NO_BALANCE);
 						resp.setMsg("订单请求异常：【余额不足】 ");
 						PubLog.error(resp.getMsg() + ">> " + resp);
@@ -253,9 +254,9 @@ public class OrderController extends BaseController{
 					order.setSize(product.getSize());//流量包大小为流量大小以M为单位，1G为1024
 					order.setPrice(new BigDecimal(productForDistributor.getPrice()));
 					order.setDiscount(new BigDecimal(virtualProductForDistributor.getDiscount()));
-					order.setPurchased(new BigDecimal(virtualProductForDistributor.getPrice()*virtualProductForDistributor.getDiscount()));
+					order.setPurchased(new BigDecimal(virtualProductForDistributor.getPrice()*virtualProductForDistributor.getDiscount()/100));
 					order.setRealDiscount(new BigDecimal(productForDistributor.getDiscount()));
-					order.setRealPurchased(new BigDecimal(productForDistributor.getPrice()*productForDistributor.getDiscount()));
+					order.setRealPurchased(new BigDecimal(productForDistributor.getPrice()*productForDistributor.getDiscount()/100));
 					order.setState(CodeConstants.ORDER_STATE_INIT); 
 					order.setCreateDate(new Date());
 					order.setNoticeState(1);
