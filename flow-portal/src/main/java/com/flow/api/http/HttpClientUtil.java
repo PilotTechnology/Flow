@@ -5,9 +5,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
@@ -17,7 +14,6 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -190,64 +186,15 @@ public class HttpClientUtil {
 	 */
 	public static void main(String[] args) throws UnsupportedEncodingException {
 		long start = System.currentTimeMillis();
-		try {
-			int pagecount = 5000;
-			ExecutorService executors = Executors.newFixedThreadPool(pagecount);
-			CountDownLatch countDownLatch = new CountDownLatch(pagecount);
-			for (int i = 0; i < pagecount; i++) {
-				HttpGet httpget = new HttpGet("http://localhost:8080/test");
-				// 启动线程抓取
-
-				executors.execute(new GetRunnable(HttpClientUtil
-						.getHttpClient(), httpget, countDownLatch));
-			}
-			countDownLatch.await();
-			executors.shutdown();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} finally {
-			System.out.println("线程" + Thread.currentThread().getName() + ","
-					+ System.currentTimeMillis() + ", 所有线程已完成，开始进入下一步！");
+		int pagecount = 300;
+		for (int i = 0; i < pagecount; i++) {
+			// 启动线程抓取
+			String ab = httpPostRequest("http://localhost:8080/portal/test!list.action");
+			System.out.println(i + "aaaa >>>>>>>>>>>>>>" + ab);
 		}
 
 		long end = System.currentTimeMillis();
 		System.out.println("consume -> " + (end - start) / 1000 + " 秒");
 	}
 
-	static class GetRunnable implements Runnable {
-		private CountDownLatch countDownLatch;
-		private final CloseableHttpClient httpClient;
-		private final HttpGet httpget;
-
-		public GetRunnable(CloseableHttpClient httpClient, HttpGet httpget,
-				CountDownLatch countDownLatch) {
-			this.httpClient = httpClient;
-			this.httpget = httpget;
-
-			this.countDownLatch = countDownLatch;
-		}
-
-		@Override
-		public void run() {
-			CloseableHttpResponse response = null;
-			try {
-				response = httpClient.execute(httpget,
-						HttpClientContext.create());
-				HttpEntity entity = response.getEntity();
-				System.out.println(EntityUtils.toString(entity, "utf-8"));
-				EntityUtils.consume(entity);
-			} catch (IOException e) {
-				e.printStackTrace();
-			} finally {
-				countDownLatch.countDown();
-
-				try {
-					if (response != null)
-						response.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
 }

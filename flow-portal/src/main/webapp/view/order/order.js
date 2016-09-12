@@ -28,11 +28,11 @@ $("#btn_submit").click(function(){
 		data: Order,
 		async : false,
 		success : function(data) {
-			if(data.result == "success"){
+			if(data.code == "success"){
 				alert("批量充值成功！");
 				location.href="/portal/order!selectPage.action";
 			}else{
-				alert(data.errMsg);
+				alert(data.msg);
 				return false;
 			}
 		}

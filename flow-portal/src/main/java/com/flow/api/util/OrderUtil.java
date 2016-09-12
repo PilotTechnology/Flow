@@ -3,6 +3,7 @@ package com.flow.api.util;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.flow.pub.common.CodeConstants;
 import com.flow.system.mapper.DistributorMapper;
@@ -12,7 +13,7 @@ import com.flow.system.mapper.RefundFlowMapper;
 import com.flow.system.model.Order;
 import com.flow.system.model.Product;
 import com.flow.system.model.RefundFlow;
-
+@Service
 public class OrderUtil {
 	
 	@Autowired
@@ -28,12 +29,15 @@ public class OrderUtil {
 	DistributorMapper distributorMapper;
 	
 	public void updateOrder(int state, String orderCode, String providerOrderCode, String code, String msg) {
-		Order order = new Order();
+		Order order = orderMapper.selectByOrderCode(orderCode);
 		order.setState(state);
 		order.setOrderCode(orderCode);
 		order.setProviderOrderCode(providerOrderCode);
 		order.setCallbackCode(code);
 		order.setCallbackCodeMess(msg);
+		if(!CodeConstants.SUCCESS.equals(code)){
+			order.setErrorTime(order.getErrorTime()+1);
+		}
 		
 		orderMapper.updateByOrderCodeSelective(order);
 	}

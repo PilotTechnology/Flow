@@ -86,7 +86,7 @@
             	</div>
             	<div class="form-group">
             		<label class="col-md-3 control-label"></label>
-            		<button type="submit" class="btn btn-sm btn-info" id="btn_submit">提交</button>
+            		<button type="button" class="btn btn-sm btn-info" id="btn_submit">提交</button>
             	</div>
           	</form>
           </div>	
