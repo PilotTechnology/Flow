@@ -193,6 +193,7 @@ public class OrderApiController {
 			order.setPhone(req.getPhone());
 			order.setPhoneProvince(mobile.getCity().getProvince().getProvinceName());
 			order.setPhoneCity(mobile.getCity().getCityName());
+			order.setProductCode(productForDistributor.getProductCode());
 			order.setSize(req.getProduct_id());//流量包大小为流量大小以M为单位，1G为1024
 			order.setPrice(new BigDecimal(productForDistributor.getPrice()));
 			order.setDiscount(new BigDecimal(virtualProductForDistributor.getDiscount()));
