@@ -94,8 +94,8 @@ public class OrderApiController {
 				PubLog.error(resp.getMsg() + ">> " + resp);
 				return resp;
 			}
-			
-			if(!dist.getConfiningIp().contains(request.getRemoteAddr())){
+
+			if(!dist.getConfiningIp().contains(getIpAddr(request))){
 				resp.setCode(CodeConstants.ACC_ERR_IP);
 				resp.setMsg("订单请求异常：【ip不在白名单】 ");
 				PubLog.error(resp.getMsg() + ">> " + resp);
@@ -150,6 +150,7 @@ public class OrderApiController {
 			map.put("serviceCode", quotation.getServiceCode());
 			map.put("operatorCode", String.valueOf(mobile.getOperatorCode()));
 			map.put("enableArea", req.getScope());
+			map.put("size", req.getProduct_id());
 			map.put("provinceCode", mobile.getCity().getProvinceCode());
 
 			ProductForDistributor productForDistributor = productForDistributorMapper.getProductByOrder(map);
@@ -265,6 +266,23 @@ public class OrderApiController {
 			code = CodeConstants.ARG_ERR_SIGN;
 		}
 		return new OrderResponse(code, msg);
+	}
+	
+	public String getIpAddr(HttpServletRequest request) {
+		String ip = request.getHeader("x-forwarded-for");
+		if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("Proxy-Client-IP");
+		}
+
+		if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("WL-Proxy-Client-IP");
+		}
+
+		if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getRemoteAddr();
+		}
+
+		return ip;
 	}
 	
 	/**
